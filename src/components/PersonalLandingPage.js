@@ -5,6 +5,9 @@ import {
   Github,  Facebook, Instagram, Music, ShoppingBag,
   Coffee, Globe, BookOpen, ExternalLink, MessageCircle, Heart // Removed Twitter, Linkedin, Youtube. Added MessageCircle, Heart
 } from 'lucide-react';
+// Import icons from react-icons
+import { FaThreads } from 'react-icons/fa6'; // Import from the correct subpath (Font Awesome 6)
+import { SiZalo } from "react-icons/si";
 import './PersonalLandingPage.css'; // Import the CSS file
 
 const PersonalLandingPage = () => {
@@ -20,9 +23,11 @@ const PersonalLandingPage = () => {
     { icon: <Facebook size={24} />, url: 'https://facebook.com/namtran5905', label: 'Facebook' },
     { icon: <Instagram size={24} />, url: 'https://instagram.com/namtran5905', label: 'Instagram' },
     { icon: <Github size={24} />, url: 'https://github.com/namtran592005', label: 'GitHub' },
-    { icon: <MessageCircle size={24} />, url: 'https://threads.net/namtran5905', label: 'Threads' }, // Replace with your Threads URL
-    { icon: <Heart size={24} />, url: 'https://locket.com/namtran5905', label: 'Locket' } // Replace with your Locket URL (if applicable)
+    { icon: <FaThreads size={24} />, url: 'https://threads.net/namtran5905namtran5905', label: 'Threads' }, // Use FaThreads
+    { icon: <SiZalo size={24} />, url: 'https://zaloapp.com/qr/p/1re1dklrzok69?src=qr', label: 'Zalo' },      // Add Zalo
+    { icon: <Heart size={24} />, url: 'https://locket.cam/Namtran5905', label: 'Locket' }
   ];
+
 
   const quickLinks = [
     { icon: <Globe size={24} />, title: 'Website Chính Thức', description: 'Khám phá portfolio và blog của tôi', url: '#' },
