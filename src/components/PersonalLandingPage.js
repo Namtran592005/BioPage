@@ -73,7 +73,7 @@ const PersonalLandingPage = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="name"
         >
-          Trần Võ Hoàng Nam
+          Nam Trần
         </motion.h1>
         <motion.p
           initial={{ opacity: 0, y: -20 }}
