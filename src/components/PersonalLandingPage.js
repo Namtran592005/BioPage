@@ -294,7 +294,7 @@ const PersonalLandingPage = () => {
       </main>
 
       <footer className="page-footer">
-        <p>© {new Date().getFullYear()} Nguyễn Văn A. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} Trần Võ Hoàng Nam. All rights reserved.</p>
       </footer>
     </div>
   );
