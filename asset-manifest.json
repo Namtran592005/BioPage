@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/BioPage/static/css/main.ada25024.css",
+    "main.js": "/BioPage/static/js/main.f7021f7f.js",
+    "static/js/453.9df9957d.chunk.js": "/BioPage/static/js/453.9df9957d.chunk.js",
+    "static/media/Avatar.png": "/BioPage/static/media/Avatar.9556ed16e23cd7a467b7.png",
+    "index.html": "/BioPage/index.html",
+    "main.ada25024.css.map": "/BioPage/static/css/main.ada25024.css.map",
+    "main.f7021f7f.js.map": "/BioPage/static/js/main.f7021f7f.js.map",
+    "453.9df9957d.chunk.js.map": "/BioPage/static/js/453.9df9957d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ada25024.css",
+    "static/js/main.f7021f7f.js"
+  ]
+}
