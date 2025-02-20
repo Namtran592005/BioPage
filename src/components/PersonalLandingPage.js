@@ -203,7 +203,7 @@ const PersonalLandingPage = () => {
               <div className="about-content">
                 <h2 className="about-title">Về Tôi</h2>
                 <p className="about-text">
-                  Xin chào! Mình là Nam TrầnTrần là một nhà phát triển phần mềm và Shipper bán thời gian.
+                  Xin chào! Mình là Nam Trần là một nhà phát triển phần mềm và Shipper bán thời gian.
                   Mình khá thích về công nghệ, thiết kế và việc tạo ra những sản phẩm có giá trị này nọ trong thời gian rãnh rỗi.
                 </p>
               </div>
