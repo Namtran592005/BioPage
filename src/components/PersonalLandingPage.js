@@ -30,22 +30,22 @@ const PersonalLandingPage = () => {
 
 
   const quickLinks = [
-    { icon: <Globe size={24} />, title: 'Website Chính Thức', description: 'Khám phá portfolio và blog của tôi', url: '#' },
+    //{ icon: <Globe size={24} />, title: 'Website Chính Thức', description: 'Khám phá portfolio và blog của tôi', url: '#' },
     { icon: <ShoppingBag size={24} />, title: 'Shop Online', description: 'Ghé thăm cửa hàng trực tuyến của tôi', url: '#' },
-    { icon: <Music size={24} />, title: 'Playlist Yêu Thích', description: 'Những bài hát tôi thường nghe', url: '#' },
-    { icon: <Coffee size={24} />, title: 'Mua cho tôi một ly cà phê', description: 'Ủng hộ công việc của tôi', url: '#' },
-    { icon: <BookOpen size={24} />, title: 'Blog Mới Nhất', description: 'Đọc những bài viết gần đây của tôi', url: '#' }
+    { icon: <Music size={24} />, title: 'Playlist Yêu Thích', description: 'Những bài hát tôi thường nghe', url: 'https://www.facebook.com/Namtran5905/profile_songs' },
+    { icon: <Coffee size={24} />, title: 'Mua cho tôi một ly cà phê', description: 'Nếu bạn thấy thích', url: 'https://me.momo.vn/lDIWuWsoCaCdUOI2f6UK' },
+    //{ icon: <BookOpen size={24} />, title: 'Blog mới nhất', description: 'Đọc những bài viết gần đây của tôi', url: '#' },
   ];
 
   const featuredProjects = [
-    { title: 'Dự Án 1', description: 'Một dự án đột phá với công nghệ hiện đại', link: '#', image: 'https://placehold.co/600x400' },
-    { title: 'Dự Án 2', description: 'Giải pháp sáng tạo cho vấn đề hiện đại', link: '#', image: 'https://placehold.co/600x400' }
+    //{ title: 'Dự Án 1', description: 'Một dự án đột phá với công nghệ hiện đại', link: '#', image: 'https://placehold.co/600x400' },
+    //{ title: 'Dự Án 2', description: 'Giải pháp sáng tạo cho vấn đề hiện đại', link: '#', image: 'https://placehold.co/600x400' }
   ];
 
   // NEW: Featured Products
   const featuredProducts = [
-    { title: 'Sản Phẩm 1', description: 'Mô tả sản phẩm 1', link: '#', image: 'https://placehold.co/600x400' },
-    { title: 'Sản Phẩm 2', description: 'Mô tả sản phẩm 2', link: '#', image: 'https://placehold.co/600x400' }
+    //{ title: 'Sản Phẩm 1', description: 'Mô tả sản phẩm 1', link: '#', image: 'https://placehold.co/600x400' },
+    //{ title: 'Sản Phẩm 2', description: 'Mô tả sản phẩm 2', link: '#', image: 'https://placehold.co/600x400' }
   ];
 
   if (isLoading) {
@@ -89,7 +89,7 @@ const PersonalLandingPage = () => {
           @Namtran5905
         </motion.p>
         <p className="bio">
-          Developer • Shipper • Chillguy
+          Developer • Part-timer • Chillguy
         </p>
         <div className="social-links">
           {socialLinks.map((link, index) => (
@@ -201,10 +201,10 @@ const PersonalLandingPage = () => {
               className="about-section"
             >
               <div className="about-content">
-                <h2 className="about-title">Về Tôi</h2>
+                <h2 className="about-title">Về mình</h2>
                 <p className="about-text">
-                  Xin chào! Mình là Nam Trần là một nhà phát triển phần mềm và Shipper bán thời gian.
-                  Mình khá thích về công nghệ, thiết kế và việc tạo ra những sản phẩm có giá trị này nọ trong thời gian rãnh rỗi.
+                  Xin chào! Mình là Nam Trần là một người bình thường và làm việc bán thời gian.
+                  Mình khá thích về công nghệ, thiết kế và việc tạo ra những sản phẩm có này nọ vui vui trong thời gian rãnh rỗi.
                 </p>
               </div>
             </motion.div>
