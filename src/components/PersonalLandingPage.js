@@ -23,7 +23,7 @@ const PersonalLandingPage = () => {
     { icon: <Facebook size={24} />, url: 'https://facebook.com/namtran5905', label: 'Facebook' },
     { icon: <Instagram size={24} />, url: 'https://instagram.com/namtran5905', label: 'Instagram' },
     { icon: <Github size={24} />, url: 'https://github.com/namtran592005', label: 'GitHub' },
-    { icon: <FaThreads size={24} />, url: 'https://threads.net/namtran5905namtran5905', label: 'Threads' }, // Use FaThreads
+    { icon: <FaThreads size={24} />, url: 'https://threads.net/namtran5905', label: 'Threads' }, // Use FaThreads
     { icon: <SiZalo size={24} />, url: 'https://zaloapp.com/qr/p/1re1dklrzok69?src=qr', label: 'Zalo' },      // Add Zalo
     { icon: <Heart size={24} />, url: 'https://locket.cam/Namtran5905', label: 'Locket' }
   ];
