@@ -1,12 +1,18 @@
 import React from 'react';
-        import PersonalLandingPage from './components/PersonalLandingPage'; // Import
-        import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'; // Import BrowserRouter
+import PersonalLandingPage from './components/PersonalLandingPage';
+import './App.css';
 
-        function App() {
-          return (
-            <div className="App">
-              <PersonalLandingPage />
-            </div>
-          );
-        }
-	export default App;
+function App() {
+  return (
+    <Router basename="/biopage"> {/* Set basename */}
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<PersonalLandingPage />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
+export default App;

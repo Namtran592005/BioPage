@@ -30,22 +30,22 @@ const PersonalLandingPage = () => {
 
 
   const quickLinks = [
-    //{ icon: <Globe size={24} />, title: 'Website Chính Thức', description: 'Khám phá portfolio và blog của tôi', url: '#' },
+    { icon: <Globe size={24} />, title: 'Website Chính Thức', description: 'Khám phá portfolio và blog của tôi', url: '#' },
     { icon: <ShoppingBag size={24} />, title: 'Shop Online', description: 'Ghé thăm cửa hàng trực tuyến của tôi', url: '#' },
-    { icon: <Music size={24} />, title: 'Playlist Yêu Thích', description: 'Những bài hát tôi thường nghe', url: 'https://www.facebook.com/Namtran5905/profile_songs' },
+    { icon: <Music size={24} />, title: 'Playlist Yêu Thích', description: 'Những bài hát tôi thường nghe', url: '#' },
     { icon: <Coffee size={24} />, title: 'Mua cho tôi một ly cà phê', description: 'Nếu bạn thấy thích', url: 'https://me.momo.vn/lDIWuWsoCaCdUOI2f6UK' },
-    //{ icon: <BookOpen size={24} />, title: 'Blog mới nhất', description: 'Đọc những bài viết gần đây của tôi', url: '#' },
+    { icon: <BookOpen size={24} />, title: 'Blog mới nhất', description: 'Đọc những bài viết gần đây của tôi', url: '#' },
   ];
 
   const featuredProjects = [
-    //{ title: 'Dự Án 1', description: 'Một dự án đột phá với công nghệ hiện đại', link: '#', image: 'https://placehold.co/600x400' },
-    //{ title: 'Dự Án 2', description: 'Giải pháp sáng tạo cho vấn đề hiện đại', link: '#', image: 'https://placehold.co/600x400' }
+    { title: 'Dự Án 1', description: 'Mô tả dự án 1', link: '#', image: 'https://placehold.co/600x400' },
+    { title: 'Dự Án 2', description: 'Mô tả dự án 2', link: '#', image: 'https://placehold.co/600x400' }
   ];
 
   // NEW: Featured Products
   const featuredProducts = [
-    //{ title: 'Sản Phẩm 1', description: 'Mô tả sản phẩm 1', link: '#', image: 'https://placehold.co/600x400' },
-    //{ title: 'Sản Phẩm 2', description: 'Mô tả sản phẩm 2', link: '#', image: 'https://placehold.co/600x400' }
+    { title: 'Sản Phẩm 1', description: 'Mô tả sản phẩm 1', link: '#', image: 'https://placehold.co/600x400' },
+    { title: 'Sản Phẩm 2', description: 'Mô tả sản phẩm 2', link: '#', image: 'https://placehold.co/600x400' }
   ];
 
   if (isLoading) {
