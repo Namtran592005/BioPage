@@ -161,7 +161,7 @@ const PersonalLandingPage = () => {
     ];
 
     const featuredProducts = [
-        { title: 'AI chatbot Peaceful Mind', description: 'Peaceful Mind là một trợ lý AI được phát triển dựa trên mô hình ngôn ngữ Gemini Pro và Gemini Pro Vision của Google. Mục đích của Peaceful Mind là cung cấp thông tin, hỗ trợ và trò chuyện với người dùng một cách thân thiện và hữu ích.', link: 'https://namtran592005.github.io/PeacefulMind/', image: [ProjectOne] },
+        { title: 'AI chatbot Vega', description: 'VEGA là một trợ lý AI được phát triển bởi Mình, dựa trên mô hình ngôn ngữ Gemini Pro và Gemini Pro Vision của Google. Mục đích của VEGA là cung cấp thông tin, hỗ trợ và trò chuyện với người một cách thân thiện và hữu ích', link: 'https://namtran592005.github.io/VEGA-AI/', image: [ProjectOne] },
         //{ title: 'Sản Phẩm 2', description: 'Mô tả sản phẩm 2', link: '#', image: 'https://placehold.co/600x400' }
     ];
 
