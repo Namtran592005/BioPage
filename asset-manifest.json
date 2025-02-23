@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/BioPage/static/css/main.0d0e4879.css",
-    "main.js": "/BioPage/static/js/main.941d8912.js",
+    "main.js": "/BioPage/static/js/main.a262a10f.js",
     "static/js/54.b81c25ac.chunk.js": "/BioPage/static/js/54.b81c25ac.chunk.js",
     "static/js/269.eb1e3d9d.chunk.js": "/BioPage/static/js/269.eb1e3d9d.chunk.js",
     "static/js/689.19b38353.chunk.js": "/BioPage/static/js/689.19b38353.chunk.js",
@@ -10,9 +10,10 @@
     "static/js/585.0899dd33.chunk.js": "/BioPage/static/js/585.0899dd33.chunk.js",
     "static/js/453.9df9957d.chunk.js": "/BioPage/static/js/453.9df9957d.chunk.js",
     "static/media/Avatar.png": "/BioPage/static/media/Avatar.9556ed16e23cd7a467b7.png",
+    "static/media/ProjectOne.jpg": "/BioPage/static/media/ProjectOne.53fa8403bbe3aef4d3c6.jpg",
     "index.html": "/BioPage/index.html",
     "main.0d0e4879.css.map": "/BioPage/static/css/main.0d0e4879.css.map",
-    "main.941d8912.js.map": "/BioPage/static/js/main.941d8912.js.map",
+    "main.a262a10f.js.map": "/BioPage/static/js/main.a262a10f.js.map",
     "54.b81c25ac.chunk.js.map": "/BioPage/static/js/54.b81c25ac.chunk.js.map",
     "269.eb1e3d9d.chunk.js.map": "/BioPage/static/js/269.eb1e3d9d.chunk.js.map",
     "689.19b38353.chunk.js.map": "/BioPage/static/js/689.19b38353.chunk.js.map",
@@ -23,6 +24,6 @@
   },
   "entrypoints": [
     "static/css/main.0d0e4879.css",
-    "static/js/main.941d8912.js"
+    "static/js/main.a262a10f.js"
   ]
 }
