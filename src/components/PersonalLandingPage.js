@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, Suspense, lazy } from 'react';
 import yourAvatar from './img/Avt/Avatar.png';
+import ProjectOne from './img/Project/ProjectOne.jpg';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Github, Facebook, Instagram, Music, ShoppingBag,
@@ -160,7 +161,7 @@ const PersonalLandingPage = () => {
     ];
 
     const featuredProducts = [
-        //{ title: 'Sản Phẩm 1', description: 'Mô tả sản phẩm 1', link: '#', image: 'https://placehold.co/600x400' },
+        { title: 'AI chatbot Peaceful Mind', description: 'Peaceful Mind là một trợ lý AI được phát triển dựa trên mô hình ngôn ngữ Gemini Pro và Gemini Pro Vision của Google. Mục đích của Peaceful Mind là cung cấp thông tin, hỗ trợ và trò chuyện với người dùng một cách thân thiện và hữu ích.', link: 'https://namtran592005.github.io/PeacefulMind/', image: [ProjectOne] },
         //{ title: 'Sản Phẩm 2', description: 'Mô tả sản phẩm 2', link: '#', image: 'https://placehold.co/600x400' }
     ];
 
