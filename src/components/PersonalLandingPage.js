@@ -28,9 +28,11 @@ const PersonalLandingPage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [connectionData, setConnectionData] = useState(null);
     const [connectionStatus, setConnectionStatus] = useState('loading');
+    const [shapes, setShapes] = useState([]); // Thêm state để lưu các hình
+
 
     useEffect(() => {
-        const loadingTimeout = setTimeout(() => setIsLoading(false), 2000);
+      const loadingTimeout = setTimeout(() => setIsLoading(false), 3000); // Giữ thời gian loading
 
         document.body.classList.toggle('dark-mode', isDarkMode);
         document.body.classList.toggle('light-mode', !isDarkMode);
@@ -67,6 +69,47 @@ const PersonalLandingPage = () => {
         };
 
         getIPs();
+
+ // Tạo các hình ngẫu nhiên
+        const generateShapes = () => {
+            const numShapes = 20; // Tăng số lượng hình
+            const newShapes = [];
+            const animations = ['pulse-and-move', 'rotate-and-scale', 'move-up-down', 'rotate-and-move'];
+
+            for (let i = 0; i < numShapes; i++) {
+                const size = Math.random() * 80 + 20; // Kích thước (20-100px)
+                const top = Math.random() * 150 - 25;  // Vị trí ngẫu nhiên (-25% đến 125%)
+                const left = Math.random() * 150 - 25; // Vị trí ngẫu nhiên (-25% đến 125%)
+                const animation = animations[Math.floor(Math.random() * animations.length)];
+                const delay = Math.random() * 5;
+
+                // Chọn ngẫu nhiên loại hình
+                let shapeType;
+                const shapeRandom = Math.random();
+                if (shapeRandom < 0.33) {
+                    shapeType = 'circle';
+                } else if (shapeRandom < 0.66) {
+                    shapeType = 'rectangle';
+                } else {
+                    shapeType = 'triangle';
+                }
+
+
+                newShapes.push({
+                    id: i,
+                    size,
+                    top,
+                    left,
+                    animation,
+                    delay,
+                    shapeType, // Thêm loại hình dạng
+                });
+            }
+            setShapes(newShapes);
+        };
+        generateShapes();
+
+
 
         return () => {
             clearTimeout(loadingTimeout);
@@ -198,386 +241,409 @@ const PersonalLandingPage = () => {
             setIsSubmitting(false);
         }
     };
-
-    if (isLoading) {
-        return (
-            <div className="loading-screen">
-                <div className="loading-text">ĐANG TẢI</div>
-            </div>
-        );
-    }
-
     return (
-        <div className={`page-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
-            <div className="geometric-bg"></div>
-            <button className="theme-toggle-button" onClick={toggleTheme} aria-label="Toggle Theme">
-                {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
+      <div className={`page-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
+          {/* Geometric Background */}
+          <div className="geometric-background">
+            <div className="shapes">
+                {shapes.map((shape) => (
+                    <div
+                        key={shape.id}
+                        className={shape.shapeType}  // Áp dụng class cho hình dạng
+                        style={{
+                            width: `${shape.size}px`,
+                            height: `${shape.size}px`,
+                            top: `${shape.top}vh`,   // Sử dụng vh
+                            left: `${shape.left}vw`, // Sử dụng vw
+                            animation: `${shape.animation} ${Math.random() * 5 + 5}s ease-in-out infinite`, // Thời gian ngẫu nhiên
+                            animationDelay: `${shape.delay}s`,
+                        }}
+                    ></div>
+                ))}
+            </div>
+          </div>
 
-            <header className="page-header">
-                <motion.div
-                    initial={{ opacity: 0, y: -50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="avatar-container"
-                >
-                    <img
-                        src={yourAvatar}
-                        alt="Avatar"
-                        className="avatar"
-                    />
-                </motion.div>
-                <motion.h1
-                    initial={{ opacity: 0, y: -30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="name"
-                >
-                    Nam Trần
-                </motion.h1>
-                <motion.p
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                    className="username"
-                >
-                    @Namtran5905
-                </motion.p>
-                <p className="bio">
-                    Developer • Part-timer • Chillguy
-                </p>
-                <div className="social-links">
-                    {socialLinks.map((link) => (
-                        <motion.a
-                            key={link.label}
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="social-link"
-                            aria-label={link.label}
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                        >
-                            {link.icon}
-                        </motion.a>
-                    ))}
-                </div>
-            </header>
 
-            <nav className="tab-navigation">
-                <ul className="tab-list">
-                    <li>
-                        <motion.button
-                            onClick={() => setActiveTab('links')}
-                            className={`tab-button ${activeTab === 'links' ? 'active' : ''}`}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            aria-selected={activeTab === 'links'}
-                        >
-                            Liên Kết
-                        </motion.button>
-                    </li>
-                    <li>
-                        <motion.button
-                            onClick={() => setActiveTab('about')}
-                            className={`tab-button ${activeTab === 'about' ? 'active' : ''}`}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            aria-selected={activeTab === 'about'}
-                        >
-                            Giới Thiệu
-                        </motion.button>
-                    </li>
-                    <li>
-                        {/* Projects tab (optional) */}
-                    </li>
-                    <li>
-                        <motion.button
-                            onClick={() => setActiveTab('products')}
-                            className={`tab-button ${activeTab === 'products' ? 'active' : ''}`}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            aria-selected={activeTab === 'products'}
-                        >
-                            Sản Phẩm
-                        </motion.button>
-                    </li>
-                    <li>
-                        <motion.button
-                            onClick={() => setActiveTab('contact')}
-                            className={`tab-button ${activeTab === 'contact' ? 'active' : ''}`}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            aria-selected={activeTab === 'contact'}
-                        >
-                            Liên Hệ
-                        </motion.button>
-                    </li>
-                </ul>
-            </nav>
+        {/* Loading Screen */}
+        {isLoading && (
+          <div className="loading-screen">
+            <div className="loading-content">
+              <div className="loading-circle">
+                <div></div> {/* Inner circle for animation */}
+              </div>
+              <div className="loading-text">Đang tải...</div>
+            </div>
+          </div>
+        )}
 
-            <main className="main-content">
-                <AnimatePresence mode="wait">
-                    {activeTab === 'links' && (
-                        <motion.div
-                            key="links"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.2 }}
-                            className="link-cards"
-                        >
-                            {quickLinks.map((link) => (
-                                <motion.a
-                                    key={link.title}
-                                    href={link.url}
-                                    onClick={link.url === '#' ? handlePlaceholderLinkClick : undefined}
-                                    target={link.url !== '#' ? "_blank" : undefined}
-                                    rel="noopener noreferrer"
-                                    className="link-card"
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                >
-                                    <div className="link-card-icon">{link.icon}</div>
-                                    <div className="link-card-text">
-                                        <h3 className="link-card-title">{link.title}</h3>
-                                        <p className="link-card-description">{link.description}</p>
-                                    </div>
-                                    <ExternalLink size={20} className="link-card-external-link" />
-                                </motion.a>
-                            ))}
-                        </motion.div>
-                    )}
+          <button className="theme-toggle-button" onClick={toggleTheme} aria-label="Toggle Theme">
+              {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
 
-                    {activeTab === 'about' && (
-                        <motion.div
-                            key="about"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.2 }}
-                            className="about-section"
-                        >
-                            <div className="about-content">
-                                <h2 className="about-title">Về mình</h2>
-                                <p className="about-text">
-                                    Xin chào! Mình là Nam Trần là một người bình thường và làm việc bán thời gian.
-                                    Mình khá thích về công nghệ, thiết kế và việc tạo ra những sản phẩm có này nọ vui vui trong thời gian rãnh rỗi.
-                                </p>
-                            </div>
-                        </motion.div>
-                    )}
-
-                    {activeTab === 'projects' && (
-                        <motion.div
-                            key="projects"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.2 }}
-                            className="project-cards"
-                        >
-                            {featuredProjects.map((project, index) => (
-                                <motion.div
-                                    key={index}
-                                    className="project-card"
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                >
-                                    <div className="project-card-image-container">
-                                        <img
-                                            src={project.image}
-                                            alt={project.title}
-                                            className="project-card-image"
-                                        />
-                                        <div className="project-card-overlay">
-                                            <a
-                                                href={project.link}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="project-card-link"
-                                            >
-                                                <span>Xem Chi Tiết</span>
-                                                <ExternalLink size={18} />
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div className="project-card-content">
-                                        <h3 className="project-card-title">{project.title}</h3>
-                                        <p className="project-card-description">{project.description}</p>
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </motion.div>
-                    )}
-
-                    {activeTab === 'products' && (
-                        <motion.div
-                            key="products"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.2 }}
-                            className="project-cards"
-                        >
-                            {featuredProducts.map((product, index) => (
-                                <motion.div
-                                    key={index}
-                                    className="project-card"
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                >
-                                    <div className="project-card-image-container">
-                                        <img
-                                            src={product.image}
-                                            alt={product.title}
-                                            className="project-card-image"
-                                        />
-                                        <div className="project-card-overlay">
-                                            <a
-                                                href={product.link}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="project-card-link"
-                                            >
-                                                <span>Xem Chi Tiết</span>
-                                                <ExternalLink size={18} />
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div className="project-card-content">
-                                        <h3 className="project-card-title">{product.title}</h3>
-                                        <p className="project-card-description">{product.description}</p>
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </motion.div>
-                    )}
-
-                    {activeTab === 'contact' && (
-                         <motion.div
-                            key="contact"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.2 }}
-                            className="contact-section"
-                        >
-                            <h2 className="contact-title">Liên Hệ</h2>
-                            <p className="contact-description">
-                                Bạn có thể gửi tin nhắn ẩn danh cho mình thông qua form bên dưới.
-                            </p>
-                            <motion.form
-                                onSubmit={handleSubmit}
-                                className="contact-form"
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.1 }}
-                            >
-                                <textarea
-                                    value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
-                                    placeholder="Nhập tin nhắn của bạn..."
-                                    required
-                                    className="contact-textarea"
-                                ></textarea>
-
-                                <motion.button
-                                    type="submit"
-                                    className="contact-submit-button"
-                                    disabled={isSubmitting}
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                >
-                                    {isSubmitting ? (
-                                        <><Loader2 size={16} className="animate-spin mr-2" />ㅤĐang gửi...</>
-                                    ) : (
-                                        "Gửi Tin Nhắn"
-                                    )}
-                                </motion.button>
-                                    {submitSuccess && (
-                                        <div className="contact-success-message">
-                                            Tin nhắn của bạn đã được gửi thành công!
-                                        </div>
-                                    )}
-                                    {submitError && (
-                                        <div className="contact-error-message">
-                                            {submitError}
-                                        </div>
-                                    )}
-                            </motion.form>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-            </main>
-
-            <footer className="page-footer">
-                <div className="footer-left">
-                    <p>
-                        IPv4: <span>{ipv4 || 'Loading...'}</span> |  <span className="visitor-count">Lượt truy cập: <span>{visitorCount}</span> </span>
-                    </p>
-                    <p>IPv6: <span>{ipv6 || 'Loading...'}</span></p>
-                </div>
-                <div className="footer-center">
-                    <p>© {new Date().getFullYear()} Trần Võ Hoàng Nam. All rights reserved.</p>
-                </div>
-                <div className="footer-right">
-                    <button className="connection-check-button" onClick={handleConnectionCheckClick}>
-                        Check Connection
-                    </button>
-                    <div className="security-certs">
-                        <img src={securityCert1} alt="Security Certificate 1" className="cert-logo" />
-                        <img src={securityCert2} alt="Security Certificate 2" className="cert-logo" />
-                        <img src={securityCert3} alt="Security Certificate 3" className="cert-logo" />
-                    </div>
-                </div>
-            </footer>
-
-             <AnimatePresence>
-            {isModalOpen && (
+          <header className="page-header">
               <motion.div
-                className="modal-backdrop"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={closeModal}
-              >
-                <motion.div
-                  className="modal-content"
-                  initial={{ opacity: 0, y: 50 }}
+                  initial={{ opacity: 0, y: -50 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 50 }}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <button className="modal-close-button" onClick={closeModal}>
-                    ×
-                  </button>
-                  <h2>Connection Details</h2>
-                  <div className="connection-info">
-                    {connectionStatus === 'loading' && <p>Loading...</p>}
-                    {connectionStatus === 'error' && <p>Error fetching data.</p>}
-                    {connectionStatus === 'success' && connectionData && (
-                      <>
-                        <p>IP Address: {connectionData.ip}</p>
-                        <p>Ping: {connectionData.ping} ms</p>
-                        <p>DNS Lookup Time: {connectionData.dnsLookupTime} ms</p>
-                        <p>AS Name: {connectionData.asName}</p>
-                        <p>AS Number: {connectionData.asNumber}</p>
-                        <p>Supports DoH: {connectionData.supportsDoH ? 'Yes' : 'No'}</p>
-                        <p>Using TLS: {connectionData.usingTLS ? 'Yes' : 'No'}</p>
-                         <p>VPN/WARP: {connectionData.vpnStatus}</p>
-                        <p>Security Rating: <span className={`security-rating ${connectionData.securityRating}`}>{connectionData.securityRating}</span></p>
-                      </>
-                    )}
-                  </div>
-                </motion.div>
+                  transition={{ duration: 0.6 }}
+                  className="avatar-container"
+              >
+                  <img
+                      src={yourAvatar}
+                      alt="Avatar"
+                      className="avatar"
+                  />
               </motion.div>
-            )}
-            </AnimatePresence>
+              <motion.h1
+                  initial={{ opacity: 0, y: -30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="name"
+              >
+                  Nam Trần
+              </motion.h1>
+              <motion.p
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="username"
+              >
+                  @Namtran5905
+              </motion.p>
+              <p className="bio">
+                  Developer • Part-timer • Chillguy
+              </p>
+              <div className="social-links">
+                  {socialLinks.map((link) => (
+                      <motion.a
+                          key={link.label}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="social-link"
+                          aria-label={link.label}
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                      >
+                          {link.icon}
+                      </motion.a>
+                  ))}
+              </div>
+          </header>
 
-            <div className="leaves-container"></div>
-        </div>
-    );
+          <nav className="tab-navigation">
+              <ul className="tab-list">
+                  <li>
+                      <motion.button
+                          onClick={() => setActiveTab('links')}
+                          className={`tab-button ${activeTab === 'links' ? 'active' : ''}`}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          aria-selected={activeTab === 'links'}
+                      >
+                          Liên Kết
+                      </motion.button>
+                  </li>
+                  <li>
+                      <motion.button
+                          onClick={() => setActiveTab('about')}
+                          className={`tab-button ${activeTab === 'about' ? 'active' : ''}`}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          aria-selected={activeTab === 'about'}
+                      >
+                          Giới Thiệu
+                      </motion.button>
+                  </li>
+                  <li>
+                      {/* Projects tab (optional) */}
+                  </li>
+                  <li>
+                      <motion.button
+                          onClick={() => setActiveTab('products')}
+                          className={`tab-button ${activeTab === 'products' ? 'active' : ''}`}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          aria-selected={activeTab === 'products'}
+                      >
+                          Sản Phẩm
+                      </motion.button>
+                  </li>
+                  <li>
+                      <motion.button
+                          onClick={() => setActiveTab('contact')}
+                          className={`tab-button ${activeTab === 'contact' ? 'active' : ''}`}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          aria-selected={activeTab === 'contact'}
+                      >
+                          Liên Hệ
+                      </motion.button>
+                  </li>
+              </ul>
+          </nav>
+
+          <main className="main-content">
+              <AnimatePresence mode="wait">
+                  {activeTab === 'links' && (
+                      <motion.div
+                          key="links"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -20 }}
+                          transition={{ duration: 0.2 }}
+                          className="link-cards"
+                      >
+                          {quickLinks.map((link) => (
+                              <motion.a
+                                  key={link.title}
+                                  href={link.url}
+                                  onClick={link.url === '#' ? handlePlaceholderLinkClick : undefined}
+                                  target={link.url !== '#' ? "_blank" : undefined}
+                                  rel="noopener noreferrer"
+                                  className="link-card"
+                                  whileHover={{ scale: 1.02 }}
+                                  whileTap={{ scale: 0.98 }}
+                              >
+                                  <div className="link-card-icon">{link.icon}</div>
+                                  <div className="link-card-text">
+                                      <h3 className="link-card-title">{link.title}</h3>
+                                      <p className="link-card-description">{link.description}</p>
+                                  </div>
+                                  <ExternalLink size={20} className="link-card-external-link" />
+                              </motion.a>
+                          ))}
+                      </motion.div>
+                  )}
+
+                  {activeTab === 'about' && (
+                      <motion.div
+                          key="about"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -20 }}
+                          transition={{ duration: 0.2 }}
+                          className="about-section"
+                      >
+                          <div className="about-content">
+                              <h2 className="about-title">Về mình</h2>
+                              <p className="about-text" style={{ textAlign: 'left' }}>
+                              <p className="about-text">Xin chào! Mình là Nam Trần – một người bình thường nhưng không thích sự nhàm chán. Mình làm việc bán thời gian và thích tận dụng những khoảng rảnh để mày mò, tạo ra những thứ vui vui, có khi thực dụng, có khi chỉ để thỏa mãn sự tò mò.</p>
+                              <p className="about-text">Mình khá thích công nghệ và thiết kế, nhưng không quá đắm chìm vào một mảng cụ thể nào. Mình thích thử nghiệm nhiều thứ, từ những món đồ nhỏ xinh đến những ý tưởng hơi "điên rồ" một chút, chỉ để xem giới hạn sáng tạo của mình đến đâu.</p>
+                              <p className="about-text">Ngoài những thứ trên, mình cũng thích đi đây đi đó, khám phá những điều mới mẻ. Một buổi tối chill với một bộ phim hay, một ly cà phê hoặc một cuộc trò chuyện thú vị cũng đủ làm ngày của mình trọn vẹn.</p>
+                              <p className="about-text">Mình không có triết lý sống hoành tráng, chỉ đơn giản là: Làm những gì thấy vui, học những gì thấy cần, và tận hưởng từng khoảnh khắc nhỏ trong cuộc sống.</p>
+                              </p>
+                          </div>
+                      </motion.div>
+                  )}
+
+                {activeTab === 'projects' && featuredProjects.length > 0 && (
+                    <motion.div
+                    key="projects"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.2 }}
+                    className="project-cards"
+                    >
+                    {featuredProjects.map((project, index) => (
+                        <motion.div
+                        key={index}
+                        className="project-card"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        >
+                        <div className="project-card-image-container">
+                            <img
+                            src={project.image}
+                            alt={project.title}
+                            className="project-card-image"
+                            />
+                            <div className="project-card-overlay">
+                            <a
+                                href={project.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="project-card-link"
+                            >
+                                <span>Xem Chi Tiết</span>
+                                <ExternalLink size={18} />
+                            </a>
+                            </div>
+                        </div>
+                        <div className="project-card-content">
+                            <h3 className="project-card-title">{project.title}</h3>
+                            <p className="project-card-description">{project.description}</p>
+                        </div>
+                        </motion.div>
+                    ))}
+                    </motion.div>
+                )}
+
+                  {activeTab === 'products' && (
+                      <motion.div
+                          key="products"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -20 }}
+                          transition={{ duration: 0.2 }}
+                          className="project-cards"
+                      >
+                          {featuredProducts.map((product, index) => (
+                              <motion.div
+                                  key={index}
+                                  className="project-card"
+                                  whileHover={{ scale: 1.02 }}
+                                  whileTap={{ scale: 0.98 }}
+                              >
+                                  <div className="project-card-image-container">
+                                      <img
+                                          src={product.image}
+                                          alt={product.title}
+                                          className="project-card-image"
+                                      />
+                                      <div className="project-card-overlay">
+                                          <a
+                                              href={product.link}
+                                              target="_blank"
+                                              rel="noopener noreferrer"
+                                              className="project-card-link"
+                                          >
+                                              <span>Xem Chi Tiết</span>
+                                              <ExternalLink size={18} />
+                                          </a>
+                                      </div>
+                                  </div>
+                                  <div className="project-card-content">
+                                      <h3 className="project-card-title">{product.title}</h3>
+                                      <p className="project-card-description">{product.description}</p>
+                                  </div>
+                              </motion.div>
+                          ))}
+                      </motion.div>
+                  )}
+
+                  {activeTab === 'contact' && (
+                       <motion.div
+                          key="contact"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -20 }}
+                          transition={{ duration: 0.2 }}
+                          className="contact-section"
+                      >
+                          <h2 className="contact-title">Message</h2>
+                          <p className="contact-description">
+                              Bạn có thể gửi tin nhắn ẩn danh cho mình thông qua form bên dưới.
+                          </p>
+                          <motion.form
+                              onSubmit={handleSubmit}
+                              className="contact-form"
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 0.1 }}
+                          >
+                              <textarea
+                                  value={message}
+                                  onChange={(e) => setMessage(e.target.value)}
+                                  placeholder="Nhập tin nhắn của bạn..."
+                                  required
+                                  className="contact-textarea"
+                              ></textarea>
+
+                              <motion.button
+                                  type="submit"
+                                  className="contact-submit-button"
+                                  disabled={isSubmitting}
+                                  whileHover={{ scale: 1.05 }}
+                                  whileTap={{ scale: 0.95 }}
+                              >
+                                  {isSubmitting ? (
+                                      <><Loader2 size={16} className="animate-spin mr-2" />ㅤĐang gửi...</>
+                                  ) : (
+                                      "Gửi Tin Nhắn"
+                                  )}
+                              </motion.button>
+                                  {submitSuccess && (
+                                      <div className="contact-success-message">
+                                          Tin nhắn của bạn đã được gửi thành công!
+                                      </div>
+                                  )}
+                                  {submitError && (
+                                      <div className="contact-error-message">
+                                          {submitError}
+                                      </div>
+                                  )}
+                          </motion.form>
+                      </motion.div>
+                  )}
+              </AnimatePresence>
+          </main>
+
+          <footer className="page-footer">
+              <div className="footer-left">
+                  <p>
+                      IPv4: <span>{ipv4 || 'Loading...'}</span> |  <span className="visitor-count">Lượt truy cập: <span>{visitorCount}</span> </span>
+                  </p>
+                  <p>IPv6: <span>{ipv6 || 'Loading...'}</span></p>
+              </div>
+              <div className="footer-center">
+                  <p>© {new Date().getFullYear()} Trần Võ Hoàng Nam. All rights reserved.</p>
+              </div>
+              <div className="footer-right">
+                  <button className="connection-check-button" onClick={handleConnectionCheckClick}>
+                      Check Connection
+                  </button>
+                  <div className="security-certs">
+                      <img src={securityCert1} alt="Security Certificate 1" className="cert-logo" />
+                      <img src={securityCert2} alt="Security Certificate 2" className="cert-logo" />
+                      <img src={securityCert3} alt="Security Certificate 3" className="cert-logo" />
+                  </div>
+              </div>
+          </footer>
+
+           <AnimatePresence>
+          {isModalOpen && (
+            <motion.div
+              className="modal-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeModal}
+            >
+              <motion.div
+                className="modal-content"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 50 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button className="modal-close-button" onClick={closeModal}>
+                  ×
+                </button>
+                <h2>Connection Details</h2>
+                <div className="connection-info">
+                  {connectionStatus === 'loading' && <p>Loading...</p>}
+                  {connectionStatus === 'error' && <p>Error fetching data.</p>}
+                  {connectionStatus === 'success' && connectionData && (
+                    <>
+                      <p>IP Address: {connectionData.ip}</p>
+                      <p>Ping: {connectionData.ping} ms</p>
+                      <p>DNS Lookup Time: {connectionData.dnsLookupTime} ms</p>
+                      <p>AS Name: {connectionData.asName}</p>
+                      <p>AS Number: {connectionData.asNumber}</p>
+                      <p>Supports DoH: {connectionData.supportsDoH ? 'Yes' : 'No'}</p>
+                      <p>Using TLS: {connectionData.usingTLS ? 'Yes' : 'No'}</p>
+                       <p>VPN/WARP: {connectionData.vpnStatus}</p>
+                      <p>Security Rating: <span className={`security-rating ${connectionData.securityRating}`}>{connectionData.securityRating}</span></p>
+                    </>
+                  )}
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+          </AnimatePresence>
+      </div>
+  );
 };
 
 export default PersonalLandingPage;
