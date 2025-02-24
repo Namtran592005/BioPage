@@ -1,9 +1,10 @@
+// PersonalLandingPage.js
 import React, { useState, useEffect } from 'react';
 import yourAvatar from './img/Avt/Avatar.png';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Github,  Facebook, Instagram, Music, ShoppingBag,
-  Coffee, Globe, BookOpen, ExternalLink, MessageCircle, Heart // Removed Twitter, Linkedin, Youtube. Added MessageCircle, Heart
+  Github, Facebook, Instagram, Music, ShoppingBag,
+  Coffee, Globe, BookOpen, ExternalLink, MessageCircle, Heart, Loader2
 } from 'lucide-react';
 // Import icons from react-icons
 import { FaThreads } from 'react-icons/fa6'; // Import from the correct subpath (Font Awesome 6)
@@ -14,6 +15,11 @@ import Product1 from "./img/Product/Product1.jpg"; // Import the image for the f
 const PersonalLandingPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('links');
+  const [message, setMessage] = useState('');       // Form input
+  const [isSubmitting, setIsSubmitting] = useState(false); // Submission status
+  const [submitSuccess, setSubmitSuccess] = useState(false); // Success message
+  const [submitError, setSubmitError] = useState('');    // Error message
+
 
   useEffect(() => {
     const loadingTimeout = setTimeout(() => setIsLoading(false), 2000);
@@ -48,6 +54,39 @@ const PersonalLandingPage = () => {
     { title: 'Vega', description: 'Chatbot AI dựa trên API gemini', link: 'https://namtran592005.github.io/VEGA-AI/', image: Product1 },
     //{ title: 'Sản Phẩm 2', description: 'Mô tả sản phẩm 2', link: '#', image: 'https://placehold.co/600x400' }
   ];
+
+  // NEW: handleSubmit function
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        setSubmitSuccess(false); // Reset success message
+        setSubmitError(''); // Reset error message
+
+        try {
+            const response = await fetch("https://formspree.io/f/xeoewngj", {  // Replace with your Formspree endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message }),
+            });
+
+            if (response.ok) {
+                setSubmitSuccess(true);
+                setMessage(''); // Clear the message input
+            } else {
+                // Handle errors (e.g., 400, 500 status codes)
+                const errorData = await response.json(); // Try to get error details
+                setSubmitError(errorData.error || 'Đã xảy ra lỗi. Vui lòng thử lại sau.');  // Set a user-friendly error
+            }
+        } catch (error) {
+            // Handle network errors
+            setSubmitError('Đã xảy ra lỗi kết nối. Vui lòng kiểm tra kết nối mạng của bạn.');
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
 
   if (isLoading) {
     return (
@@ -155,6 +194,17 @@ const PersonalLandingPage = () => {
                   aria-selected={activeTab === 'products'}
                 >
                   Sản Phẩm
+                </motion.button>
+            </li>
+            <li>
+                <motion.button
+                    onClick={() => setActiveTab('contact')}
+                    className={`tab-button ${activeTab === 'contact' ? 'active' : ''}`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    aria-selected={activeTab === 'contact'}
+                >
+                    Liên Hệ
                 </motion.button>
             </li>
         </ul>
@@ -294,6 +344,80 @@ const PersonalLandingPage = () => {
                   </div>
                 </motion.div>
               ))}
+            </motion.div>
+          )}
+            {/* NEW: Contact Section */}
+          {activeTab === 'contact' && (
+            <motion.div
+              key="contact"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.2 }}
+              className="contact-section"
+            >
+                <h2 className="contact-title">Liên Hệ</h2>
+                <p className="contact-description">
+                  Bạn có thể gửi tin nhắn ẩn danh cho mình thông qua form bên dưới.
+                </p>
+                <motion.form
+                  onSubmit={handleSubmit}
+                  className="contact-form"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                >
+                    <textarea
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        placeholder="Nhập tin nhắn của bạn..."
+                        required
+                        className="contact-textarea"
+                    ></textarea>
+
+                  <motion.button
+                    type="submit"
+                    className="contact-submit-button"
+                    disabled={isSubmitting} // Disable when submitting
+                    whileHover={{ scale: 1.05 }} //  hover effect
+                    whileTap={{ scale: 0.95 }}   //  tap effect
+                    >
+                        {isSubmitting ? (
+                           <><Loader2 size={16} className="animate-spin mr-2" />ㅤĐang gửi...</>  // Show spinner and text
+                        ) : (
+                            "Gửi Tin Nhắn"
+                        )}
+                  </motion.button>
+
+                   {/* Success message */}
+                    <AnimatePresence>
+                    {submitSuccess && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                        className="contact-success-message"
+                      >
+                        Tin nhắn của bạn đã được gửi thành công!
+                      </motion.div>
+                    )}
+                    </AnimatePresence>
+
+                   {/* Error message */}
+                    {submitError && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                        className="contact-error-message"
+                        >
+                            {submitError}
+                        </motion.div>
+                    )}
+
+                </motion.form>
             </motion.div>
           )}
         </AnimatePresence>
