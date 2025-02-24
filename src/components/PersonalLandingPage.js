@@ -1,16 +1,20 @@
-// PersonalLandingPage.js
+// PersonalLandingPage.js (No changes needed in the JavaScript)
 import React, { useState, useEffect } from 'react';
 import yourAvatar from './img/Avt/Avatar.png';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Github, Facebook, Instagram, Music,  //ShoppingBag,  //Removed ShoppingBag
-  Coffee, Globe, BookOpen, ExternalLink, MessageCircle, Heart, Loader2, Sun, Moon, // Added Sun, Moon
+  Github, Facebook, Instagram, Music,  //ShoppingBag,
+  Coffee, Globe, BookOpen, ExternalLink, MessageCircle, Heart, Loader2, Sun, Moon,
 } from 'lucide-react';
-// Import icons from react-icons
-import { FaThreads } from 'react-icons/fa6'; // Import from the correct subpath (Font Awesome 6)
+import { FaThreads } from 'react-icons/fa6';
 import { SiZalo } from "react-icons/si";
 import './PersonalLandingPage.css';
 import Product1 from "./img/Product/Product1.jpg";
+
+// Placeholder images for security certificates (replace with your actual images)
+import securityCert1 from './img/certs/cert1.png';
+import securityCert2 from './img/certs/cert2.png';
+import securityCert3 from './img/certs/cert3.png';
 
 const PersonalLandingPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -19,23 +23,64 @@ const PersonalLandingPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState('');
-    const [isDarkMode, setIsDarkMode] = useState(true); //  Dark mode by default
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [visitorCount, setVisitorCount] = useState(0);
+  const [ipv4, setIpv4] = useState('');
+  const [ipv6, setIpv6] = useState('');
 
   useEffect(() => {
     const loadingTimeout = setTimeout(() => setIsLoading(false), 2000);
-     // Apply the theme to the body element
+
     document.body.classList.toggle('dark-mode', isDarkMode);
     document.body.classList.toggle('light-mode', !isDarkMode);
+
+    // Visitor Count (Local Storage - Basic)
+    const incrementVisitorCount = () => {
+        const storedCount = localStorage.getItem('visitorCount');
+        let newCount;
+        if (storedCount) {
+            newCount = parseInt(storedCount, 10) + 1; // Increment the count!
+        } else {
+            newCount = 1; // First visit
+        }
+        setVisitorCount(newCount);
+        localStorage.setItem('visitorCount', newCount.toString());
+    };
+
+    incrementVisitorCount();
+
+
+    // Get IP Addresses (using ipify API)
+    const getIPs = async () => {
+      try {
+        // IPv4
+        const responseV4 = await fetch('https://api.ipify.org?format=json');
+        const dataV4 = await responseV4.json();
+        setIpv4(dataV4.ip);
+
+        // IPv6
+        const responseV6 = await fetch('https://api6.ipify.org?format=json');
+        const dataV6 = await responseV6.json();
+        setIpv6(dataV6.ip);
+
+      } catch (error) {
+        console.error("Error fetching IP addresses:", error);
+        setIpv4('Error');
+        setIpv6('Error');
+      }
+    };
+
+    getIPs();
+
     return () => {
-        clearTimeout(loadingTimeout)
-        document.body.classList.remove('dark-mode', 'light-mode');
+      clearTimeout(loadingTimeout);
+      document.body.classList.remove('dark-mode', 'light-mode');
     };
-  }, [isDarkMode]); // Dependency array includes isDarkMode
+  }, [isDarkMode]);
 
-    const toggleTheme = () => {
-        setIsDarkMode((prevMode) => !prevMode); // Toggle the mode
-    };
-
+  const toggleTheme = () => {
+    setIsDarkMode((prevMode) => !prevMode);
+  };
 
   const socialLinks = [
     { icon: <Facebook size={24} />, url: 'https://facebook.com/namtran5905', label: 'Facebook' },
@@ -46,61 +91,56 @@ const PersonalLandingPage = () => {
     { icon: <Heart size={24} />, url: 'https://locket.cam/Namtran5905', label: 'Locket' }
   ];
 
-
   const quickLinks = [
     { icon: <Globe size={24} />, title: 'Website Chính Thức', description: 'Khám phá portfolio và blog của tôi', url: '#' },
-    //{ icon: <ShoppingBag size={24} />, title: 'Shop Online', description: 'Ghé thăm cửa hàng trực tuyến của tôi', url: '#' },
     { icon: <Music size={24} />, title: 'Playlist Yêu Thích', description: 'Những bài hát tôi thường nghe', url: '#' },
     { icon: <Coffee size={24} />, title: 'Mua cho tôi một ly cà phê', description: 'Nếu bạn thấy thích', url: 'https://me.momo.vn/lDIWuWsoCaCdUOI2f6UK' },
     { icon: <BookOpen size={24} />, title: 'Blog mới nhất', description: 'Đọc những bài viết gần đây của tôi', url: '#' },
   ];
 
-    // Function to handle clicks on placeholder links
-    const handlePlaceholderLinkClick = (e) => {
-      e.preventDefault(); // Prevent the default link behavior
-      alert("Liên kết này chưa được thêm vào. Vui lòng thử lại sau!"); // Display the message
-    };
+  const handlePlaceholderLinkClick = (e) => {
+    e.preventDefault();
+    alert("Liên kết này chưa được thêm vào. Vui lòng thử lại sau!");
+  };
 
   const featuredProjects = [
-    //{ title: 'Dự Án 1', description: 'Mô tả dự án 1', link: '#', image: 'https://placehold.co/600x400' },
-    //{ title: 'Dự Án 2', description: 'Mô tả dự án 2', link: '#', image: 'https://placehold.co/600x400' }
+    // { title: 'Dự Án 1', description: 'Mô tả dự án 1', link: '#', image: 'https://placehold.co/600x400' },
+    // { title: 'Dự Án 2', description: 'Mô tả dự án 2', link: '#', image: 'https://placehold.co/600x400' }
   ];
 
-  // NEW: Featured Products
   const featuredProducts = [
     { title: 'Vega', description: 'Chatbot AI dựa trên API gemini', link: 'https://namtran592005.github.io/VEGA-AI/', image: Product1 },
-    //{ title: 'Sản Phẩm 2', description: 'Mô tả sản phẩm 2', link: '#', image: 'https://placehold.co/600x400' }
+    // { title: 'Sản Phẩm 2', description: 'Mô tả sản phẩm 2', link: '#', image: 'https://placehold.co/600x400' }
   ];
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setIsSubmitting(true);
-        setSubmitSuccess(false); // Reset success message
-        setSubmitError(''); // Reset error message
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitSuccess(false);
+    setSubmitError('');
 
-        try {
-            const response = await fetch("https://formspree.io/f/xeoewngj", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ message }),
-            });
+    try {
+      const response = await fetch("https://formspree.io/f/xeoewngj", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message }),
+      });
 
-            if (response.ok) {
-                setSubmitSuccess(true);
-                setMessage(''); // Clear the message input
-            } else {
-                const errorData = await response.json();
-                setSubmitError(errorData.error || 'Đã xảy ra lỗi. Vui lòng thử lại sau.');
-            }
-        } catch (error) {
-            setSubmitError('Đã xảy ra lỗi kết nối. Vui lòng kiểm tra kết nối mạng của bạn.');
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
-
+      if (response.ok) {
+        setSubmitSuccess(true);
+        setMessage('');
+      } else {
+        const errorData = await response.json();
+        setSubmitError(errorData.error || 'Đã xảy ra lỗi. Vui lòng thử lại sau.');
+      }
+    } catch (error) {
+      setSubmitError('Đã xảy ra lỗi kết nối. Vui lòng kiểm tra kết nối mạng của bạn.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -112,10 +152,10 @@ const PersonalLandingPage = () => {
 
   return (
     <div className={`page-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
-        {/* Theme Toggle Button */}
-        <button className="theme-toggle-button" onClick={toggleTheme} aria-label="Toggle Theme">
-          {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-        </button>
+      <div className="geometric-bg"></div>
+      <button className="theme-toggle-button" onClick={toggleTheme} aria-label="Toggle Theme">
+        {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+      </button>
 
       <header className="page-header">
         <motion.div
@@ -150,9 +190,9 @@ const PersonalLandingPage = () => {
           Developer • Part-timer • Chillguy
         </p>
         <div className="social-links">
-          {socialLinks.map((link, index) => (
+          {socialLinks.map((link) => (
             <motion.a
-              key={index}
+              key={link.label}
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"
@@ -192,45 +232,37 @@ const PersonalLandingPage = () => {
             </motion.button>
           </li>
           <li>
-            {/*<motion.button
-              onClick={() => setActiveTab('projects')}
-              className={`tab-button ${activeTab === 'projects' ? 'active' : ''}`}
+            {/* Projects tab (optional) */}
+          </li>
+          <li>
+            <motion.button
+              onClick={() => setActiveTab('products')}
+              className={`tab-button ${activeTab === 'products' ? 'active' : ''}`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              aria-selected={activeTab === 'projects'}
+              aria-selected={activeTab === 'products'}
             >
-              Dự Án
-            </motion.button>*/}
+              Sản Phẩm
+            </motion.button>
           </li>
-           <li>
-                <motion.button
-                  onClick={() => setActiveTab('products')}
-                  className={`tab-button ${activeTab === 'products' ? 'active' : ''}`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  aria-selected={activeTab === 'products'}
-                >
-                  Sản Phẩm
-                </motion.button>
-            </li>
-            <li>
-                <motion.button
-                    onClick={() => setActiveTab('contact')}
-                    className={`tab-button ${activeTab === 'contact' ? 'active' : ''}`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    aria-selected={activeTab === 'contact'}
-                >
-                    Liên Hệ
-                </motion.button>
-            </li>
+          <li>
+            <motion.button
+              onClick={() => setActiveTab('contact')}
+              className={`tab-button ${activeTab === 'contact' ? 'active' : ''}`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              aria-selected={activeTab === 'contact'}
+            >
+              Liên Hệ
+            </motion.button>
+          </li>
         </ul>
       </nav>
 
       <main className="main-content">
         <AnimatePresence mode="wait">
           {activeTab === 'links' && (
-             <motion.div
+            <motion.div
               key="links"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -238,12 +270,12 @@ const PersonalLandingPage = () => {
               transition={{ duration: 0.2 }}
               className="link-cards"
             >
-              {quickLinks.map((link, index) => (
+              {quickLinks.map((link) => (
                 <motion.a
-                  key={index}
+                  key={link.title}
                   href={link.url}
-                    onClick={link.url === '#' ? handlePlaceholderLinkClick : undefined} //  Add this line
-                  target={link.url !== '#' ? "_blank" : undefined}  // Open in new tab if not placeholder
+                  onClick={link.url === '#' ? handlePlaceholderLinkClick : undefined}
+                  target={link.url !== '#' ? "_blank" : undefined}
                   rel="noopener noreferrer"
                   className="link-card"
                   whileHover={{ scale: 1.02 }}
@@ -321,6 +353,7 @@ const PersonalLandingPage = () => {
               ))}
             </motion.div>
           )}
+
           {activeTab === 'products' && (
             <motion.div
               key="products"
@@ -363,6 +396,7 @@ const PersonalLandingPage = () => {
               ))}
             </motion.div>
           )}
+
           {activeTab === 'contact' && (
             <motion.div
               key="contact"
@@ -372,73 +406,87 @@ const PersonalLandingPage = () => {
               transition={{ duration: 0.2 }}
               className="contact-section"
             >
-                <h2 className="contact-title">Liên Hệ</h2>
-                <p className="contact-description">
-                  Bạn có thể gửi tin nhắn ẩn danh cho mình thông qua form bên dưới.
-                </p>
-                <motion.form
-                  onSubmit={handleSubmit}
-                  className="contact-form"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
+              <h2 className="contact-title">Liên Hệ</h2>
+              <p className="contact-description">
+                Bạn có thể gửi tin nhắn ẩn danh cho mình thông qua form bên dưới.
+              </p>
+              <motion.form
+                onSubmit={handleSubmit}
+                className="contact-form"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+              >
+                <textarea
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  placeholder="Nhập tin nhắn của bạn..."
+                  required
+                  className="contact-textarea"
+                ></textarea>
+
+                <motion.button
+                  type="submit"
+                  className="contact-submit-button"
+                  disabled={isSubmitting}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                    <textarea
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        placeholder="Nhập tin nhắn của bạn..."
-                        required
-                        className="contact-textarea"
-                    ></textarea>
+                  {isSubmitting ? (
+                    <><Loader2 size={16} className="animate-spin mr-2" />ㅤĐang gửi...</>
+                  ) : (
+                    "Gửi Tin Nhắn"
+                  )}
+                </motion.button>
 
-                  <motion.button
-                    type="submit"
-                    className="contact-submit-button"
-                    disabled={isSubmitting}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                <AnimatePresence>
+                  {submitSuccess && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      className="contact-success-message"
                     >
-                        {isSubmitting ? (
-                           <><Loader2 size={16} className="animate-spin mr-2" />ㅤĐang gửi...</>
-                        ) : (
-                            "Gửi Tin Nhắn"
-                        )}
-                  </motion.button>
+                      Tin nhắn của bạn đã được gửi thành công!
+                    </motion.div>
+                  )}
+                </AnimatePresence>
 
-                    <AnimatePresence>
-                    {submitSuccess && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.2 }}
-                        className="contact-success-message"
-                      >
-                        Tin nhắn của bạn đã được gửi thành công!
-                      </motion.div>
-                    )}
-                    </AnimatePresence>
-
-                    {submitError && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.2 }}
-                        className="contact-error-message"
-                        >
-                            {submitError}
-                        </motion.div>
-                    )}
-
-                </motion.form>
+                {submitError && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="contact-error-message"
+                  >
+                    {submitError}
+                  </motion.div>
+                )}
+              </motion.form>
             </motion.div>
           )}
         </AnimatePresence>
       </main>
 
       <footer className="page-footer">
-        <p>© {new Date().getFullYear()} Trần Võ Hoàng Nam. All rights reserved.</p>
+        <div className="footer-left">
+          <p>
+            IPv4: <span>{ipv4 || 'Loading...'}</span> |  <span className="visitor-count">Lượt truy cập: <span>{visitorCount}</span> </span>
+          </p>
+          <p>IPv6: <span>{ipv6 || 'Loading...'}</span></p>
+        </div>
+        <div className="footer-center">
+          <p>© {new Date().getFullYear()} Trần Võ Hoàng Nam. All rights reserved.</p>
+        </div>
+        <div className="footer-right">
+          <div className="security-certs">
+            <img src={securityCert1} alt="Security Certificate 1" className="cert-logo" />
+            <img src={securityCert2} alt="Security Certificate 2" className="cert-logo" />
+            <img src={securityCert3} alt="Security Certificate 3" className="cert-logo" />
+          </div>
+        </div>
       </footer>
         <div className="leaves-container"></div>
     </div>

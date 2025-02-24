@@ -12,10 +12,10 @@
 
 
 body {
-  font-family: 'Roboto', sans-serif; /* Use Roboto for the general UI */
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-    transition: background-color 0.3s ease; /* Smooth transition for theme change */
+    transition: background-color 0.3s ease;
 }
 /* CSS Variables for Themes */
 :root {
@@ -43,17 +43,28 @@ body {
     --contact-textarea-bg: rgba(255, 255, 255, 0.1);
     --contact-textarea-border: rgba(255, 255, 255, 0.2);
     --contact-textarea-placeholder: #999;
-      --contact-success-bg: rgba(0, 128, 0, 0.1);
-  --contact-success-border: rgba(0, 128, 0, 0.3);
+    --contact-success-bg: rgba(0, 128, 0, 0.1);
+    --contact-success-border: rgba(0, 128, 0, 0.3);
     --contact-success-color: #008000;
-      --contact-error-bg: rgba(255, 0, 0, 0.1);
-  --contact-error-border: rgba(255, 0, 0, 0.3);
+    --contact-error-bg: rgba(255, 0, 0, 0.1);
+    --contact-error-border: rgba(255, 0, 0, 0.3);
     --contact-error-color:#ff0000;
+
+     /* Geometric BG - Dark */
+    --geometric-bg-color-dark: rgba(255, 255, 255, 0.03);
+    --geometric-bg-border-dark: rgba(255, 255, 255, 0.1);
+
+    /* Footer Colors - Dark */
+    --footer-text-color: #ccc;
+    /* --footer-number-color: #fff;  Removed this */
+    --footer-bg: rgba(0, 0, 0, 0.5);
+    --footer-visitor-count-color: #4CAF50; /* Green color for visitor count */
+
 }
 
 body.light-mode {
     /* Light Mode Colors */
-    --bg-color: #f0f0f0; /*  light gray */
+    --bg-color: #f0f0f0;
     --gradient-end: #ffffff;
     --text-color: #333;
     --username-color: #666;
@@ -82,32 +93,42 @@ body.light-mode {
       --contact-error-bg: rgba(200, 0, 0, 0.1);
   --contact-error-border: rgba(200, 0, 0, 0.3);
     --contact-error-color: #600000;
+
+    /* Geometric BG - Light */
+    --geometric-bg-color-light: rgba(0, 0, 0, 0.03);
+    --geometric-bg-border-light: rgba(0, 0, 0, 0.1);
+
+     /* Footer Colors - Light */
+    --footer-text-color: #555;
+    /*--footer-number-color: #333;  Removed this */
+     --footer-bg: rgba(255, 255, 255, 0.5);
+      --footer-visitor-count-color: #008000; /* Slightly darker green */
 }
 
 .page-container {
   min-height: 100vh;
   background: linear-gradient(to bottom, var(--bg-color), var(--gradient-end));
   color: var(--text-color);
-  padding-top: 2rem; /* Add some top padding */
-    position: relative; /*  for leaves and theme toggle */
-    overflow: hidden; /*  for leaves going out of bounds */
+  padding-top: 2rem;
+    position: relative;
+    overflow: hidden;
 }
 
 /* Loading Screen */
 .loading-screen {
   position: fixed;
   inset: 0;
-  background-color: var(--bg-color); /* Use variable */
+  background-color: var(--bg-color);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .loading-text {
-  color: var(--text-color); /* Use variable */
+  color: var(--text-color);
   font-size: 4rem;
-  font-weight: 300; /* Lighter font weight */
-  letter-spacing: 0.1em; /*  spacing between letters */
+  font-weight: 300;
+  letter-spacing: 0.1em;
   animation: pulse 1.5s infinite;
 }
 
@@ -119,12 +140,12 @@ body.light-mode {
 /* Header */
 .page-header {
   text-align: center;
-  padding: 3rem 1.5rem; /*  padding on sides */
+  padding: 3rem 1.5rem;
 }
 
 .avatar-container {
   position: relative;
-  width: 128px; /* Smaller avatar size */
+  width: 128px;
   height: 128px;
   margin: 0 auto 1.5rem;
 }
@@ -134,56 +155,56 @@ body.light-mode {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid var(--text-color); /* Use variable */
+  border: 4px solid var(--text-color);
 }
 
 .name {
-  font-size: 2.25rem; /* Slightly smaller name */
-  font-family: 'Dancing Script', cursive; /* Use the stylish font */
+  font-size: 2.25rem;
+  font-family: 'Dancing Script', cursive;
   font-weight: 700;
   margin-bottom: 0.5rem;
 }
 
 .username {
-  color: var(--username-color); /* Use variable */
+  color: var(--username-color);
   margin-bottom: 1rem;
 }
 
 .bio {
   font-size: 1rem;
-  max-width: 32rem; /* Limit bio width */
+  max-width: 32rem;
   margin: 0 auto 1.5rem;
-  color: var(--bio-color); /* Use variable */
+  color: var(--bio-color);
 }
 
 .social-links {
   display: flex;
   justify-content: center;
-  gap: 1rem; /*  space between icons */
+  gap: 1rem;
 }
 
 .social-link {
-  color: var(--link-color); /* Use variable */
+  color: var(--link-color);
   padding: 0.5rem;
   transition: color 0.2s;
 }
 
 .social-link:hover {
-  color: var(--link-hover-color); /* Use variable */
+  color: var(--link-hover-color);
 }
 
 /* Tab Navigation */
 .tab-navigation {
   margin: 2rem auto;
   padding: 0 1.5rem;
-  max-width: 48rem; /* Limit tab width */
+  max-width: 48rem;
 }
 
 .tab-list {
   display: flex;
   justify-content: center;
   list-style: none;
-  border-bottom: 1px solid var(--tab-border-color); /* Use variable */
+  border-bottom: 1px solid var(--tab-border-color);
 }
 
 .tab-button {
@@ -191,14 +212,14 @@ body.light-mode {
   border: none;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
-  color: var(--tab-color); /* Use variable */
+  color: var(--tab-color);
   cursor: pointer;
   transition: color 0.2s, border-bottom-color 0.2s;
 }
 
 .tab-button.active {
-  color: var(--tab-active-color); /* Use variable */
-  border-bottom: 2px solid var(--tab-active-color); /* Use variable */
+  color: var(--tab-active-color);
+  border-bottom: 2px solid var(--tab-active-color);
 }
 
 .tab-button:hover {
@@ -207,26 +228,26 @@ body.light-mode {
 
 /* Main Content */
 .main-content {
-  max-width: 48rem; /*  consistent width */
+  max-width: 48rem;
   margin: 0 auto;
   padding: 0 1.5rem;
-  padding-bottom: 4rem; /*  bottom padding */
+  padding-bottom: 4rem;
 }
 
 /* Link Cards */
 .link-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsive grid */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 1rem;
 }
 
 .link-card {
-  background-color: var(--link-card-bg); /* Use variable */
+  background-color: var(--link-card-bg);
   border-radius: 0.5rem;
   padding: 1rem;
   display: flex;
   align-items: center;
-  text-decoration: none; /* Remove underline */
+  text-decoration: none;
   color: inherit;
   transition: background-color 0.2s;
 }
@@ -237,16 +258,16 @@ body.light-mode {
 }
 
 .link-card-icon {
-  background-color: var(--link-card-icon-bg); /* Use variable */
+  background-color: var(--link-card-icon-bg);
   border-radius: 0.375rem;
   padding: 0.5rem;
   margin-right: 1rem;
-  flex-shrink: 0;  /* Prevent icon from shrinking */
+  flex-shrink: 0;
 }
 
 .link-card-text {
-    flex-grow: 1; /*  text takes up available space*/
-    overflow: hidden; /*  overflow */
+    flex-grow: 1;
+    overflow: hidden;
 
 }
 
@@ -254,34 +275,33 @@ body.light-mode {
   font-size: 1rem;
   font-weight: 500;
   margin-bottom: 0.25rem;
-  white-space: nowrap; /*  prevent title wrapping */
+  white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; /*  ellipsis for long titles */
+  text-overflow: ellipsis;
 
 }
 
 .link-card-description {
   font-size: 0.875rem;
-  color: var(--link-card-description-color); /* Use variable */
-    white-space: nowrap; /*  prevent description wrapping */
+  color: var(--link-card-description-color);
+    white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; /*  ellipsis for long descriptions */
+  text-overflow: ellipsis;
 }
 
 .link-card-external-link {
-  margin-left: auto; /* Push icon to the right */
-  color: var(--link-card-external-link-color); /* Use variable */
+  margin-left: auto;
+  color: var(--link-card-external-link-color);
 }
 /* About Section */
 .about-section {
     padding: 1rem;
     border-radius: 0.5rem;
-    background-color: var(--about-bg); /* Use variable */
+    background-color: var(--about-bg);
 
 }
 
 .about-content {
-    /* Add styles as needed */
     padding: 1.5rem;
 }
 
@@ -292,7 +312,7 @@ body.light-mode {
 }
 
 .about-text {
-    color: var(--about-text-color); /* Use variable */
+    color: var(--about-text-color);
     line-height: 1.6;
     margin-bottom: 1rem;
 }
@@ -306,8 +326,8 @@ body.light-mode {
 
 .project-card {
   border-radius: 0.5rem;
-  overflow: hidden; /*  image overflow */
-  background-color: var(--project-card-bg); /* Use variable */
+  overflow: hidden;
+  background-color: var(--project-card-bg);
 
 }
 
@@ -318,7 +338,7 @@ body.light-mode {
 .project-card-image {
   width: 100%;
   height: auto;
-  display: block; /* Remove extra space below image */
+  display: block;
 }
 
 .project-card-overlay {
@@ -347,8 +367,7 @@ body.light-mode {
   color: #000;
   padding: 0.5rem 1rem;
   border-radius: 0.375rem;
-  text-decoration: none;
-  transition: background-color 0.2s;
+  text-decoration: none;  transition: background-color 0.2s;
 }
 
 .project-card-link:hover {
@@ -370,26 +389,94 @@ body.light-mode {
 
 .project-card-description {
   font-size: 1rem;
-  color: var(--project-card-description-color); /* Use variable */
+  color: var(--project-card-description-color);
     overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
-/* Footer */
+
+/* Footer Styles */
 .page-footer {
-  text-align: center;
-  padding: 2rem 1.5rem;
-  font-size: 0.875rem;
-  color: #777;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem; /* Reduced padding */
+    font-size: 0.75rem; /* Smaller font size */
+    color: var(--footer-text-color);
+    background-color: var(--footer-bg);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* NEW: Contact Section Styles/* Contact Section Styles (Continued) */
+.footer-left {
+    text-align: left;
+    display: flex;      /* Make this a flex container */
+    flex-direction: column; /* Stack IPv4/IPv6 vertically */
+    align-items: flex-start; /* Align to the start (left) */
+    gap: 0.2rem;       /*  space between IPv4 and IPv6 */
+}
+
+/* Style for the combined IPv4 and visitor count line */
+.footer-left p:first-child { /* Target the first <p> (IPv4 + count) */
+    display: flex;        /* Make it a flex container */
+    align-items: center;   /* Vertically center items */
+    gap: 1rem;           /*  space between IPv4 and count */
+    margin-bottom: 0;   /* Remove the bottom margin we had before */
+}
+
+.footer-left p {
+    margin-bottom: 0; /* Override the previous margin */
+    color: var(--footer-text-color);
+    line-height: 1.2; /*  line height for better readability */
+
+}
+
+.footer-left span {
+    color: var(--footer-text-color); /* Use a consistent color */
+    font-weight: 500;
+}
+
+/* Style specifically for the visitor count number */
+.visitor-count span {
+    color: var(--footer-visitor-count-color); /* Green color */
+}
+
+
+.footer-center {
+    text-align: center;
+    flex-grow: 1;
+    padding: 0 0.5rem; /* Reduced padding */
+}
+
+.footer-right {
+    text-align: right;
+}
+
+.security-certs {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem; /* Reduced gap */
+}
+
+.cert-logo {
+    height: 20px; /* Smaller logos */
+    filter: grayscale(80%);
+    opacity: 0.7;
+    transition: filter 0.3s, opacity 0.3s;
+}
+
+.cert-logo:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+/* Contact Section Styles */
 .contact-section {
   padding: 1.5rem;
   border-radius: 0.5rem;
-  background-color: var(--contact-bg); /* Use variable */
+  background-color: var(--contact-bg);
 }
 
 .contact-title {
@@ -399,7 +486,7 @@ body.light-mode {
 }
 
 .contact-description {
-  color: var(--contact-description-color); /* Use variable */
+  color: var(--contact-description-color);
   margin-bottom: 1rem;
 }
 
@@ -409,18 +496,18 @@ body.light-mode {
   gap: 1rem;
 }
 .contact-textarea {
-  background-color: var(--contact-textarea-bg); /* Use variable */
-  border: 1px solid var(--contact-textarea-border); /* Use variable */
+  background-color: var(--contact-textarea-bg);
+  border: 1px solid var(--contact-textarea-border);
   color: var(--text-color);
   padding: 0.75rem;
   border-radius: 0.375rem;
   font-family: inherit;
   font-size: 1rem;
-  resize: vertical; /* Allow vertical resizing */
-  min-height: 80px; /*  minimum height */
+  resize: vertical;
+  min-height: 80px;
 }
 .contact-textarea::placeholder{
-  color: var(--contact-textarea-placeholder); /* Use variable */
+  color: var(--contact-textarea-placeholder);
 }
 
 .contact-submit-button {
@@ -432,7 +519,7 @@ body.light-mode {
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.2s;
-  display: inline-flex; /*  align icon and text */
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 }
@@ -446,7 +533,7 @@ body.light-mode {
   padding: 0.75rem;
   border-radius: 0.375rem;
   margin-top: 0.5rem;
-  text-align: center; /* Center the text */
+  text-align: center;
 }
 
 .contact-success-message {
@@ -463,7 +550,7 @@ body.light-mode {
 
 /* Theme Toggle Button */
 .theme-toggle-button {
-    position: absolute; /* Position in top-right corner */
+    position: absolute;
     top: 1rem;
     right: 1rem;
     background: none;
@@ -471,13 +558,13 @@ body.light-mode {
     color: var(--text-color);
     cursor: pointer;
     padding: 0.5rem;
-    border-radius: 50%; /* Make it circular */
+    border-radius: 50%;
     transition: background-color 0.2s, color 0.2s;
-    z-index: 1000; /* Ensure it's above other elements */
+    z-index: 1000;
 }
 
 .theme-toggle-button:hover {
-    background-color: rgba(255, 255, 255, 0.1); /*  subtle hover effect */
+    background-color: rgba(255, 255, 255, 0.1);
 }
 /* Leaves Animation */
 .leaves-container {
@@ -486,20 +573,19 @@ body.light-mode {
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none; /*  clicks pass through */
-  z-index: -1; /* Behind the content */
+  pointer-events: none;
+  z-index: -1;
 }
 
-/* Create individual leaves using pseudo-elements */
 .leaves-container::before,
 .leaves-container::after {
   content: '';
   position: absolute;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234CAF50' width='18px' height='18px'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M17.65 6.35C16.19 4.89 14.27 4 12 4c-4.42 0-8 3.58-8 8s3.58 8 8 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z'/%3E%3C/svg%3E"); /*  leaf SVG */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234CAF50' width='18px' height='18px'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M17.65 6.35C16.19 4.89 14.27 4 12 4c-4.42 0-8 3.58-8 8s3.58 8 8 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z'/%3E%3C/svg%3E");
   background-size: contain;
-  width: 20px; /* Leaf size */
+  width: 20px;
   height: 20px;
-  animation-duration: 10s; /*  animation speed */
+  animation-duration: 10s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
     opacity: 0.5;
@@ -515,19 +601,18 @@ body.light-mode {
 .leaves-container::after {
   animation-name: leaf-fall2;
   top: -20px;
-  left: 80%; /* Different position */
-  animation-delay: 2s; /*  delay */
+  left: 80%;
+  animation-delay: 2s;
     width: 25px;
     height: 25px;
 }
 
-/*  leaf animations */
 @keyframes leaf-fall1 {
   0% {
     transform: translate(0, 0) rotate(0deg);
   }
   100% {
-    transform: translate(200px, 100vh) rotate(360deg); /* Move down and rotate */
+    transform: translate(200px, 100vh) rotate(360deg);
       opacity: 0;
   }
 }
@@ -538,12 +623,11 @@ body.light-mode {
         opacity: 0.7;
   }
   100% {
-    transform: translate(-200px, 100vh) rotate(-360deg); /* Move down and rotate in opposite direction */
+    transform: translate(-200px, 100vh) rotate(-360deg);
       opacity: 0;
   }
 }
 
-/*  more leaves (optional) */
 .leaves-container > div {
     position: absolute;
     width: 15px;
@@ -559,15 +643,75 @@ body.light-mode {
     transform: translate(0, 0) rotate(0deg);
   }
   100% {
-    transform: translate(100px, 100vh) rotate(180deg); /* Adjust as needed */
+    transform: translate(100px, 100vh) rotate(180deg);
       opacity: 0;
+  }
+}
+
+/* Geometric Background */
+.geometric-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+    pointer-events: none;
+}
+
+.geometric-bg::before,
+.geometric-bg::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  animation: geometric-move 20s linear infinite;
+}
+
+.geometric-bg::before {
+    border-width: 0 50px 80px 50px;
+    border-color: transparent transparent var(--geometric-bg-color-dark) transparent;
+    top: 20%;
+    left: 10%;
+     animation-delay: 0s;
+
+}
+
+.geometric-bg::after {
+    border-width: 80px 50px 0 50px;
+    border-color: var(--geometric-bg-color-dark) transparent transparent transparent;
+    top: 60%;
+    left: 70%;
+    animation-delay: 5s;
+}
+
+.light-mode .geometric-bg::before {
+    border-color: transparent transparent var(--geometric-bg-color-light) transparent;
+}
+.light-mode .geometric-bg::after{
+  border-color: var(--geometric-bg-color-light) transparent transparent transparent;
+}
+
+@keyframes geometric-move {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0.4;
+  }
+  50%{
+    transform: translate(50px, 20px) rotate(180deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(0, 0) rotate(360deg);
+    opacity: 0.4;
   }
 }
 
 /* Media Queries (Basic Responsiveness) */
 @media (max-width: 768px) {
   .tab-list {
-    flex-direction: column; /* Stack tabs vertically */
+    flex-direction: column;
     align-items: center;
   }
     .tab-button {
@@ -575,7 +719,7 @@ body.light-mode {
     }
 
   .link-cards, .project-cards {
-    grid-template-columns: 1fr; /* Single column on smaller screens */
+    grid-template-columns: 1fr;
   }
     .page-header, .tab-navigation, .main-content{
         padding-left: 1rem;
@@ -594,4 +738,24 @@ body.light-mode {
     .leaves-container::after{
         left: 90%;
     }
+    .page-footer{
+        flex-direction: column;
+    }
+    .footer-left, .footer-center, .footer-right {
+        text-align: center;
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .security-certs {
+      justify-content: center;
+    }
+     /* Adjustments for smaller screens */
+    .footer-left {
+        flex-direction: column; /* Stack IPv4/IPv6 and count vertically */
+        align-items: center;    /* Center items on small screens */
+    }
+     .footer-left p:first-child{
+        flex-direction: column;
+     }
 }
