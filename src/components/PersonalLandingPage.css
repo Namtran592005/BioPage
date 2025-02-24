@@ -1,6 +1,7 @@
 /* PersonalLandingPage.css */
 
-/* General Styles & Reset */
+/* ----- General Styles & Reset ----- */
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -10,14 +11,15 @@
 /* Include Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Roboto:wght@300;400;500&display=swap');
 
-
 body {
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-    transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
 }
-/* CSS Variables for Themes */
+
+/* ----- CSS Variables for Themes ----- */
+
 :root {
     /* Dark Mode Colors */
     --bg-color: #000000;
@@ -49,17 +51,11 @@ body {
     --contact-error-bg: rgba(255, 0, 0, 0.1);
     --contact-error-border: rgba(255, 0, 0, 0.3);
     --contact-error-color:#ff0000;
-
-     /* Geometric BG - Dark */
     --geometric-bg-color-dark: rgba(255, 255, 255, 0.03);
     --geometric-bg-border-dark: rgba(255, 255, 255, 0.1);
-
-    /* Footer Colors - Dark */
     --footer-text-color: #ccc;
-    /* --footer-number-color: #fff;  Removed this */
     --footer-bg: rgba(0, 0, 0, 0.5);
-    --footer-visitor-count-color: #4CAF50; /* Green color for visitor count */
-
+    --footer-visitor-count-color: #4CAF50;
 }
 
 body.light-mode {
@@ -86,35 +82,33 @@ body.light-mode {
     --contact-description-color: #444;
     --contact-textarea-bg: rgba(0, 0, 0, 0.05);
     --contact-textarea-border: rgba(0, 0, 0, 0.1);
-      --contact-textarea-placeholder: #555;
-      --contact-success-bg: rgba(0, 200, 0, 0.1);
-  --contact-success-border: rgba(0, 200, 0, 0.3);
+    --contact-textarea-placeholder: #555;
+    --contact-success-bg: rgba(0, 200, 0, 0.1);
+    --contact-success-border: rgba(0, 200, 0, 0.3);
     --contact-success-color: #006000;
-      --contact-error-bg: rgba(200, 0, 0, 0.1);
-  --contact-error-border: rgba(200, 0, 0, 0.3);
+    --contact-error-bg: rgba(200, 0, 0, 0.1);
+    --contact-error-border: rgba(200, 0, 0, 0.3);
     --contact-error-color: #600000;
-
-    /* Geometric BG - Light */
     --geometric-bg-color-light: rgba(0, 0, 0, 0.03);
     --geometric-bg-border-light: rgba(0, 0, 0, 0.1);
-
-     /* Footer Colors - Light */
     --footer-text-color: #555;
-    /*--footer-number-color: #333;  Removed this */
-     --footer-bg: rgba(255, 255, 255, 0.5);
-      --footer-visitor-count-color: #008000; /* Slightly darker green */
+    --footer-bg: rgba(255, 255, 255, 0.5);
+    --footer-visitor-count-color: #008000;
 }
+
+/* ----- Main Page Container ----- */
 
 .page-container {
   min-height: 100vh;
   background: linear-gradient(to bottom, var(--bg-color), var(--gradient-end));
   color: var(--text-color);
   padding-top: 2rem;
-    position: relative;
-    overflow: hidden;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Loading Screen */
+/* ----- Loading Screen ----- */
+
 .loading-screen {
   position: fixed;
   inset: 0;
@@ -137,7 +131,8 @@ body.light-mode {
   50% { opacity: 0.5; }
 }
 
-/* Header */
+/* ----- Header ----- */
+
 .page-header {
   text-align: center;
   padding: 3rem 1.5rem;
@@ -193,7 +188,8 @@ body.light-mode {
   color: var(--link-hover-color);
 }
 
-/* Tab Navigation */
+/* ----- Tab Navigation ----- */
+
 .tab-navigation {
   margin: 2rem auto;
   padding: 0 1.5rem;
@@ -226,7 +222,8 @@ body.light-mode {
     color:var(--tab-active-color);
 }
 
-/* Main Content */
+/* ----- Main Content ----- */
+
 .main-content {
   max-width: 48rem;
   margin: 0 auto;
@@ -234,7 +231,8 @@ body.light-mode {
   padding-bottom: 4rem;
 }
 
-/* Link Cards */
+/* ----- Link Cards ----- */
+
 .link-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -293,7 +291,9 @@ body.light-mode {
   margin-left: auto;
   color: var(--link-card-external-link-color);
 }
-/* About Section */
+
+/* ----- About Section ----- */
+
 .about-section {
     padding: 1rem;
     border-radius: 0.5rem;
@@ -317,7 +317,8 @@ body.light-mode {
     margin-bottom: 1rem;
 }
 
-/* Project Cards */
+/* ----- Project & Product Cards ----- */
+
 .project-cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -367,7 +368,8 @@ body.light-mode {
   color: #000;
   padding: 0.5rem 1rem;
   border-radius: 0.375rem;
-  text-decoration: none;  transition: background-color 0.2s;
+  text-decoration: none;
+  transition: background-color 0.2s;
 }
 
 .project-card-link:hover {
@@ -382,86 +384,89 @@ body.light-mode {
   font-size: 1.25rem;
   font-weight: 500;
   margin-bottom: 0.5rem;
-      white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .project-card-description {
   font-size: 1rem;
   color: var(--project-card-description-color);
-    overflow: hidden;
+  overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
 
-/* Footer Styles */
+/* ----- Footer Styles ----- */
+
 .page-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem 1rem; /* Reduced padding */
-    font-size: 0.75rem; /* Smaller font size */
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
     color: var(--footer-text-color);
     background-color: var(--footer-bg);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
 }
 
 .footer-left {
     text-align: left;
-    display: flex;      /* Make this a flex container */
-    flex-direction: column; /* Stack IPv4/IPv6 vertically */
-    align-items: flex-start; /* Align to the start (left) */
-    gap: 0.2rem;       /*  space between IPv4 and IPv6 */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
 }
 
-/* Style for the combined IPv4 and visitor count line */
-.footer-left p:first-child { /* Target the first <p> (IPv4 + count) */
-    display: flex;        /* Make it a flex container */
-    align-items: center;   /* Vertically center items */
-    gap: 1rem;           /*  space between IPv4 and count */
-    margin-bottom: 0;   /* Remove the bottom margin we had before */
+.footer-left p:first-child {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0;
 }
 
 .footer-left p {
-    margin-bottom: 0; /* Override the previous margin */
+    margin-bottom: 0;
     color: var(--footer-text-color);
-    line-height: 1.2; /*  line height for better readability */
+    line-height: 1.2;
 
 }
 
 .footer-left span {
-    color: var(--footer-text-color); /* Use a consistent color */
+    color: var(--footer-text-color);
     font-weight: 500;
 }
 
-/* Style specifically for the visitor count number */
 .visitor-count span {
-    color: var(--footer-visitor-count-color); /* Green color */
+    color: var(--footer-visitor-count-color);
 }
 
-
 .footer-center {
-    text-align: center;
-    flex-grow: 1;
-    padding: 0 0.5rem; /* Reduced padding */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
 }
 
 .footer-right {
     text-align: right;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
 .security-certs {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 0.5rem; /* Reduced gap */
+    gap: 0.5rem;
 }
 
 .cert-logo {
-    height: 20px; /* Smaller logos */
+    height: 20px;
     filter: grayscale(80%);
     opacity: 0.7;
     transition: filter 0.3s, opacity 0.3s;
@@ -472,7 +477,24 @@ body.light-mode {
     opacity: 1;
 }
 
-/* Contact Section Styles */
+.connection-check-button {
+    background-color: var(--tab-active-color);
+    color: var(--bg-color);
+    border: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.connection-check-button:hover {
+    background-color: var(--link-hover-color);
+}
+
+/* ----- Contact Section Styles ----- */
+
 .contact-section {
   padding: 1.5rem;
   border-radius: 0.5rem;
@@ -495,6 +517,7 @@ body.light-mode {
   flex-direction: column;
   gap: 1rem;
 }
+
 .contact-textarea {
   background-color: var(--contact-textarea-bg);
   border: 1px solid var(--contact-textarea-border);
@@ -506,6 +529,7 @@ body.light-mode {
   resize: vertical;
   min-height: 80px;
 }
+
 .contact-textarea::placeholder{
   color: var(--contact-textarea-placeholder);
 }
@@ -523,11 +547,11 @@ body.light-mode {
   align-items: center;
   justify-content: center;
 }
+
 .contact-submit-button:disabled{
   background-color: #999;
   cursor: not-allowed;
 }
-
 
 .contact-success-message, .contact-error-message {
   padding: 0.75rem;
@@ -548,7 +572,8 @@ body.light-mode {
   color: var(--contact-error-color);
 }
 
-/* Theme Toggle Button */
+/* ----- Theme Toggle Button ----- */
+
 .theme-toggle-button {
     position: absolute;
     top: 1rem;
@@ -566,7 +591,9 @@ body.light-mode {
 .theme-toggle-button:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
-/* Leaves Animation */
+
+/* ----- Leaves Animation ----- */
+
 .leaves-container {
   position: absolute;
   top: 0;
@@ -648,7 +675,8 @@ body.light-mode {
   }
 }
 
-/* Geometric Background */
+/* ----- Geometric Background ----- */
+
 .geometric-bg {
   position: absolute;
   top: 0;
@@ -708,54 +736,179 @@ body.light-mode {
   }
 }
 
-/* Media Queries (Basic Responsiveness) */
-@media (max-width: 768px) {
-  .tab-list {
-    flex-direction: column;
+/* ----- Modal Styles ----- */
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
     align-items: center;
-  }
-    .tab-button {
-        width:100%;
+    z-index: 2000;
+}
+
+.modal-content {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 80%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-close-button {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+.connection-info {
+    /* Styles for the connection details */
+}
+
+.security-rating.green {
+  color: green;
+}
+.security-rating.orange {
+  color: orange;
+}
+
+.security-rating.yellow {
+  color: yellow;
+}
+
+.security-rating.red {
+  color: red;
+}
+
+/* ----- Media Queries (Responsiveness) ----- */
+
+/* Tablet Styles (Portrait) */
+@media (max-width: 1024px) { /* Adjust breakpoint as needed */
+  .page-footer {
+        padding: 0.5rem; /*  Reduce padding */
+        font-size: 0.7rem; /*  Reduce font size */
     }
 
-  .link-cards, .project-cards {
-    grid-template-columns: 1fr;
-  }
-    .page-header, .tab-navigation, .main-content{
-        padding-left: 1rem;
-        padding-right: 1rem;
+    .footer-left {
+        gap: 0.1rem; /*  Reduce gap */
+    }
+  .footer-left p:first-child{
+        flex-direction: column; /* Stack on smaller tablets */
+        align-items: flex-start; /* Align to the start */
+        gap: 0.2rem;
+    }
+    .footer-right {
+        gap: 0.5rem; /* Reduce gap */
     }
 
-    .name {
-        font-size: 2rem;
+    .cert-logo {
+        height: 18px; /*  Reduce logo size */
     }
-    .bio{
-        font-size: 0.9rem;
+    .connection-check-button{
+        font-size: 0.65rem;
+        padding: 0.2rem 0.4rem;
     }
-    .leaves-container::before{
-        left: 5%;
+}
+
+/* Mobile Styles (Portrait) */
+@media (max-width: 767px) { /*  Adjust breakpoint as needed */
+    .page-footer {
+        flex-direction: column; /* Stack elements vertically */
+        align-items: stretch; /* Stretch items to full width */
+        padding: 0.75rem;    /*  padding */
     }
-    .leaves-container::after{
-        left: 90%;
+
+    .footer-left,
+    .footer-center,
+    .footer-right {
+        width: 100%; /* Take up full width */
+        text-align: center; /* Center text */
+        margin-bottom: 0.5rem; /* Add spacing between sections */
     }
-    .page-footer{
-        flex-direction: column;
+
+    .footer-left {
+      align-items: center; /* Center items horizontally */
     }
-    .footer-left, .footer-center, .footer-right {
-        text-align: center;
-        width: 100%;
-        margin-bottom: 0.5rem;
+
+    .footer-left p:first-child {
+      flex-direction: column; /* Stack IP and count vertically*/
+      align-items: center;    /* Center items */
+      gap: 0.2rem;
+    }
+
+    .footer-center {
+        position: static; /* Remove absolute positioning */
+        transform: none;   /* Remove transform */
+        order: 3;          /* Place copyright at the bottom */
+    }
+
+    .footer-right {
+        flex-direction: column; /* Stack button and certs */
+        gap: 0.5rem; /*  Reduce gap */
+        order: 2;      /* Place button and certs above copyright */
     }
 
     .security-certs {
-      justify-content: center;
+        justify-content: center; /* Center the certificates */
     }
-     /* Adjustments for smaller screens */
-    .footer-left {
-        flex-direction: column; /* Stack IPv4/IPv6 and count vertically */
-        align-items: center;    /* Center items on small screens */
+    .connection-check-button{
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
     }
-     .footer-left p:first-child{
-        flex-direction: column;
-     }
+     /* Other responsive adjustments from previous steps */
+    .tab-list {
+      flex-direction: column;
+      align-items: center;
+    }
+      .tab-button {
+          width:100%;
+      }
+
+    .link-cards, .project-cards {
+      grid-template-columns: 1fr;
+    }
+      .page-header, .tab-navigation, .main-content{
+          padding-left: 1rem;
+          padding-right: 1rem;
+      }
+
+      .name {
+          font-size: 2rem;
+      }
+      .bio{
+          font-size: 0.9rem;
+      }
+      .leaves-container::before{
+          left: 5%;
+      }
+      .leaves-container::after{
+          left: 90%;
+      }
+}
+/* Larger Mobile Landscape */
+@media (max-width: 820px) and (orientation: landscape){
+    .footer-left p:first-child{
+        flex-direction: row;
+        gap: 0.5rem;
+    }
+    .page-footer{
+        font-size: 0.6rem;
+    }
+    .connection-check-button{
+        font-size: 0.6rem;
+        padding: 0.2rem 0.4rem;
+    }
 }
