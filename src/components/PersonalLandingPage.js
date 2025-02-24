@@ -3,46 +3,63 @@ import React, { useState, useEffect } from 'react';
 import yourAvatar from './img/Avt/Avatar.png';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Github, Facebook, Instagram, Music, ShoppingBag,
-  Coffee, Globe, BookOpen, ExternalLink, MessageCircle, Heart, Loader2
+  Github, Facebook, Instagram, Music,  //ShoppingBag,  //Removed ShoppingBag
+  Coffee, Globe, BookOpen, ExternalLink, MessageCircle, Heart, Loader2, Sun, Moon, // Added Sun, Moon
 } from 'lucide-react';
 // Import icons from react-icons
 import { FaThreads } from 'react-icons/fa6'; // Import from the correct subpath (Font Awesome 6)
 import { SiZalo } from "react-icons/si";
-import './PersonalLandingPage.css'; // Import the CSS file
-import Product1 from "./img/Product/Product1.jpg"; // Import the image for the first product
+import './PersonalLandingPage.css';
+import Product1 from "./img/Product/Product1.jpg";
 
 const PersonalLandingPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('links');
-  const [message, setMessage] = useState('');       // Form input
-  const [isSubmitting, setIsSubmitting] = useState(false); // Submission status
-  const [submitSuccess, setSubmitSuccess] = useState(false); // Success message
-  const [submitError, setSubmitError] = useState('');    // Error message
-
+  const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+    const [isDarkMode, setIsDarkMode] = useState(true); //  Dark mode by default
 
   useEffect(() => {
     const loadingTimeout = setTimeout(() => setIsLoading(false), 2000);
-    return () => clearTimeout(loadingTimeout);
-  }, []);
+     // Apply the theme to the body element
+    document.body.classList.toggle('dark-mode', isDarkMode);
+    document.body.classList.toggle('light-mode', !isDarkMode);
+    return () => {
+        clearTimeout(loadingTimeout)
+        document.body.classList.remove('dark-mode', 'light-mode');
+    };
+  }, [isDarkMode]); // Dependency array includes isDarkMode
+
+    const toggleTheme = () => {
+        setIsDarkMode((prevMode) => !prevMode); // Toggle the mode
+    };
+
 
   const socialLinks = [
     { icon: <Facebook size={24} />, url: 'https://facebook.com/namtran5905', label: 'Facebook' },
     { icon: <Instagram size={24} />, url: 'https://instagram.com/namtran5905', label: 'Instagram' },
     { icon: <Github size={24} />, url: 'https://github.com/namtran592005', label: 'GitHub' },
-    { icon: <FaThreads size={24} />, url: 'https://threads.net/namtran5905', label: 'Threads' }, // Use FaThreads
-    { icon: <SiZalo size={24} />, url: 'https://zaloapp.com/qr/p/1re1dklrzok69?src=qr', label: 'Zalo' },      // Add Zalo
+    { icon: <FaThreads size={24} />, url: 'https://threads.net/namtran5905', label: 'Threads' },
+    { icon: <SiZalo size={24} />, url: 'https://zaloapp.com/qr/p/1re1dklrzok69?src=qr', label: 'Zalo' },
     { icon: <Heart size={24} />, url: 'https://locket.cam/Namtran5905', label: 'Locket' }
   ];
 
 
   const quickLinks = [
-    //{ icon: <Globe size={24} />, title: 'Website Chính Thức', description: 'Khám phá portfolio và blog của tôi', url: '#' },
+    { icon: <Globe size={24} />, title: 'Website Chính Thức', description: 'Khám phá portfolio và blog của tôi', url: '#' },
     //{ icon: <ShoppingBag size={24} />, title: 'Shop Online', description: 'Ghé thăm cửa hàng trực tuyến của tôi', url: '#' },
     { icon: <Music size={24} />, title: 'Playlist Yêu Thích', description: 'Những bài hát tôi thường nghe', url: '#' },
     { icon: <Coffee size={24} />, title: 'Mua cho tôi một ly cà phê', description: 'Nếu bạn thấy thích', url: 'https://me.momo.vn/lDIWuWsoCaCdUOI2f6UK' },
-    //{ icon: <BookOpen size={24} />, title: 'Blog mới nhất', description: 'Đọc những bài viết gần đây của tôi', url: '#' },
+    { icon: <BookOpen size={24} />, title: 'Blog mới nhất', description: 'Đọc những bài viết gần đây của tôi', url: '#' },
   ];
+
+    // Function to handle clicks on placeholder links
+    const handlePlaceholderLinkClick = (e) => {
+      e.preventDefault(); // Prevent the default link behavior
+      alert("Liên kết này chưa được thêm vào. Vui lòng thử lại sau!"); // Display the message
+    };
 
   const featuredProjects = [
     //{ title: 'Dự Án 1', description: 'Mô tả dự án 1', link: '#', image: 'https://placehold.co/600x400' },
@@ -55,7 +72,6 @@ const PersonalLandingPage = () => {
     //{ title: 'Sản Phẩm 2', description: 'Mô tả sản phẩm 2', link: '#', image: 'https://placehold.co/600x400' }
   ];
 
-  // NEW: handleSubmit function
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
@@ -63,7 +79,7 @@ const PersonalLandingPage = () => {
         setSubmitError(''); // Reset error message
 
         try {
-            const response = await fetch("https://formspree.io/f/xeoewngj", {  // Replace with your Formspree endpoint
+            const response = await fetch("https://formspree.io/f/xeoewngj", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -75,12 +91,10 @@ const PersonalLandingPage = () => {
                 setSubmitSuccess(true);
                 setMessage(''); // Clear the message input
             } else {
-                // Handle errors (e.g., 400, 500 status codes)
-                const errorData = await response.json(); // Try to get error details
-                setSubmitError(errorData.error || 'Đã xảy ra lỗi. Vui lòng thử lại sau.');  // Set a user-friendly error
+                const errorData = await response.json();
+                setSubmitError(errorData.error || 'Đã xảy ra lỗi. Vui lòng thử lại sau.');
             }
         } catch (error) {
-            // Handle network errors
             setSubmitError('Đã xảy ra lỗi kết nối. Vui lòng kiểm tra kết nối mạng của bạn.');
         } finally {
             setIsSubmitting(false);
@@ -97,8 +111,12 @@ const PersonalLandingPage = () => {
   }
 
   return (
-    <div className="page-container">
-      {/* ... (Header code - no changes here) ... */}
+    <div className={`page-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
+        {/* Theme Toggle Button */}
+        <button className="theme-toggle-button" onClick={toggleTheme} aria-label="Toggle Theme">
+          {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+        </button>
+
       <header className="page-header">
         <motion.div
           initial={{ opacity: 0, y: -50 }}
@@ -184,7 +202,6 @@ const PersonalLandingPage = () => {
               Dự Án
             </motion.button>*/}
           </li>
-            {/*NEW: Products Tab*/}
            <li>
                 <motion.button
                   onClick={() => setActiveTab('products')}
@@ -225,7 +242,8 @@ const PersonalLandingPage = () => {
                 <motion.a
                   key={index}
                   href={link.url}
-                  target="_blank"
+                    onClick={link.url === '#' ? handlePlaceholderLinkClick : undefined} //  Add this line
+                  target={link.url !== '#' ? "_blank" : undefined}  // Open in new tab if not placeholder
                   rel="noopener noreferrer"
                   className="link-card"
                   whileHover={{ scale: 1.02 }}
@@ -303,7 +321,6 @@ const PersonalLandingPage = () => {
               ))}
             </motion.div>
           )}
-          {/* NEW: Products Section */}
           {activeTab === 'products' && (
             <motion.div
               key="products"
@@ -311,12 +328,12 @@ const PersonalLandingPage = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.2 }}
-              className="project-cards"  /* Reuse project-cards class for similar styling */
+              className="project-cards"
             >
               {featuredProducts.map((product, index) => (
                 <motion.div
                   key={index}
-                  className="project-card" /* Reuse project-card class */
+                  className="project-card"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -346,7 +363,6 @@ const PersonalLandingPage = () => {
               ))}
             </motion.div>
           )}
-            {/* NEW: Contact Section */}
           {activeTab === 'contact' && (
             <motion.div
               key="contact"
@@ -378,18 +394,17 @@ const PersonalLandingPage = () => {
                   <motion.button
                     type="submit"
                     className="contact-submit-button"
-                    disabled={isSubmitting} // Disable when submitting
-                    whileHover={{ scale: 1.05 }} //  hover effect
-                    whileTap={{ scale: 0.95 }}   //  tap effect
+                    disabled={isSubmitting}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     >
                         {isSubmitting ? (
-                           <><Loader2 size={16} className="animate-spin mr-2" />ㅤĐang gửi...</>  // Show spinner and text
+                           <><Loader2 size={16} className="animate-spin mr-2" />ㅤĐang gửi...</>
                         ) : (
                             "Gửi Tin Nhắn"
                         )}
                   </motion.button>
 
-                   {/* Success message */}
                     <AnimatePresence>
                     {submitSuccess && (
                       <motion.div
@@ -404,7 +419,6 @@ const PersonalLandingPage = () => {
                     )}
                     </AnimatePresence>
 
-                   {/* Error message */}
                     {submitError && (
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
@@ -426,6 +440,7 @@ const PersonalLandingPage = () => {
       <footer className="page-footer">
         <p>© {new Date().getFullYear()} Trần Võ Hoàng Nam. All rights reserved.</p>
       </footer>
+        <div className="leaves-container"></div>
     </div>
   );
 };

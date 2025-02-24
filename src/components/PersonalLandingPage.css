@@ -7,31 +7,104 @@
   padding: 0;
 }
 
+/* Include Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Roboto:wght@300;400;500&display=swap');
+
+
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /*  more accessible and generally pleasant font */
+  font-family: 'Roboto', sans-serif; /* Use Roboto for the general UI */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.3s ease; /* Smooth transition for theme change */
+}
+/* CSS Variables for Themes */
+:root {
+    /* Dark Mode Colors */
+    --bg-color: #000000;
+    --gradient-end: #2d3436;
+    --text-color: #fff;
+    --username-color: #999;
+    --bio-color: #bbb;
+    --link-color: #fff;
+    --link-hover-color: #ddd;
+    --tab-color: #999;
+    --tab-active-color: #fff;
+    --tab-border-color: #444;
+    --link-card-bg: rgba(255, 255, 255, 0.05);
+    --link-card-icon-bg: #333;
+    --link-card-description-color: #bbb;
+    --link-card-external-link-color: #999;
+    --about-bg: rgba(255, 255, 255, 0.05);
+    --about-text-color: #ccc;
+    --project-card-bg: rgba(255, 255, 255, 0.05);
+    --project-card-description-color: #bbb;
+    --contact-bg: rgba(255, 255, 255, 0.05);
+    --contact-description-color: #ccc;
+    --contact-textarea-bg: rgba(255, 255, 255, 0.1);
+    --contact-textarea-border: rgba(255, 255, 255, 0.2);
+    --contact-textarea-placeholder: #999;
+      --contact-success-bg: rgba(0, 128, 0, 0.1);
+  --contact-success-border: rgba(0, 128, 0, 0.3);
+    --contact-success-color: #008000;
+      --contact-error-bg: rgba(255, 0, 0, 0.1);
+  --contact-error-border: rgba(255, 0, 0, 0.3);
+    --contact-error-color:#ff0000;
+}
+
+body.light-mode {
+    /* Light Mode Colors */
+    --bg-color: #f0f0f0; /*  light gray */
+    --gradient-end: #ffffff;
+    --text-color: #333;
+    --username-color: #666;
+    --bio-color: #555;
+    --link-color: #333;
+    --link-hover-color: #000;
+    --tab-color: #666;
+    --tab-active-color: #333;
+    --tab-border-color: #ccc;
+    --link-card-bg: rgba(0, 0, 0, 0.05);
+    --link-card-icon-bg: #ddd;
+    --link-card-description-color: #555;
+    --link-card-external-link-color: #666;
+    --about-bg: rgba(0, 0, 0, 0.05);
+    --about-text-color: #444;
+    --project-card-bg: rgba(0, 0, 0, 0.05);
+    --project-card-description-color: #555;
+    --contact-bg: rgba(0, 0, 0, 0.05);
+    --contact-description-color: #444;
+    --contact-textarea-bg: rgba(0, 0, 0, 0.05);
+    --contact-textarea-border: rgba(0, 0, 0, 0.1);
+      --contact-textarea-placeholder: #555;
+      --contact-success-bg: rgba(0, 200, 0, 0.1);
+  --contact-success-border: rgba(0, 200, 0, 0.3);
+    --contact-success-color: #006000;
+      --contact-error-bg: rgba(200, 0, 0, 0.1);
+  --contact-error-border: rgba(200, 0, 0, 0.3);
+    --contact-error-color: #600000;
 }
 
 .page-container {
   min-height: 100vh;
-  background: linear-gradient(to bottom, #000000, #2d3436); /*  dark gradient */
-  color: #fff;
+  background: linear-gradient(to bottom, var(--bg-color), var(--gradient-end));
+  color: var(--text-color);
   padding-top: 2rem; /* Add some top padding */
+    position: relative; /*  for leaves and theme toggle */
+    overflow: hidden; /*  for leaves going out of bounds */
 }
 
 /* Loading Screen */
 .loading-screen {
   position: fixed;
   inset: 0;
-  background-color: #000;
+  background-color: var(--bg-color); /* Use variable */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .loading-text {
-  color: #fff;
+  color: var(--text-color); /* Use variable */
   font-size: 4rem;
   font-weight: 300; /* Lighter font weight */
   letter-spacing: 0.1em; /*  spacing between letters */
@@ -61,17 +134,18 @@ body {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 4px solid #fff;
+  border: 4px solid var(--text-color); /* Use variable */
 }
 
 .name {
   font-size: 2.25rem; /* Slightly smaller name */
-  font-weight: 300; /* Lighter font */
+  font-family: 'Dancing Script', cursive; /* Use the stylish font */
+  font-weight: 700;
   margin-bottom: 0.5rem;
 }
 
 .username {
-  color: #999;
+  color: var(--username-color); /* Use variable */
   margin-bottom: 1rem;
 }
 
@@ -79,7 +153,7 @@ body {
   font-size: 1rem;
   max-width: 32rem; /* Limit bio width */
   margin: 0 auto 1.5rem;
-  color: #bbb; /* Slightly brighter bio text */
+  color: var(--bio-color); /* Use variable */
 }
 
 .social-links {
@@ -89,13 +163,13 @@ body {
 }
 
 .social-link {
-  color: #fff;
+  color: var(--link-color); /* Use variable */
   padding: 0.5rem;
   transition: color 0.2s;
 }
 
 .social-link:hover {
-  color: #ddd;
+  color: var(--link-hover-color); /* Use variable */
 }
 
 /* Tab Navigation */
@@ -109,7 +183,7 @@ body {
   display: flex;
   justify-content: center;
   list-style: none;
-  border-bottom: 1px solid #444; /*  border */
+  border-bottom: 1px solid var(--tab-border-color); /* Use variable */
 }
 
 .tab-button {
@@ -117,18 +191,18 @@ body {
   border: none;
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
-  color: #999;
+  color: var(--tab-color); /* Use variable */
   cursor: pointer;
   transition: color 0.2s, border-bottom-color 0.2s;
 }
 
 .tab-button.active {
-  color: #fff;
-  border-bottom: 2px solid #fff; /*  border for active tab */
+  color: var(--tab-active-color); /* Use variable */
+  border-bottom: 2px solid var(--tab-active-color); /* Use variable */
 }
 
 .tab-button:hover {
-    color:#fff;
+    color:var(--tab-active-color);
 }
 
 /* Main Content */
@@ -147,7 +221,7 @@ body {
 }
 
 .link-card {
-  background-color: rgba(255, 255, 255, 0.05); /*  translucent background */
+  background-color: var(--link-card-bg); /* Use variable */
   border-radius: 0.5rem;
   padding: 1rem;
   display: flex;
@@ -159,10 +233,11 @@ body {
 
 .link-card:hover {
   background-color: rgba(255, 255, 255, 0.1);
+    background-color:  rgba(0, 0, 0, 0.1)
 }
 
 .link-card-icon {
-  background-color: #333;
+  background-color: var(--link-card-icon-bg); /* Use variable */
   border-radius: 0.375rem;
   padding: 0.5rem;
   margin-right: 1rem;
@@ -187,7 +262,7 @@ body {
 
 .link-card-description {
   font-size: 0.875rem;
-  color: #bbb;
+  color: var(--link-card-description-color); /* Use variable */
     white-space: nowrap; /*  prevent description wrapping */
   overflow: hidden;
   text-overflow: ellipsis; /*  ellipsis for long descriptions */
@@ -195,13 +270,13 @@ body {
 
 .link-card-external-link {
   margin-left: auto; /* Push icon to the right */
-  color: #999;
+  color: var(--link-card-external-link-color); /* Use variable */
 }
 /* About Section */
 .about-section {
     padding: 1rem;
     border-radius: 0.5rem;
-    background-color: rgba(255, 255, 255, 0.05); /*  translucent background */
+    background-color: var(--about-bg); /* Use variable */
 
 }
 
@@ -217,7 +292,7 @@ body {
 }
 
 .about-text {
-    color: #ccc;
+    color: var(--about-text-color); /* Use variable */
     line-height: 1.6;
     margin-bottom: 1rem;
 }
@@ -232,7 +307,7 @@ body {
 .project-card {
   border-radius: 0.5rem;
   overflow: hidden; /*  image overflow */
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--project-card-bg); /* Use variable */
 
 }
 
@@ -295,21 +370,13 @@ body {
 
 .project-card-description {
   font-size: 1rem;
-  color: #bbb;
-  overflow: hidden;
+  color: var(--project-card-description-color); /* Use variable */
+    overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
-
-.line-clamp {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3; /* Number of lines you want to clamp */
-  overflow: hidden;
-  line-clamp: 3; /* Standard property */
-}
-
 /* Footer */
 .page-footer {
   text-align: center;
@@ -318,11 +385,11 @@ body {
   color: #777;
 }
 
-/* NEW: Contact Section Styles */
+/* NEW: Contact Section Styles/* Contact Section Styles (Continued) */
 .contact-section {
   padding: 1.5rem;
   border-radius: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: var(--contact-bg); /* Use variable */
 }
 
 .contact-title {
@@ -332,7 +399,7 @@ body {
 }
 
 .contact-description {
-  color: #ccc;
+  color: var(--contact-description-color); /* Use variable */
   margin-bottom: 1rem;
 }
 
@@ -342,9 +409,9 @@ body {
   gap: 1rem;
 }
 .contact-textarea {
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
+  background-color: var(--contact-textarea-bg); /* Use variable */
+  border: 1px solid var(--contact-textarea-border); /* Use variable */
+  color: var(--text-color);
   padding: 0.75rem;
   border-radius: 0.375rem;
   font-family: inherit;
@@ -353,7 +420,7 @@ body {
   min-height: 80px; /*  minimum height */
 }
 .contact-textarea::placeholder{
-  color: #999;
+  color: var(--contact-textarea-placeholder); /* Use variable */
 }
 
 .contact-submit-button {
@@ -383,16 +450,120 @@ body {
 }
 
 .contact-success-message {
-  background-color: rgba(0, 128, 0, 0.1); /*  green */
-  border: 1px solid rgba(0, 128, 0, 0.3);
-  color: #008000;
+    background-color: var(--contact-success-bg);
+    border: 1px solid var(--contact-success-border);
+    color: var(--contact-success-color);
 }
 
 .contact-error-message {
-  background-color: rgba(255, 0, 0, 0.1); /*  red */
-  border: 1px solid rgba(255, 0, 0, 0.3);
-  color: #ff0000;
+  background-color: var(--contact-error-bg);
+  border: 1px solid var(--contact-error-border);
+  color: var(--contact-error-color);
 }
+
+/* Theme Toggle Button */
+.theme-toggle-button {
+    position: absolute; /* Position in top-right corner */
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%; /* Make it circular */
+    transition: background-color 0.2s, color 0.2s;
+    z-index: 1000; /* Ensure it's above other elements */
+}
+
+.theme-toggle-button:hover {
+    background-color: rgba(255, 255, 255, 0.1); /*  subtle hover effect */
+}
+/* Leaves Animation */
+.leaves-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /*  clicks pass through */
+  z-index: -1; /* Behind the content */
+}
+
+/* Create individual leaves using pseudo-elements */
+.leaves-container::before,
+.leaves-container::after {
+  content: '';
+  position: absolute;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234CAF50' width='18px' height='18px'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M17.65 6.35C16.19 4.89 14.27 4 12 4c-4.42 0-8 3.58-8 8s3.58 8 8 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z'/%3E%3C/svg%3E"); /*  leaf SVG */
+  background-size: contain;
+  width: 20px; /* Leaf size */
+  height: 20px;
+  animation-duration: 10s; /*  animation speed */
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+    opacity: 0.5;
+}
+
+.leaves-container::before {
+    animation-name: leaf-fall1;
+    top: -20px;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.leaves-container::after {
+  animation-name: leaf-fall2;
+  top: -20px;
+  left: 80%; /* Different position */
+  animation-delay: 2s; /*  delay */
+    width: 25px;
+    height: 25px;
+}
+
+/*  leaf animations */
+@keyframes leaf-fall1 {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate(200px, 100vh) rotate(360deg); /* Move down and rotate */
+      opacity: 0;
+  }
+}
+
+@keyframes leaf-fall2 {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+        opacity: 0.7;
+  }
+  100% {
+    transform: translate(-200px, 100vh) rotate(-360deg); /* Move down and rotate in opposite direction */
+      opacity: 0;
+  }
+}
+
+/*  more leaves (optional) */
+.leaves-container > div {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%234CAF50' width='18px' height='18px'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M17.65 6.35C16.19 4.89 14.27 4 12 4c-4.42 0-8 3.58-8 8s3.58 8 8 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z'/%3E%3C/svg%3E");
+    background-size: contain;
+    animation: leaf-fall-generic 12s linear infinite;
+    opacity: 0.6;
+
+}
+@keyframes leaf-fall-generic {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate(100px, 100vh) rotate(180deg); /* Adjust as needed */
+      opacity: 0;
+  }
+}
+
 /* Media Queries (Basic Responsiveness) */
 @media (max-width: 768px) {
   .tab-list {
@@ -416,5 +587,11 @@ body {
     }
     .bio{
         font-size: 0.9rem;
+    }
+    .leaves-container::before{
+        left: 5%;
+    }
+    .leaves-container::after{
+        left: 90%;
     }
 }
