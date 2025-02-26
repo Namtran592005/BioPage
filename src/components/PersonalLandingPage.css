@@ -15,10 +15,9 @@ body {
   font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: color 0.3s ease;
+  transition: background-color 0.3s ease;
   overflow-x: hidden;
-  /* Loại bỏ cursor: none; */
-  cursor: pointer; /* Đặt lại con trỏ mặc định */
+  cursor: pointer;
 }
 
 /* ----- CSS Variables for Themes ----- */
@@ -84,7 +83,8 @@ body {
     --contact-textarea-bg-light: rgba(0, 0, 0, 0.05);
     --contact-textarea-border-light: rgba(0, 0, 0, 0.1);
     --contact-textarea-placeholder-light: #555;
-    --contact-success-bg-light: rgba(0, 200, 0, 0.1); --contact-success-border-light: rgba(0, 200, 0, 0.3);
+    --contact-success-bg-light: rgba(0, 200, 0, 0.1);
+    --contact-success-border-light: rgba(0, 200, 0, 0.3);
     --contact-success-color-light: #006000;
     --contact-error-bg-light: rgba(200, 0, 0, 0.1);
     --contact-error-border-light: rgba(200, 0, 0, 0.3);
@@ -96,6 +96,16 @@ body {
    /* Light Mode - Geometric BG */
    --shape-color-light: rgba(0, 0, 0, 0.15); /* Màu hình, trong suốt hơn */
   --shape-border-color-light: transparent; /* Không viền */
+     /* Modal - Fluent/Material */
+    --modal-bg-color: var(--bg-color);
+    --modal-text-color: var(--text-color);
+    --modal-border-radius: 12px;
+    --modal-box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+    --modal-grid-gap: 0.75rem;  /* Khoảng cách */
+    --modal-data-bg: rgba(255, 255, 255, 0.06); /* Nền trong mờ */
+    --modal-data-border: 1px solid rgba(255, 255, 255, 0.1); /* Viền */
+    --modal-label-color: var(--tab-color);
+
 }
 
 /* Chuyển đổi theme */
@@ -133,6 +143,13 @@ body.light-mode{
     --footer-visitor-count-color: var(--footer-visitor-count-color-light);
     --shape-color: var(--shape-color-light);
     --shape-border-color: var(--shape-border-color-light);
+
+      /* Modal - Light Mode */
+    --modal-bg-color: var(--bg-color-light);
+    --modal-text-color: var(--text-color-light);
+    --modal-data-bg: rgba(0, 0, 0, 0.04); /* Nền trong mờ - light */
+    --modal-data-border: 1px solid rgba(0, 0, 0, 0.1); /* Viền - light*/
+     --modal-label-color: var(--tab-color-light);
 }
 
 /* ----- Main Page Container ----- */
@@ -531,7 +548,7 @@ body.light-mode{
   padding: 0.5rem 1rem;
   border-radius: 0.375rem;
   text-decoration: none;
-  transition: color 0.2s;
+  transition: background-color 0.2s;
 }
 
 .project-card-link:hover {
@@ -771,18 +788,21 @@ body.light-mode{
 }
 
 .modal-content {
-     background-color: var(--bg-color);
-    color: var(--text-color);
-    /* padding: 2rem; */
-    border-radius: 0.5rem;
-     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-width: 450px; /* Giới hạn độ rộng */
+    background-color: var(--modal-bg-color); /* Sử dụng biến */
+    color: var(--modal-text-color);
+    border-radius: var(--modal-border-radius);
+    box-shadow: var(--modal-box-shadow);
+    max-width: 450px;
     max-height: 80vh;
      width: 90%;
-    overflow-y: auto;
     position: relative;
-    /* display: flex;
-    flex-direction: column; */
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.modal-content::-webkit-scrollbar {
+    display: none;
 }
 
 .modal-close-button {
@@ -792,21 +812,28 @@ body.light-mode{
     background: none;
     border: none;
     font-size: 1.5rem;
-    color: var(--text-color);
+    color: var(--modal-text-color);
     cursor: pointer;
+     transition: transform 0.2s;
 }
+.modal-close-button:hover {
+    transform: scale(1.1); /* Hiệu ứng phóng to */
+}
+
 /*Modal Title*/
-.modal-title {
+ .modal-title {
     font-size: 1.75rem;
-    font-weight: 500;
+    font-weight: 600; /* Chữ đậm hơn */
     margin-bottom: 1rem;
     padding: 1.5rem;
-    padding-bottom: 0;
+     padding-bottom: 1rem; /* Giảm padding bottom */
     border-bottom: 1px solid var(--tab-border-color);
+    letter-spacing: 0.5px; /* Giãn chữ */
+    text-transform: uppercase; /* Chuyển thành chữ hoa */
 }
 
 .connection-info {
-  padding: 1.5rem;
+  padding: 0.5rem 1.5rem 1.5rem 1.5rem; /* Giảm padding top */
 }
 
 /* Thêm style cho các trạng thái loading và error */
@@ -827,31 +854,41 @@ body.light-mode{
 /* Sử dụng CSS Grid cho modal-grid */
 .modal-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 cột */
-  gap: 1rem; /* Khoảng cách giữa các ô */
-  padding: 1rem;
+  grid-template-columns: 1fr; /* Chỉ 1 cột */
+  gap: var(--modal-grid-gap);
+    padding: 0 1rem; /* bỏ padding top */
+}
+ .modal-grid .modal-data-group:nth-child(odd){
+     /* background-color:  var(--modal-data-bg); */ /* bỏ background xen kẽ */
 }
 
 .modal-data-group {
-    display: flex;
-    flex-direction: column; /* Label và value xếp chồng lên nhau */
-    margin-bottom: 0; /* Loại bỏ margin-bottom mặc định */
+  color: var(--modal-text-color);
+  /* overflow: hidden;  // Bỏ overflow hidden */
+  /* text-overflow: ellipsis; // Bỏ text-overflow */
+  /* white-space: nowrap;  // Bỏ nowrap */
+  word-break: break-word; /* Cho phép ngắt từ, xuống dòng */
+  font-size: 0.9rem; /* Thu nhỏ font-size của phần value */
+  line-height: 1.4; /* Thêm line-height để dễ đọc hơn khi xuống dòng */
+}
+ /* Hover effect cho data group */
+.modal-data-group:hover {
+    background-color: var(--modal-data-bg);
 }
 
 .modal-data-group label {
     font-weight: 500;
-    margin-bottom: 0.25rem; /* Khoảng cách giữa label và value */
-    color: var(--tab-color);
+    margin-bottom: 0.3rem; /* Tăng margin bottom */
+    color: var(--modal-label-color);
 }
 
 .modal-data-group span {
-    color: var(--text-color);
-    overflow: hidden;
+    color: var(--modal-text-color);
+     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+     font-size: 1.05rem; /* Tăng cỡ chữ */
 }
-
-
 
 .security-rating.green {
   color: green;
@@ -912,79 +949,79 @@ body.light-mode{
         width: 100%; /* Take up full width */
         text-align: center; /* Center text */
         margin-bottom: 0.5rem; /* Add spacing between sections */
-    }
-
-    .footer-left {
-      align-items: center; /* Center items horizontally */
-    }
-
-    .footer-left p:first-child {
-      flex-direction: column; /* Stack IP and count vertically*/
-      align-items: center;    /* Center items */
-      gap: 0.2rem;
-    }
-
-    .footer-center {
-        position: static; /* Remove absolute positioning */
-        transform: none;   /* Remove transform */
-        order: 3;          /* Place copyright at the bottom */
-    }
-
-    .footer-right {
-        flex-direction: column; /* Stack button and certs */
-        gap: 0.5rem; /*  Reduce gap */
-        order: 2;      /* Place button and certs above copyright */
-    }
-
-    .security-certs {
-        justify-content: center; /* Center the certificates */
-    }
-    .connection-check-button{
-        font-size: 0.7rem;
-        padding: 0.3rem 0.6rem;
-    }
-     /* Other responsive adjustments from previous steps */
-    .tab-list {
-      flex-direction: column;
-      align-items: center;
-    }
-      .tab-button {
-          width:100%;
       }
 
-    .link-cards, .project-cards {
-      grid-template-columns: 1fr;
-    }
-      .page-header, .tab-navigation, .main-content{
-          padding-left: 1rem;
-          padding-right: 1rem;
+      .footer-left {
+        align-items: center; /* Center items horizontally */
       }
-
-      .name {
-          font-size: 2rem;
+  
+      .footer-left p:first-child {
+        flex-direction: column; /* Stack IP and count vertically*/
+        align-items: center;    /* Center items */
+        gap: 0.2rem;
       }
-      .bio{
-          font-size: 0.9rem;
+  
+      .footer-center {
+          position: static; /* Remove absolute positioning */
+          transform: none;   /* Remove transform */
+          order: 3;          /* Place copyright at the bottom */
       }
-      /* Modal nhỏ hơn trên mobile */
-      .modal-content{
-          max-width: 95%;
+  
+      .footer-right {
+          flex-direction: column; /* Stack button and certs */
+          gap: 0.5rem; /*  Reduce gap */
+          order: 2;      /* Place button and certs above copyright */
       }
-       .modal-grid{
-           grid-template-columns: 1fr; /* 1 cột trên mobile */
-       }
-}
-/* Larger Mobile Landscape */
-@media (max-width: 820px) and (orientation: landscape){
-    .footer-left p:first-child{
-        flex-direction: row;
-        gap: 0.5rem;
-    }
-    .footer-footer{
-        font-size: 0.6rem;
-    }
-    .connection-check-button{
-        font-size: 0.6rem;
-        padding: 0.2rem 0.4rem;
-    }
-}
+  
+      .security-certs {
+          justify-content: center; /* Center the certificates */
+      }
+      .connection-check-button{
+          font-size: 0.7rem;
+          padding: 0.3rem 0.6rem;
+      }
+       /* Other responsive adjustments from previous steps */
+      .tab-list {
+        flex-direction: column;
+        align-items: center;
+      }
+        .tab-button {
+            width:100%;
+        }
+  
+      .link-cards, .project-cards {
+        grid-template-columns: 1fr;
+      }
+        .page-header, .tab-navigation, .main-content{
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+  
+        .name {
+            font-size: 2rem;
+        }
+        .bio{
+            font-size: 0.9rem;
+        }
+        /* Modal nhỏ hơn trên mobile */
+        .modal-content{
+            max-width: 95%;
+        }
+         .modal-grid{
+             grid-template-columns: 1fr; /* 1 cột trên mobile */
+         }
+  }
+  /* Larger Mobile Landscape */
+  @media (max-width: 820px) and (orientation: landscape){
+      .footer-left p:first-child{
+          flex-direction: row;
+          gap: 0.5rem;
+      }
+      .footer-footer{
+          font-size: 0.6rem;
+      }
+      .connection-check-button{
+          font-size: 0.6rem;
+          padding: 0.2rem 0.4rem;
+      }
+  }
