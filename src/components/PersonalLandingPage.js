@@ -219,7 +219,7 @@ const PersonalLandingPage = () => {
 
     const featuredProducts = [
         { title: 'Vega', description: 'Chatbot AI dựa trên API gemini', link: 'https://namtran592005.github.io/VEGA-AI/', image: Product1 },
-        { title: 'Utility Tools', description: 'Website cung cấp Tool tiện ích', link: 'https://namtran592005.github.io/utility-tools-website/', image: Product2 }
+        { title: 'Utility Tools', description: 'Website cung cấp Tool tiện ích', link: 'https://namtran592005.github.io/Utility-Tools/', image: Product2 }
     ];
 
      const handleSubmit = async (e) => {
