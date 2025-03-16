@@ -437,10 +437,7 @@ const PersonalLandingPage = () => {
               <div className="about-content">
                 <h2 className="about-title">Về mình</h2>
                 <p className="about-text" style={{ textAlign: 'left' }}>
-                  <p className="about-text">Xin chào! Mình là Nam Trần – một người bình thường nhưng không thích sự nhàm chán. Mình làm việc bán thời gian và thích tận dụng những khoảng rảnh để mày mò, tạo ra những thứ vui vui, có khi thực dụng, có khi chỉ để thỏa mãn sự tò mò.</p>
-                  <p className="about-text">Mình khá thích công nghệ và thiết kế, nhưng không quá đắm chìm vào một mảng cụ thể nào. Mình thích thử nghiệm nhiều thứ, từ những món đồ nhỏ xinh đến những ý tưởng hơi "điên rồ" một chút, chỉ để xem giới hạn sáng tạo của mình đến đâu.</p>
-                  <p className="about-text">Ngoài những thứ trên, mình cũng thích đi đây đi đó, khám phá những điều mới mẻ. Một buổi tối chill với một bộ phim hay, một ly cà phê hoặc một cuộc trò chuyện thú vị cũng đủ làm ngày của mình trọn vẹn.</p>
-                  <p className="about-text">Mình không có triết lý sống hoành tráng, chỉ đơn giản là: Làm những gì thấy vui, học những gì thấy cần, và tận hưởng từng khoảnh khắc nhỏ trong cuộc sống.</p>
+                  <p className="about-text">🌟 Xin chào! Mình là Nam Trần – ghét sự nhàm chán 😆. Làm bán thời gian, thích sáng tạo & khám phá 🎨💡. Đam mê công nghệ, thiết kế, thử nghiệm đủ thứ hay ho 🎭🔧. Yêu du lịch, chill với phim, cà phê & trò chuyện ☕🎬💬. Sống đơn giản: Làm điều vui, học điều cần, tận hưởng từng khoảnh khắc ✨💖.</p>
                 </p>
               </div>
             </motion.div>
