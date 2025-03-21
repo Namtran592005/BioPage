@@ -3,7 +3,7 @@ import yourAvatar from './img/Avt/Avatar.png';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Github, Facebook, Instagram, Music,
-  Coffee, Globe, BookOpen, ExternalLink, MessageCircle, Heart, Loader2, Sun, Moon,
+  Coffee, Globe, BookOpen, ExternalLink, MessageCircle, Heart, Loader2, Sun, Moon, Phone, Mail, MapPin, User,
 } from 'lucide-react';
 import { FaThreads } from 'react-icons/fa6';
 import { SiZalo } from "react-icons/si";
@@ -28,75 +28,74 @@ const PersonalLandingPage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [connectionData, setConnectionData] = useState(null);
     const [connectionStatus, setConnectionStatus] = useState('loading');
-      const [shapes, setShapes] = useState([]);
+    const [shapes, setShapes] = useState([]);
 
-     useEffect(() => {
-    const loadingTimeout = setTimeout(() => setIsLoading(false), 3000);
+    useEffect(() => {
+        const loadingTimeout = setTimeout(() => setIsLoading(false), 3000);
 
-    document.body.classList.toggle('dark-mode', isDarkMode);
-    document.body.classList.toggle('light-mode', !isDarkMode);
+        document.body.classList.toggle('dark-mode', isDarkMode);
+        document.body.classList.toggle('light-mode', !isDarkMode);
 
-    const incrementVisitorCount = () => {
-      const storedCount = localStorage.getItem('visitorCount');
-      let newCount;
-      if (storedCount) {
-        newCount = parseInt(storedCount, 10) + 1;
-      } else {
-        newCount = 1;
-      }
-      setVisitorCount(newCount);
-      localStorage.setItem('visitorCount', newCount.toString());
-    };
+        const incrementVisitorCount = () => {
+            const storedCount = localStorage.getItem('visitorCount');
+            let newCount;
+            if (storedCount) {
+                newCount = parseInt(storedCount, 10) + 1;
+            } else {
+                newCount = 1;
+            }
+            setVisitorCount(newCount);
+            localStorage.setItem('visitorCount', newCount.toString());
+        };
 
-    incrementVisitorCount();
+        incrementVisitorCount();
 
         // Tạo các hình ngẫu nhiên
         const generateShapes = () => {
-            const numShapes = 20; // Tăng số lượng hình
-            const newShapes = [];
-            const animations = ['pulse-and-move', 'rotate-and-scale', 'move-up-down', 'rotate-and-move'];
-
-            for (let i = 0; i < numShapes; i++) {
-                const size = Math.random() * 80 + 20; // Kích thước (20-100px)
-                const top = Math.random() * 150 - 25;  // Vị trí ngẫu nhiên (-25% đến 125%)
-                const left = Math.random() * 150 - 25; // Vị trí ngẫu nhiên (-25% đến 125%)
-                const animation = animations[Math.floor(Math.random() * animations.length)];
-                const delay = Math.random() * 5;
-
-                // Chọn ngẫu nhiên loại hình
-                let shapeType;
-                const shapeRandom = Math.random();
-                if (shapeRandom < 0.33) {
-                    shapeType = 'circle';
-                } else if (shapeRandom < 0.66) {
-                    shapeType = 'rectangle';
-                } else {
-                    shapeType = 'triangle';
-                }
-
-
-                newShapes.push({
-                    id: i,
-                    size,
-                    top,
-                    left,
-                    animation,
-                    delay,
-                    shapeType, // Thêm loại hình dạng
-                });
+          const numShapes = 30;
+           const newShapes = [];
+           const animations = ['pulse-and-move', 'rotate-and-scale', 'move-up-down', 'rotate-and-move'];
+         for (let i = 0; i < numShapes; i++) {
+           const size = Math.random() * 80 + 20;
+            const top = Math.random() * 100;       // Sửa phạm vi
+            const left = Math.random() * 100;      // Sửa phạm vi
+             const animation = animations[Math.floor(Math.random() * animations.length)];
+              const delay = Math.random() * 5;
+            // Chọn ngẫu nhiên loại hình
+               let shapeType;
+               const shapeRandom = Math.random();
+               if (shapeRandom < 0.33) {
+                   shapeType = 'circle';
+               } else if (shapeRandom < 0.66) {
+                   shapeType = 'rectangle';
+               } else {
+                   shapeType = 'triangle';
+               }
+              newShapes.push({
+                id: i,
+                 size,
+                top,        // Đơn vị %
+               left,       // Đơn vị %
+                animation,
+                 delay,
+                  shapeType // Thêm loại hình
+             });
             }
-            setShapes(newShapes);
-        };
-        generateShapes();
-    return () => {
-      clearTimeout(loadingTimeout);
-      document.body.classList.remove('dark-mode', 'light-mode');
-    };
-  }, [isDarkMode]);
+
+       setShapes(newShapes);
+         };
+
+         generateShapes();
+          return () => {
+             clearTimeout(loadingTimeout);
+           document.body.classList.remove('dark-mode', 'light-mode');
+
+           };
+         }, [isDarkMode]);
 
     const toggleTheme = () => {
-    setIsDarkMode((prevMode) => !prevMode);
-  };
+        setIsDarkMode((prevMode) => !prevMode);
+    };
 
 
     const handleConnectionCheckClick = async () => {
@@ -104,92 +103,92 @@ const PersonalLandingPage = () => {
         setConnectionStatus('loading');
         setConnectionData(null);
 
-      try {
-          // 1. Thông tin IP, kết nối cơ bản
-          const ipInfoResponse = await fetch(`https://ipinfo.io/json?token=b8170cac7bafc5`);
-          const ipInfoData = await ipInfoResponse.json();
+        try {
+            // 1. Thông tin IP, kết nối cơ bản
+            const ipInfoResponse = await fetch(`https://ipinfo.io/json?token=b8170cac7bafc5`);
+            const ipInfoData = await ipInfoResponse.json();
 
-          // Chỉ lấy IPv4
-          const responseV4 = await fetch('https://api.ipify.org?format=json');
-          const dataV4 = await responseV4.json();
-          const ipv4 = dataV4.ip;
+            // Chỉ lấy IPv4
+            const responseV4 = await fetch('https://api.ipify.org?format=json');
+            const dataV4 = await responseV4.json();
+            const ipv4 = dataV4.ip;
 
 
-          const pingStartTime = Date.now();
-          const pingResponse = await fetch(window.location.href, { mode: 'no-cors', cache: 'no-store' });
-          const pingEndTime = Date.now();
-          const ping = pingEndTime - pingStartTime;
+            const pingStartTime = Date.now();
+            const pingResponse = await fetch(window.location.href, { mode: 'no-cors', cache: 'no-store' });
+            const pingEndTime = Date.now();
+            const ping = pingEndTime - pingStartTime;
 
-          const dnsResponse = await fetch('https://cloudflare-dns.com/dns-query?name=example.com&type=A', {
-            headers: { 'accept': 'application/dns-json' }
-          });
-          const dnsData = await dnsResponse.json();
-          const dnsLookupTime = dnsData.Answer ? dnsData.Answer[0].TTL : null;
-
-          const asName = ipInfoData.org ? ipInfoData.org.split(' ')[1] : 'Unknown';
-          const asNumber = ipInfoData.org ? ipInfoData.org.split(' ')[0] : 'Unknown';
-          const supportsDoH = 'dns' in navigator;
-          const usingTLS = window.location.protocol === 'https:';
-
-          // 2. Lấy vị trí (nếu được)
-            const getGeoLocation = () => {
-            return new Promise((resolve, reject) => {
-              if (!navigator.geolocation) {
-                reject('Geolocation is not supported by your browser');
-              } else {
-                navigator.geolocation.getCurrentPosition(resolve, reject);
-              }
+            const dnsResponse = await fetch('https://cloudflare-dns.com/dns-query?name=example.com&type=A', {
+                headers: { 'accept': 'application/dns-json' }
             });
-          };
-          let latitude = null;
-          let longitude = null;
+            const dnsData = await dnsResponse.json();
+            const dnsLookupTime = dnsData.Answer ? dnsData.Answer[0].TTL : null;
 
-          try {
-              const position = await getGeoLocation();
-              latitude = position.coords.latitude;
-              longitude = position.coords.longitude;
-          }
-          catch (geoError) {
-            console.warn("Geolocation error:", geoError)
-          }
+            const asName = ipInfoData.org ? ipInfoData.org.split(' ')[1] : 'Unknown';
+            const asNumber = ipInfoData.org ? ipInfoData.org.split(' ')[0] : 'Unknown';
+            const supportsDoH = 'dns' in navigator;
+            const usingTLS = window.location.protocol === 'https:';
 
-          // 3. Tổng hợp data (bỏ ipv6 và dnsServers)
-          setConnectionData({
-            ip: ipv4, // Chỉ có IPv4
-            // Bỏ ipv6
-            ping,
-            dnsLookupTime,
-            // Bỏ dnsServers
-            asName,
-            asNumber,
-            supportsDoH,
-            usingTLS,
-            city: ipInfoData.city || 'Unknown',
-            region: ipInfoData.region || 'Unknown',
-            country: ipInfoData.country || 'Unknown',
-            loc: ipInfoData.loc || 'Unknown',
-            latitude,
-            longitude,
-          });
+            // 2. Lấy vị trí (nếu được)
+            const getGeoLocation = () => {
+                return new Promise((resolve, reject) => {
+                    if (!navigator.geolocation) {
+                        reject('Geolocation is not supported by your browser');
+                    } else {
+                        navigator.geolocation.getCurrentPosition(resolve, reject);
+                    }
+                });
+            };
+            let latitude = null;
+            let longitude = null;
 
-          let securityRating = 'green';
-          if (!usingTLS) {
-            securityRating = 'red';
-          } else if (ping > 200) {
-            securityRating = 'yellow';
-          }
-          setConnectionStatus('success');
-          setConnectionData((prevData) => ({...prevData, securityRating}));
+            try {
+                const position = await getGeoLocation();
+                latitude = position.coords.latitude;
+                longitude = position.coords.longitude;
+            }
+            catch (geoError) {
+                console.warn("Geolocation error:", geoError)
+            }
+
+            // 3. Tổng hợp data (bỏ ipv6 và dnsServers)
+            setConnectionData({
+                ip: ipv4, // Chỉ có IPv4
+                // Bỏ ipv6
+                ping,
+                dnsLookupTime,
+                // Bỏ dnsServers
+                asName,
+                asNumber,
+                supportsDoH,
+                usingTLS,
+                city: ipInfoData.city || 'Unknown',
+                region: ipInfoData.region || 'Unknown',
+                country: ipInfoData.country || 'Unknown',
+                loc: ipInfoData.loc || 'Unknown',
+                latitude,
+                longitude,
+            });
+
+            let securityRating = 'green';
+            if (!usingTLS) {
+                securityRating = 'red';
+            } else if (ping > 200) {
+                securityRating = 'yellow';
+            }
+            setConnectionStatus('success');
+            setConnectionData((prevData) => ({ ...prevData, securityRating }));
 
 
         } catch (error) {
-          console.error("Error fetching connection data:", error);
-          setConnectionStatus('error');
+            console.error("Error fetching connection data:", error);
+            setConnectionStatus('error');
         }
     };
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
     const socialLinks = [
         { icon: <Facebook size={24} />, url: 'https://facebook.com/namtran5905', label: 'Facebook' },
@@ -208,8 +207,8 @@ const PersonalLandingPage = () => {
     ];
 
     const handlePlaceholderLinkClick = (e) => {
-    e.preventDefault();
-    alert("Liên kết này chưa được thêm vào. Vui lòng thử lại sau!");
+        e.preventDefault();
+        alert("Liên kết này chưa được thêm vào. Vui lòng thử lại sau!");
     };
 
     const featuredProjects = [
@@ -222,75 +221,75 @@ const PersonalLandingPage = () => {
         { title: 'Utility Tools', description: 'Website cung cấp Tool tiện ích', link: 'https://namtran592005.github.io/Utility-Tools/', image: Product2 }
     ];
 
-     const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitSuccess(false);
-    setSubmitError('');
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        setSubmitSuccess(false);
+        setSubmitError('');
 
-    try {
-      const response = await fetch("https://formspree.io/f/xeoewngj", {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message }),
-      });
+        try {
+            const response = await fetch("https://formspree.io/f/xeoewngj", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message }),
+            });
 
-      if (response.ok) {
-        setSubmitSuccess(true);
-        setMessage('');
-      } else {
-        const errorData = await response.json();
-        setSubmitError(errorData.error || 'Đã xảy ra lỗi. Vui lòng thử lại sau.');
-      }
-    } catch (error) {
-      setSubmitError('Đã xảy ra lỗi kết nối. Vui lòng kiểm tra kết nối mạng của bạn.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+            if (response.ok) {
+                setSubmitSuccess(true);
+                setMessage('');
+            } else {
+                const errorData = await response.json();
+                setSubmitError(errorData.error || 'Đã xảy ra lỗi. Vui lòng thử lại sau.');
+            }
+        } catch (error) {
+            setSubmitError('Đã xảy ra lỗi kết nối. Vui lòng kiểm tra kết nối mạng của bạn.');
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
 
-  return (
-    <div className={`page-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
-       {/* Geometric Background */}
-       <div className="geometric-background">
-            <div className="shapes">
-                {shapes.map((shape) => (
-                    <div
-                        key={shape.id}
-                        className={shape.shapeType}  // Áp dụng class cho hình dạng
-                        style={{
-                            width: `${shape.size}px`,
-                            height: `${shape.size}px`,
-                            top: `${shape.top}vh`,   // Sử dụng vh
-                            left: `${shape.left}vw`, // Sử dụng vw
-                            animation: `${shape.animation} ${Math.random() * 5 + 5}s ease-in-out infinite`, // Thời gian ngẫu nhiên
-                            animationDelay: `${shape.delay}s`,
-                        }}
-                    ></div>
-                ))}
+    return (
+        <div className={`page-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
+            {/* Geometric Background */}
+            <div className="geometric-background">
+                <div className="shapes">
+                    {shapes.map((shape) => (
+                        <div
+                            key={shape.id}
+                            className={shape.shapeType}  // Áp dụng class cho hình dạng
+                            style={{
+                                width: `${shape.size}px`,
+                                height: `${shape.size}px`,
+                                top: `${shape.top}vh`,   // Sử dụng vh
+                                left: `${shape.left}vw`, // Sử dụng vw
+                                animation: `${shape.animation} ${Math.random() * 5 + 5}s ease-in-out infinite`, // Thời gian ngẫu nhiên
+                                animationDelay: `${shape.delay}s`,
+                            }}
+                        ></div>
+                    ))}
+                </div>
             </div>
-          </div>
 
-      {/* Loading Screen */}
-      {isLoading && (
-        <div className="loading-screen">
-          <div className="loading-content">
-            <div className="loading-circle">
-              <div></div>
-            </div>
-            <div className="loading-text">Đang tải...</div>
-          </div>
-        </div>
-      )}
+            {/* Loading Screen */}
+            {isLoading && (
+                <div className="loading-screen">
+                    <div className="loading-content">
+                        <div className="loading-circle">
+                            <div></div>
+                        </div>
+                        <div className="loading-text">Đang tải...</div>
+                    </div>
+                </div>
+            )}
 
-      <button className="theme-toggle-button" onClick={toggleTheme} aria-label="Toggle Theme">
-        {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
-      </button>
+            <button className="theme-toggle-button" onClick={toggleTheme} aria-label="Toggle Theme">
+                {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
 
-      <header className="page-header">
+            <header className="page-header">
                 <motion.div
                     initial={{ opacity: 0, y: -50 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -392,201 +391,224 @@ const PersonalLandingPage = () => {
                 </ul>
             </nav>
 
-      <main className="main-content">
-        <AnimatePresence mode="wait">
-          {activeTab === 'links' && (
-             <motion.div
-              key="links"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.2 }}
-              className="link-cards"
-            >
-              {quickLinks.map((link) => (
-                <motion.a
-                  key={link.title}
-                  href={link.url}
-                  onClick={link.url === '#' ? handlePlaceholderLinkClick : undefined}
-                  target={link.url !== '#' ? "_blank" : undefined}
-                  rel="noopener noreferrer"
-                  className="link-card"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <div className="link-card-icon">{link.icon}</div>
-                  <div className="link-card-text">
-                    <h3 className="link-card-title">{link.title}</h3>
-                    <p className="link-card-description">{link.description}</p>
-                  </div>
-                  <ExternalLink size={20} className="link-card-external-link" />
-                </motion.a>
-              ))}
-            </motion.div>
-          )}
+            <main className="main-content">
+                <AnimatePresence mode="wait">
+                    {activeTab === 'links' && (
+                        <motion.div
+                            key="links"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.2 }}
+                            className="link-cards"
+                        >
+                            {quickLinks.map((link) => (
+                                <motion.a
+                                    key={link.title}
+                                    href={link.url}
+                                    onClick={link.url === '#' ? handlePlaceholderLinkClick : undefined}
+                                    target={link.url !== '#' ? "_blank" : undefined}
+                                    rel="noopener noreferrer"
+                                    className="link-card"
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                >
+                                    <div className="link-card-icon">{link.icon}</div>
+                                    <div className="link-card-text">
+                                        <h3 className="link-card-title">{link.title}</h3>
+                                        <p className="link-card-description">{link.description}</p>
+                                    </div>
+                                    <ExternalLink size={20} className="link-card-external-link" />
+                                </motion.a>
+                            ))}
+                        </motion.div>
+                    )}
 
-          {activeTab === 'about' && (
-           <motion.div
-              key="about"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.2 }}
-              className="about-section"
-            >
-              <div className="about-content">
-                <h2 className="about-title">Về mình</h2>
-                <p className="about-text" style={{ textAlign: 'left' }}>
-                  <p className="about-text">🌟 Xin chào! Mình là Nam Trần – ghét sự nhàm chán 😆. Làm bán thời gian, thích sáng tạo & khám phá 🎨💡. Đam mê công nghệ, thiết kế, thử nghiệm đủ thứ hay ho 🎭🔧. Yêu du lịch, chill với phim, cà phê & trò chuyện ☕🎬💬. Sống đơn giản: Làm điều vui, học điều cần, tận hưởng từng khoảnh khắc ✨💖.</p>
-                </p>
-              </div>
-            </motion.div>
-          )}
+                    {activeTab === 'about' && (
+                        <motion.div
+                            key="about"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.2 }}
+                            className="about-section"
+                        >
+                            <div className="about-content">
+                                <h2 className="about-title">Về mình</h2>
+                                <div className="about-text">
+                                    <p>
+                                        🌟 Xin chào! Mình là Nam Trần – ghét sự nhàm chán 😆. Làm bán thời gian, thích sáng tạo & khám phá 🎨💡. Đam mê công nghệ, thiết kế, thử nghiệm đủ thứ hay ho 🎭🔧. Yêu du lịch, chill với phim, cà phê & trò chuyện ☕🎬💬. Sống đơn giản: Làm điều vui, học điều cần, tận hưởng từng khoảnh khắc ✨💖.
+                                    </p>
+                                    <div className='personal-info-grid'>
+                                        <div className="personal-info-group">
+                                            <Phone size={16} className='info-icon' />
+                                             <span>09xxxxxx39</span>
+                                        </div>
+                                          <div className="personal-info-group">
+                                             <Mail size={16} className='info-icon' />
+                                            <span>Sointerestinggg@gmail.com</span>
+                                          </div>
+                                          <div className="personal-info-group">
+                                               <MapPin size={16} className='info-icon' />
+                                             <span>Trà Vinh, Việt Nam</span>
+                                          </div>
+                                         <div className="personal-info-group">
+                                           <User size={16} className='info-icon' />
+                                            <span>Độc Thân</span>
+                                          </div>
 
-          {activeTab === 'projects' && featuredProjects.length > 0 && (
-            <motion.div
-              key="projects"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.2 }}
-              className="project-cards"
-            >
-              {featuredProjects.map((project, index) => (
-                <motion.div
-                  key={index}
-                  className="project-card"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <div className="project-card-image-container">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="project-card-image"
-                    />
-                    <div className="project-card-overlay">
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="project-card-link"
-                      >
-                        <span>Xem Chi Tiết</span>
-                        <ExternalLink size={18} />
-                      </a>
-                    </div>
-                  </div>
-                  <div className="project-card-content">
-                    <h3 className="project-card-title">{project.title}</h3>
-                    <p className="project-card-description">{project.description}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          )}
+                                    </div>
 
-          {activeTab === 'products' && (
-            <motion.div
-              key="products"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.2 }}
-              className="project-cards"
-            >
-              {featuredProducts.map((product, index) => (
-                <motion.div
-                  key={index}
-                  className="project-card"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <div className="project-card-image-container">
-                    <img
-                      src={product.image}
-                      alt={product.title}
-                      className="project-card-image"
-                    />
-                    <div className="project-card-overlay">
-                      <a
-                        href={product.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="project-card-link"
-                      >
-                        <span>Xem Chi Tiết</span>
-                        <ExternalLink size={18} />
-                      </a>
-                    </div>
-                  </div>
-                  <div className="project-card-content">
-                    <h3 className="project-card-title">{product.title}</h3>
-                    <p className="project-card-description">{product.description}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          )}
+                                </div>
 
-          {activeTab === 'contact' && (
-            <motion.div
-              key="contact"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.2 }}
-              className="contact-section"
-            >
-              <h2 className="contact-title">Message</h2>
-              <p className="contact-description">
-                Bạn có thể gửi tin nhắn ẩn danh cho mình thông qua form bên dưới.
-              </p>
-              <motion.form
-                onSubmit={handleSubmit}
-                className="contact-form"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-              >
-                <textarea
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Nhập tin nhắn của bạn..."
-                  required
-                  className="contact-textarea"
-                ></textarea>
+                            </div>
+                        </motion.div>
+                    )}
 
-                <motion.button
-                  type="submit"
-                  className="contact-submit-button"
-                  disabled={isSubmitting}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {isSubmitting ? (
-                    <><Loader2 size={16} className="animate-spin mr-2" />ㅤĐang gửi...</>
-                  ) : (
-                    "Gửi Tin Nhắn"
-                  )}
-                </motion.button>
-                {submitSuccess && (
-                  <div className="contact-success-message">
-                    Tin nhắn của bạn đã được gửi thành công!
-                  </div>
-                )}
-                {submitError && (
-                  <div className="contact-error-message">
-                    {submitError}
-                  </div>
-                )}
-              </motion.form>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </main>
+                    {activeTab === 'projects' && featuredProjects.length > 0 && (
+                        <motion.div
+                            key="projects"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.2 }}
+                            className="project-cards"
+                        >
+                            {featuredProjects.map((project, index) => (
+                                <motion.div
+                                    key={index}
+                                    className="project-card"
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                >
+                                    <div className="project-card-image-container">
+                                        <img
+                                            src={project.image}
+                                            alt={project.title}
+                                            className="project-card-image"
+                                        />
+                                        <div className="project-card-overlay">
+                                            <a
+                                                href={project.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="project-card-link"
+                                            >
+                                                <span>Xem Chi Tiết</span>
+                                                <ExternalLink size={18} />
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div className="project-card-content">
+                                        <h3 className="project-card-title">{project.title}</h3>
+                                        <p className="project-card-description">{project.description}</p>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </motion.div>
+                    )}
 
-      <footer className="page-footer">
+                    {activeTab === 'products' && (
+                        <motion.div
+                            key="products"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.2 }}
+                            className="project-cards"
+                        >
+                            {featuredProducts.map((product, index) => (
+                                <motion.div
+                                    key={index}
+                                    className="project-card"
+                                    whileHover={{ scale: 1.02 }}
+                                    whileTap={{ scale: 0.98 }}
+                                >
+                                    <div className="project-card-image-container">
+                                        <img
+                                            src={product.image}
+                                            alt={product.title}
+                                            className="project-card-image"
+                                        />
+                                        <div className="project-card-overlay">
+                                            <a
+                                                href={product.link}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="project-card-link"
+                                            >
+                                                <span>Xem Chi Tiết</span>
+                                                <ExternalLink size={18} />
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div className="project-card-content">
+                                        <h3 className="project-card-title">{product.title}</h3>
+                                        <p className="project-card-description">{product.description}</p>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </motion.div>
+                    )}
+
+                    {activeTab === 'contact' && (
+                        <motion.div
+                            key="contact"
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.2 }}
+                            className="contact-section"
+                        >
+                            <h2 className="contact-title">Message</h2>
+                            <p className="contact-description">
+                                Bạn có thể gửi tin nhắn ẩn danh cho mình thông qua form bên dưới.
+                            </p>
+                            <motion.form
+                                onSubmit={handleSubmit}
+                                className="contact-form"
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.1 }}
+                            >
+                                <textarea
+                                    value={message}
+                                    onChange={(e) => setMessage(e.target.value)}
+                                    placeholder="Nhập tin nhắn của bạn..."
+                                    required
+                                    className="contact-textarea"
+                                ></textarea>
+
+                                <motion.button
+                                    type="submit"
+                                    className="contact-submit-button"
+                                    disabled={isSubmitting}
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                >
+                                    {isSubmitting ? (
+                                        <><Loader2 size={16} className="animate-spin mr-2" />ㅤĐang gửi...</>
+                                    ) : (
+                                        "Gửi Tin Nhắn"
+                                    )}
+                                </motion.button>
+                                {submitSuccess && (
+                                    <div className="contact-success-message">
+                                        Tin nhắn của bạn đã được gửi thành công!
+                                    </div>
+                                )}
+                                {submitError && (
+                                    <div className="contact-error-message">
+                                        {submitError}
+                                    </div>
+                                )}
+                            </motion.form>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </main>
+
+            <footer className="page-footer">
                 <div className="footer-left">
                     <p>
                         <span className="visitor-count">Lượt truy cập: <span>{visitorCount}</span> </span>
@@ -620,10 +642,10 @@ const PersonalLandingPage = () => {
                     >
                         <motion.div
                             className="modal-content"
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.9 }}
-                            transition={{ duration: 0.2, ease: "easeInOut" }}
+                            initial={{ opacity: 0, y: 20 }}  // Thay đổi initial
+                            animate={{ opacity: 1, y: 0 }}  // Thay đổi animate
+                            exit={{ opacity: 0, y: -20 }} // Thay đổi exit
+                            transition={{ duration: 0.3, ease: "easeInOut" }}  // Điều chỉnh duration
                             onClick={(e) => e.stopPropagation()}
                         >
                             <button className="modal-close-button" onClick={closeModal}>
@@ -683,17 +705,17 @@ const PersonalLandingPage = () => {
                                             <label>Quốc gia: </label>
                                             <span>{connectionData.country}</span>
                                         </div>
-                                          {connectionData.latitude && connectionData.longitude ? (
+                                        {connectionData.latitude && connectionData.longitude ? (
                                             <div className="modal-data-group">
                                                 <label>Tọa độ (GPS): </label>
                                                 <span>{connectionData.latitude}, {connectionData.longitude}</span>
                                             </div>
-                                          ) : (
+                                        ) : (
                                             <div className="modal-data-group">
                                                 <label>Tọa độ: </label>
                                                 <span>{connectionData.loc}</span>
                                             </div>
-                                          )}
+                                        )}
                                         <div className="modal-data-group">
                                             <label>Đánh giá: </label>
                                             <span className={`security-rating ${connectionData.securityRating}`}>{connectionData.securityRating}</span>
