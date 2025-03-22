@@ -10,6 +10,7 @@ import { SiZalo } from "react-icons/si";
 import './PersonalLandingPage.css';
 import Product1 from "./img/Product/Product1.jpg";
 import Product2 from "./img/Product/Product2.jpg";
+import Product3 from "./img/Product/Product3.jpg";
 
 import securityCert1 from './img/certs/cert1.png';
 import securityCert2 from './img/certs/cert2.png';
@@ -218,7 +219,8 @@ const PersonalLandingPage = () => {
 
     const featuredProducts = [
         { title: 'Vega', description: 'Chatbot AI dựa trên API gemini', link: 'https://namtran592005.github.io/VEGA-AI/', image: Product1 },
-        { title: 'Utility Tools', description: 'Website cung cấp Tool tiện ích', link: 'https://namtran592005.github.io/Utility-Tools/', image: Product2 }
+        { title: 'Utility Tools', description: 'Website cung cấp Tool tiện ích', link: 'https://namtran592005.github.io/Utility-Tools/', image: Product2 },
+        { title: 'WealthMeter', description: 'WealthMeter Tính độ Giàu-Nghèo', link: 'https://namtran592005.github.io/WealthMeter/', image: Product3 }
     ];
 
     const handleSubmit = async (e) => {
