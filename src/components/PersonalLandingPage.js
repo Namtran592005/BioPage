@@ -220,7 +220,7 @@ const PersonalLandingPage = () => {
     const featuredProducts = [
         { title: 'Vega', description: 'Chatbot AI dựa trên API gemini', link: 'https://namtran592005.github.io/VEGA-AI/', image: Product1 },
         { title: 'Utility Tools', description: 'Website cung cấp Tool tiện ích', link: 'https://namtran592005.github.io/Utility-Tools/', image: Product2 },
-        { title: 'WealthMeter', description: 'WealthMeter Tính độ Giàu-Nghèo', link: 'https://namtran592005.github.io/WealthMeter/', image: Product3 }
+        { title: 'WealthMeter', description: 'Tính độ Giàu-Nghèo của bạn', link: 'https://namtran592005.github.io/WealthMeter/', image: Product3 }
     ];
 
     const handleSubmit = async (e) => {
