@@ -3,10 +3,10 @@ import yourAvatar from './img/Avt/Avatar.png';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Github, Facebook, Instagram, Music,
-  Coffee, Globe, BookOpen, ExternalLink, MessageCircle, Heart, Loader2, Sun, Moon, Phone, Mail, MapPin, User,
+  Coffee, Globe, BookOpen, ExternalLink, Heart, Loader2, Sun, Moon, Phone, Mail, MapPin, User,
 } from 'lucide-react';
-import { FaThreads } from 'react-icons/fa6';
-import { SiZalo } from "react-icons/si";
+import { FaThreads, FaTiktok } from 'react-icons/fa6';
+import { SiZalo, SiTelegram } from "react-icons/si";
 import './PersonalLandingPage.css';
 import Product1 from "./img/Product/Product1.jpg";
 import Product2 from "./img/Product/Product2.jpg";
@@ -17,7 +17,6 @@ import securityCert2 from './img/certs/cert2.png';
 import securityCert3 from './img/certs/cert3.png';
 
 const PersonalLandingPage = () => {
-    // ... (các state khác giữ nguyên)
     const [isLoading, setIsLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('links');
     const [message, setMessage] = useState('');
@@ -51,53 +50,46 @@ const PersonalLandingPage = () => {
 
         incrementVisitorCount();
 
-        // Tạo các hình ngẫu nhiên
         const generateShapes = () => {
-          const numShapes = 30;
-           const newShapes = [];
-           const animations = ['pulse-and-move', 'rotate-and-scale', 'move-up-down', 'rotate-and-move'];
-         for (let i = 0; i < numShapes; i++) {
-           const size = Math.random() * 80 + 20;
-            const top = Math.random() * 100;       // Sửa phạm vi
-            const left = Math.random() * 100;      // Sửa phạm vi
-             const animation = animations[Math.floor(Math.random() * animations.length)];
-              const delay = Math.random() * 5;
-            // Chọn ngẫu nhiên loại hình
-               let shapeType;
-               const shapeRandom = Math.random();
-               if (shapeRandom < 0.33) {
-                   shapeType = 'circle';
-               } else if (shapeRandom < 0.66) {
-                   shapeType = 'rectangle';
-               } else {
-                   shapeType = 'triangle';
-               }
-              newShapes.push({
-                id: i,
-                 size,
-                top,        // Đơn vị %
-               left,       // Đơn vị %
-                animation,
-                 delay,
-                  shapeType // Thêm loại hình
-             });
+            const numShapes = 30;
+            const newShapes = [];
+            const animations = ['pulse-and-move', 'rotate-and-scale', 'move-up-down', 'rotate-and-move'];
+            for (let i = 0; i < numShapes; i++) {
+                const size = Math.random() * 80 + 20;
+                const top = Math.random() * 100;
+                const left = Math.random() * 100;
+                const animation = animations[Math.floor(Math.random() * animations.length)];
+                const delay = Math.random() * 5;
+                let shapeType;
+                const shapeRandom = Math.random();
+                if (shapeRandom < 0.5) {
+                    shapeType = 'circle';
+                } else {
+                    shapeType = 'rectangle';
+                }
+                newShapes.push({
+                    id: i,
+                    size,
+                    top,
+                    left,
+                    animation,
+                    delay,
+                    shapeType
+                });
             }
+            setShapes(newShapes);
+        };
 
-       setShapes(newShapes);
-         };
-
-         generateShapes();
-          return () => {
-             clearTimeout(loadingTimeout);
-           document.body.classList.remove('dark-mode', 'light-mode');
-
-           };
-         }, [isDarkMode]);
+        generateShapes();
+        return () => {
+            clearTimeout(loadingTimeout);
+            document.body.classList.remove('dark-mode', 'light-mode');
+        };
+    }, [isDarkMode]);
 
     const toggleTheme = () => {
         setIsDarkMode((prevMode) => !prevMode);
     };
-
 
     const handleConnectionCheckClick = async () => {
         setIsModalOpen(true);
@@ -105,15 +97,12 @@ const PersonalLandingPage = () => {
         setConnectionData(null);
 
         try {
-            // 1. Thông tin IP, kết nối cơ bản
             const ipInfoResponse = await fetch(`https://ipinfo.io/json?token=b8170cac7bafc5`);
             const ipInfoData = await ipInfoResponse.json();
 
-            // Chỉ lấy IPv4
             const responseV4 = await fetch('https://api.ipify.org?format=json');
             const dataV4 = await responseV4.json();
             const ipv4 = dataV4.ip;
-
 
             const pingStartTime = Date.now();
             const pingResponse = await fetch(window.location.href, { mode: 'no-cors', cache: 'no-store' });
@@ -131,7 +120,6 @@ const PersonalLandingPage = () => {
             const supportsDoH = 'dns' in navigator;
             const usingTLS = window.location.protocol === 'https:';
 
-            // 2. Lấy vị trí (nếu được)
             const getGeoLocation = () => {
                 return new Promise((resolve, reject) => {
                     if (!navigator.geolocation) {
@@ -153,13 +141,10 @@ const PersonalLandingPage = () => {
                 console.warn("Geolocation error:", geoError)
             }
 
-            // 3. Tổng hợp data (bỏ ipv6 và dnsServers)
             setConnectionData({
-                ip: ipv4, // Chỉ có IPv4
-                // Bỏ ipv6
+                ip: ipv4,
                 ping,
                 dnsLookupTime,
-                // Bỏ dnsServers
                 asName,
                 asNumber,
                 supportsDoH,
@@ -181,12 +166,12 @@ const PersonalLandingPage = () => {
             setConnectionStatus('success');
             setConnectionData((prevData) => ({ ...prevData, securityRating }));
 
-
         } catch (error) {
             console.error("Error fetching connection data:", error);
             setConnectionStatus('error');
         }
     };
+
     const closeModal = () => {
         setIsModalOpen(false);
     };
@@ -197,7 +182,9 @@ const PersonalLandingPage = () => {
         { icon: <Github size={24} />, url: 'https://github.com/namtran592005', label: 'GitHub' },
         { icon: <FaThreads size={24} />, url: 'https://threads.net/namtran5905', label: 'Threads' },
         { icon: <SiZalo size={24} />, url: 'https://zaloapp.com/qr/p/1re1dklrzok69?src=qr', label: 'Zalo' },
-        { icon: <Heart size={24} />, url: 'https://locket.cam/Namtran5905', label: 'Locket' }
+        { icon: <Heart size={24} />, url: 'https://locket.cam/Namtran5905', label: 'Locket' },
+        { icon: <FaTiktok size={24} />, url: 'https://www.tiktok.com/@namtran5905', label: 'TikTok' },
+        { icon: <SiTelegram size={24} />, url: 'https://t.me/Namtran5905', label: 'Telegram' },
     ];
 
     const quickLinks = [
@@ -252,35 +239,32 @@ const PersonalLandingPage = () => {
         }
     };
 
-
     return (
         <div className={`page-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
-            {/* Geometric Background */}
             <div className="geometric-background">
                 <div className="shapes">
                     {shapes.map((shape) => (
                         <div
                             key={shape.id}
-                            className={shape.shapeType}  // Áp dụng class cho hình dạng
+                            className={shape.shapeType}
                             style={{
                                 width: `${shape.size}px`,
                                 height: `${shape.size}px`,
-                                top: `${shape.top}vh`,   // Sử dụng vh
-                                left: `${shape.left}vw`, // Sử dụng vw
-                                animation: `${shape.animation} ${Math.random() * 5 + 5}s ease-in-out infinite`, // Thời gian ngẫu nhiên
+                                top: `${shape.top}vh`,
+                                left: `${shape.left}vw`,
+                                animation: `${shape.animation} ${Math.random() * 5 + 5}s ease-in-out infinite`,
                                 animationDelay: `${shape.delay}s`,
                             }}
-                        ></div>
+                        />
                     ))}
                 </div>
             </div>
 
-            {/* Loading Screen */}
             {isLoading && (
                 <div className="loading-screen">
                     <div className="loading-content">
                         <div className="loading-circle">
-                            <div></div>
+                            <div />
                         </div>
                         <div className="loading-text">Đang tải...</div>
                     </div>
@@ -444,25 +428,22 @@ const PersonalLandingPage = () => {
                                     <div className='personal-info-grid'>
                                         <div className="personal-info-group">
                                             <Phone size={16} className='info-icon' />
-                                             <span>09xxxxxx39</span>
+                                            <span>09xxxxxx39</span>
                                         </div>
-                                          <div className="personal-info-group">
-                                             <Mail size={16} className='info-icon' />
+                                        <div className="personal-info-group">
+                                            <Mail size={16} className='info-icon' />
                                             <span>Sointerestinggg@gmail.com</span>
-                                          </div>
-                                          <div className="personal-info-group">
-                                               <MapPin size={16} className='info-icon' />
-                                             <span>Trà Vinh, Việt Nam</span>
-                                          </div>
-                                         <div className="personal-info-group">
-                                           <User size={16} className='info-icon' />
+                                        </div>
+                                        <div className="personal-info-group">
+                                            <MapPin size={16} className='info-icon' />
+                                            <span>Trà Vinh, Việt Nam</span>
+                                        </div>
+                                        <div className="personal-info-group">
+                                            <User size={16} className='info-icon' />
                                             <span>Độc Thân</span>
-                                          </div>
-
+                                        </div>
                                     </div>
-
                                 </div>
-
                             </div>
                         </motion.div>
                     )}
@@ -511,7 +492,7 @@ const PersonalLandingPage = () => {
                     )}
 
                     {activeTab === 'products' && (
-                        <motion.div
+                         <motion.div
                             key="products"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -579,7 +560,7 @@ const PersonalLandingPage = () => {
                                     placeholder="Nhập tin nhắn của bạn..."
                                     required
                                     className="contact-textarea"
-                                ></textarea>
+                                />
 
                                 <motion.button
                                     type="submit"
@@ -631,7 +612,6 @@ const PersonalLandingPage = () => {
                 </div>
             </footer>
 
-            {/* Modal */}
             <AnimatePresence>
                 {isModalOpen && (
                     <motion.div
@@ -644,10 +624,10 @@ const PersonalLandingPage = () => {
                     >
                         <motion.div
                             className="modal-content"
-                            initial={{ opacity: 0, y: 20 }}  // Thay đổi initial
-                            animate={{ opacity: 1, y: 0 }}  // Thay đổi animate
-                            exit={{ opacity: 0, y: -20 }} // Thay đổi exit
-                            transition={{ duration: 0.3, ease: "easeInOut" }}  // Điều chỉnh duration
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.3, ease: "easeInOut" }}
                             onClick={(e) => e.stopPropagation()}
                         >
                             <button className="modal-close-button" onClick={closeModal}>
@@ -664,13 +644,11 @@ const PersonalLandingPage = () => {
                                 {connectionStatus === 'error' && <p className="modal-error">Lỗi khi lấy dữ liệu.</p>}
                                 {connectionStatus === 'success' && connectionData && (
                                     <div className="modal-grid">
-                                        {/* Chỉ hiển thị IPv4 */}
                                         <div className="modal-data-group">
                                             <label>IPv4: </label>
                                             <span>{connectionData.ip}</span>
                                         </div>
 
-                                        {/* Các thông tin khác giữ nguyên */}
                                         <div className="modal-data-group">
                                             <label>Ping: </label>
                                             <span>{connectionData.ping} ms</span>
