@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/BioPage/static/css/main.f89c1ca8.css",
-    "main.js": "/BioPage/static/js/main.4eaecadf.js",
+    "main.css": "/BioPage/static/css/main.e3f09304.css",
+    "main.js": "/BioPage/static/js/main.a5c817a8.js",
     "static/js/453.9df9957d.chunk.js": "/BioPage/static/js/453.9df9957d.chunk.js",
     "static/media/Product2.jpg": "/BioPage/static/media/Product2.7976eb3742bd1ce987bf.jpg",
     "static/media/Avatar.png": "/BioPage/static/media/Avatar.9556ed16e23cd7a467b7.png",
@@ -10,12 +10,12 @@
     "static/media/cert3.png": "/BioPage/static/media/cert3.283e3cb7fe975f9d8a67.png",
     "static/media/cert2.png": "/BioPage/static/media/cert2.fa6fd682c6244f35b08f.png",
     "index.html": "/BioPage/index.html",
-    "main.f89c1ca8.css.map": "/BioPage/static/css/main.f89c1ca8.css.map",
-    "main.4eaecadf.js.map": "/BioPage/static/js/main.4eaecadf.js.map",
+    "main.e3f09304.css.map": "/BioPage/static/css/main.e3f09304.css.map",
+    "main.a5c817a8.js.map": "/BioPage/static/js/main.a5c817a8.js.map",
     "453.9df9957d.chunk.js.map": "/BioPage/static/js/453.9df9957d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f89c1ca8.css",
-    "static/js/main.4eaecadf.js"
+    "static/css/main.e3f09304.css",
+    "static/js/main.a5c817a8.js"
   ]
 }
