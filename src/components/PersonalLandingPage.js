@@ -3,7 +3,7 @@ import yourAvatar from './img/Avt/Avatar.png';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Github, Facebook, Instagram, Music,
-  Coffee, Globe, BookOpen, ExternalLink, Heart, Loader2, Sun, Moon, Phone, Mail, MapPin, User, Play, Pause,
+  Coffee, Globe, BookOpen, ExternalLink, Heart, Loader2, Sun, Moon, Phone, Mail, MapPin, User, Play, Pause, ChevronLeft, ChevronRight
 } from 'lucide-react';
 import { FaThreads, FaTiktok } from 'react-icons/fa6';
 import { SiZalo, SiTelegram } from "react-icons/si";
@@ -16,12 +16,43 @@ import securityCert1 from './img/certs/cert1.png';
 import securityCert2 from './img/certs/cert2.png';
 import securityCert3 from './img/certs/cert3.png';
 
-// Import file nhạc
-import backgroundMusic from './music/Swim.mp3';
-// Giả sử bạn có một ảnh thumbnail cho bài hát, import nó:
-import musicThumbnail from './music/music-thumbnail.jpg'; // Thay đổi đường dẫn
+// Import music and thumbnails *here*
+import music1 from './music/Swim.mp3';
+import music2 from './music/Cohenvoithanhxuan.flac';
+import music3 from './music/Sunghiepchuong.mp3'
+import music4 from './music/Thinkaboutu.mp3'
+import thumbnail1 from './music/Swim.jpg';
+import thumbnail2 from './music/Cohenvoithanhxuan.jpg';
+import thumbnail3 from './music/Sunghiepchuong.jpg';
+import thumbnail4 from './music/Thinkaboutu.jpg';
+
+
+// Playlist array now uses the imported variables
+const playlist = [
+  {
+    title: "Swim",
+    file: music1, // Use the imported variable
+    thumbnail: thumbnail1 // Use the imported variable
+  },
+  {
+    title: "có hẹn với thanh xuân",
+    file: music2,
+    thumbnail: thumbnail2
+  },
+  {
+    title: "Think About U",
+    file: music4,
+    thumbnail: thumbnail4
+  },
+  {
+    title: "Sự nghiệp chướng",
+    file: music3,
+    thumbnail: thumbnail3
+  }
+];
 
 const PersonalLandingPage = () => {
+    // ... (rest of your component code, see below for changes inside) ...
     const [isLoading, setIsLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('links');
     const [message, setMessage] = useState('');
@@ -35,68 +66,64 @@ const PersonalLandingPage = () => {
     const [connectionStatus, setConnectionStatus] = useState('loading');
     const [shapes, setShapes] = useState([]);
     const [isPlaying, setIsPlaying] = useState(false);
-    const audioRef = useRef(new Audio(backgroundMusic));
+    const audioRef = useRef(new Audio()); // Keep the ref
 
-    // Lấy tên file nhạc (cải thiện)
-    const [musicFileName, setMusicFileName] = useState("");
+    const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+    const [currentTrack, setCurrentTrack] = useState(playlist[currentTrackIndex]);
 
-    useEffect(() => {
+
+      useEffect(() => {
         const loadingTimeout = setTimeout(() => setIsLoading(false), 3000);
 
         document.body.classList.toggle('dark-mode', isDarkMode);
         document.body.classList.toggle('light-mode', !isDarkMode);
 
         const incrementVisitorCount = () => {
-            const storedCount = localStorage.getItem('visitorCount');
-            let newCount = storedCount ? parseInt(storedCount, 10) + 1 : 1;
-            setVisitorCount(newCount);
-            localStorage.setItem('visitorCount', newCount.toString());
+          const storedCount = localStorage.getItem('visitorCount');
+          const newCount = storedCount ? parseInt(storedCount, 10) + 1 : 1;
+          setVisitorCount(newCount);
+          localStorage.setItem('visitorCount', newCount.toString());
         };
-
         incrementVisitorCount();
 
         const generateShapes = () => {
-            const numShapes = 30;
-            const newShapes = [];
-            const animations = ['pulse-and-move', 'rotate-and-scale', 'move-up-down', 'rotate-and-move'];
-            for (let i = 0; i < numShapes; i++) {
-                const size = Math.random() * 80 + 20;
-                const top = Math.random() * 100;
-                const left = Math.random() * 100;
-                const animation = animations[Math.floor(Math.random() * animations.length)];
-                const delay = Math.random() * 5;
-                const shapeType = Math.random() < 0.5 ? 'circle' : 'rectangle';
-                newShapes.push({ id: i, size, top, left, animation, delay, shapeType });
-            }
-            setShapes(newShapes);
+          const numShapes = 30;
+          const animations = ['pulse-and-move', 'rotate-and-scale', 'move-up-down', 'rotate-and-move'];
+          const newShapes = Array.from({ length: numShapes }, (_, i) => ({
+            id: i,
+            size: Math.random() * 80 + 20,
+            top: Math.random() * 100,
+            left: Math.random() * 100,
+            animation: animations[Math.floor(Math.random() * animations.length)],
+            delay: Math.random() * 5,
+            shapeType: Math.random() < 0.5 ? 'circle' : 'rectangle',
+          }));
+          setShapes(newShapes);
         };
-
         generateShapes();
 
-
-        const audioElement = audioRef.current;
-        audioElement.loop = true;
-        audioElement.volume = 0.3;
-
-        // Lấy tên file nhạc (cách tốt hơn)
-        const fileName = backgroundMusic.split('/').pop().replace(/\.[^/.]+$/, "");
-        setMusicFileName(fileName);
-
+        // Set the audio source directly from currentTrack.file
+        audioRef.current.src = currentTrack.file;
+        audioRef.current.loop = true;
+        audioRef.current.volume = 0.3;
 
         if (isPlaying) {
-            audioElement.play().catch(error => console.warn("Audio play failed:", error));
+            audioRef.current.play().catch(error => console.warn("Audio play failed:", error));
         }
 
         return () => {
             clearTimeout(loadingTimeout);
             document.body.classList.remove('dark-mode', 'light-mode');
-            audioElement.pause();
+            if (audioRef.current) {
+                audioRef.current.pause();
+            }
         };
-    }, [isDarkMode, isPlaying]); // isPlaying is a dependency
+    }, [isDarkMode, isPlaying, currentTrack]); // currentTrack is in the dependency array
 
+    // ... (rest of your component, including handlers, etc.) ...
     const toggleTheme = () => setIsDarkMode(prevMode => !prevMode);
 
-    const handleConnectionCheckClick = async () => {
+       const handleConnectionCheckClick = async () => {
       setIsModalOpen(true);
       setConnectionStatus('loading');
       setConnectionData(null);
@@ -167,32 +194,44 @@ const PersonalLandingPage = () => {
         { title: 'WealthMeter', description: 'Tính độ Giàu-Nghèo của bạn', link: 'https://namtran592005.github.io/WealthMeter/', image: Product3 }
     ];
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        setIsSubmitting(true);
-        setSubmitSuccess(false);
-        setSubmitError('');
-        try {
-            const response = await fetch("https://formspree.io/f/xeoewngj", {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message }),
-            });
-    
-            if (response.ok) {
-                setSubmitSuccess(true);
-                setMessage('');
-            } else {
-                const errorData = await response.json(); // Get the full error data
-                setSubmitError(errorData.errors && errorData.errors.length > 0 ? errorData.errors[0] : 'Đã xảy ra lỗi. Vui lòng thử lại sau.'); // Check for 'errors' array
-            }
-        } catch (error) {
-            setSubmitError('Đã xảy ra lỗi kết nối. Vui lòng kiểm tra kết nối mạng của bạn.');
-        } finally {
-            setIsSubmitting(false);
+      e.preventDefault();
+      setIsSubmitting(true);
+      setSubmitSuccess(false);
+      setSubmitError('');
+      try {
+        const response = await fetch("https://formspree.io/f/xeoewngj", { method: 'POST', headers: { 'Content-Type': 'application/json', }, body: JSON.stringify({ message }), });
+
+        if (response.ok) {
+          setSubmitSuccess(true);
+          setMessage('');
+        } else {
+            const errorData = await response.json();
+            setSubmitError(errorData.errors && errorData.errors.length > 0  ? errorData.errors[0] : 'Đã xảy ra lỗi. Vui lòng thử lại sau.');
         }
+      } catch (error) {
+        setSubmitError('Đã xảy ra lỗi kết nối. Vui lòng kiểm tra kết nối mạng của bạn.');
+      } finally {
+        setIsSubmitting(false);
+      }
     };
 
-    const togglePlay = () => {
+    // Xử lý chuyển bài hát
+    const playNextTrack = () => {
+        const nextIndex = (currentTrackIndex + 1) % playlist.length;
+        setCurrentTrackIndex(nextIndex);
+        setCurrentTrack(playlist[nextIndex]);  // Cập nhật currentTrack
+         setIsPlaying(true);
+
+    };
+
+    const playPreviousTrack = () => {
+        const prevIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+        setCurrentTrackIndex(prevIndex);
+        setCurrentTrack(playlist[prevIndex]); // Cập nhật currentTrack
+        setIsPlaying(true);
+    };
+
+     const togglePlay = () => {
         setIsPlaying(!isPlaying);
         const audioElement = audioRef.current;
         if (!isPlaying) {
@@ -201,6 +240,7 @@ const PersonalLandingPage = () => {
             audioElement.pause();
         }
     };
+
 
     return (
         <div className={`page-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
@@ -214,13 +254,19 @@ const PersonalLandingPage = () => {
                 </div>
             </div>
 
-            <div className="music-player">
+             <div className="music-player">
+                <button onClick={playPreviousTrack} aria-label="Previous Track">
+                    <ChevronLeft size={18} />
+                </button>
                 <button onClick={togglePlay} aria-label="Toggle Music">
                     {isPlaying ? <Pause size={18} /> : <Play size={18} />}
                 </button>
-                {/* Hiển thị thumbnail */}
-                <img src={musicThumbnail} alt="Music Thumbnail" className="music-thumbnail" />
-                <span className="music-info">{musicFileName}</span>
+                <button onClick={playNextTrack} aria-label="Next Track">
+                    <ChevronRight size={18} />
+                </button>
+                {/* Use the imported thumbnail directly */}
+                <img src={currentTrack.thumbnail} alt="Music Thumbnail" className="music-thumbnail" />
+                <span className="music-info">{currentTrack.title}</span>
             </div>
 
             {isLoading && (
@@ -252,7 +298,6 @@ const PersonalLandingPage = () => {
                 <ul className="tab-list">
                     <li><motion.button onClick={() => setActiveTab('links')} className={`tab-button ${activeTab === 'links' ? 'active' : ''}`} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} aria-selected={activeTab === 'links'}>Liên Kết</motion.button></li>
                     <li><motion.button onClick={() => setActiveTab('about')} className={`tab-button ${activeTab === 'about' ? 'active' : ''}`} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} aria-selected={activeTab === 'about'}>Giới Thiệu</motion.button></li>
-                    <li><motion.button onClick={() => setActiveTab('projects')} className={`tab-button ${activeTab === 'project' ? 'active' : ''}`} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} aria-selected={activeTab === 'project'}>Dự Án</motion.button></li>
                     <li><motion.button onClick={() => setActiveTab('products')} className={`tab-button ${activeTab === 'products' ? 'active' : ''}`} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} aria-selected={activeTab === 'products'}>Sản Phẩm</motion.button></li>
                     <li><motion.button onClick={() => setActiveTab('contact')} className={`tab-button ${activeTab === 'contact' ? 'active' : ''}`} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} aria-selected={activeTab === 'contact'}>Liên Hệ</motion.button></li>
                 </ul>
@@ -275,35 +320,80 @@ const PersonalLandingPage = () => {
                         </motion.div>
                     )}
 
-                    {activeTab === 'about' && (
-                        <motion.div key="about" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.2 }} className="about-section">
-                            <div className="about-content">
-                                <h2 className="about-title">Về mình</h2>
-                                <div className="about-text">
-                                    <p>
-                                        🌟 Xin chào! Mình là Nam Trần – ghét sự nhàm chán 😆. Làm bán thời gian, thích sáng tạo & khám phá 🎨💡. Đam mê công nghệ, thiết kế, thử nghiệm đủ thứ hay ho 🎭🔧. Yêu du lịch, chill với phim, cà phê & trò chuyện ☕🎬💬. Sống đơn giản: Làm điều vui, học điều cần, tận hưởng từng khoảnh khắc ✨💖.
-                                    </p>
-                                    <div className='personal-info-grid'>
-                                        <div className="personal-info-group">
-                                            <Phone size={16} className='info-icon' />
-                                            <span>09xxxxxx39</span>
-                                        </div>
-                                        <div className="personal-info-group">
-                                            <Mail size={16} className='info-icon' />
-                                            <span>Sointerestinggg@gmail.com</span>
-                                        </div>
-                                        <div className="personal-info-group">
-                                            <MapPin size={16} className='info-icon' />
-                                            <span>Trà Vinh, Việt Nam</span>
-                                        </div>
-                                        <div className="personal-info-group">
-                                            <User size={16} className='info-icon' />
-                                            <span>Độc Thân</span>
-                                        </div>
+                   {activeTab === 'about' && (
+                      <motion.div
+                        key="about"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.2 }}
+                        className="about-section"
+                      >
+                        <div className="about-content">
+                          <h2 className="about-title">Về mình</h2>
+                          <div className="about-text">
+                            <p>
+                              🌟 Xin chào! Mình là Nam Trần – ghét sự nhàm chán 😆. Làm bán thời gian, thích sáng tạo & khám phá 🎨💡. Đam mê
+                              công nghệ, thiết kế, thử nghiệm đủ thứ hay ho 🎭🔧. Yêu du lịch, chill với phim, cà phê & trò chuyện ☕🎬💬. Sống
+                              đơn giản: Làm điều vui, học điều cần, tận hưởng từng khoảnh khắc ✨💖.
+                            </p>
+                            <div className="personal-info-grid">
+                              <div className="personal-info-group">
+                                <Phone size={16} className="info-icon" />
+                                <span>09xxxxxx39</span>
+                              </div>
+                              <div className="personal-info-group">
+                                <Mail size={16} className="info-icon" />
+                                <span>Sointerestinggg@gmail.com</span>
+                              </div>
+                              <div className="personal-info-group">
+                                <MapPin size={16} className="info-icon" />
+                                <span>Trà Vinh, Việt Nam</span>
+                              </div>
+                              <div className="personal-info-group">
+                                <User size={16} className="info-icon" />
+                                <span>Độc Thân</span>
+                              </div>
+                            </div>
+
+                            {/* Thêm thông tin cá nhân */}
+                            <div className="additional-info">
+                                <h3 className='add-info'>Thông tin khác</h3>
+                                <div className="additional-info-grid">
+                                    <div className="additional-info-group">
+                                        <span>MBTI:</span>
+                                        <span>INTJ</span>
                                     </div>
+                                    <div className="additional-info-group">
+                                        <span>Chiều cao:</span>
+                                        <span>1m62</span>
+                                    </div>
+                                     <div className="additional-info-group">
+                                        <span>Cân nặng:</span>
+                                        <span>57kg</span>
+                                    </div>
+                                    <div className="additional-info-group">
+                                        <span>Giới tính:</span>
+                                        <span>Nam</span>
+                                    </div>
+                                    <div className="additional-info-group">
+                                         <span>Năm sinh:</span>
+                                         <span>2005</span>
+                                    </div>
+                                     <div className="additional-info-group">
+                                        <span>Tuổi:</span>
+                                         <span>{new Date().getFullYear() - 2005}</span>
+                                     </div>
+                                    <div className="additional-info-group">
+                                        <span>Nhu cầu:</span>
+                                        <span>Tìm bạn, Người yêu hoặc FWB</span>
+                                    </div>
+                                    {/* Thêm các thông tin khác */}
                                 </div>
                             </div>
-                        </motion.div>
+                          </div>
+                        </div>
+                      </motion.div>
                     )}
 
                     {activeTab === 'projects' && featuredProjects.length > 0 && (
