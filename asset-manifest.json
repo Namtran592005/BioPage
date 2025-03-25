@@ -1,21 +1,23 @@
 {
   "files": {
-    "main.css": "/BioPage/static/css/main.e3f09304.css",
-    "main.js": "/BioPage/static/js/main.dab3a3d2.js",
+    "main.css": "/BioPage/static/css/main.2bec2252.css",
+    "main.js": "/BioPage/static/js/main.3debfa4d.js",
     "static/js/453.9df9957d.chunk.js": "/BioPage/static/js/453.9df9957d.chunk.js",
+    "static/media/Swim.mp3": "/BioPage/static/media/Swim.1efa0011dc848697ecc6.mp3",
     "static/media/Product2.jpg": "/BioPage/static/media/Product2.7976eb3742bd1ce987bf.jpg",
+    "static/media/music-thumbnail.jpg": "/BioPage/static/media/music-thumbnail.f1d6479116d9832ec98e.jpg",
     "static/media/Avatar.png": "/BioPage/static/media/Avatar.9556ed16e23cd7a467b7.png",
     "static/media/cert1.png": "/BioPage/static/media/cert1.dfd1862d1dbaa4d0ce4b.png",
     "static/media/Product1.jpg": "/BioPage/static/media/Product1.888b03a5355e1bb7f2e6.jpg",
     "static/media/cert3.png": "/BioPage/static/media/cert3.283e3cb7fe975f9d8a67.png",
     "static/media/cert2.png": "/BioPage/static/media/cert2.fa6fd682c6244f35b08f.png",
     "index.html": "/BioPage/index.html",
-    "main.e3f09304.css.map": "/BioPage/static/css/main.e3f09304.css.map",
-    "main.dab3a3d2.js.map": "/BioPage/static/js/main.dab3a3d2.js.map",
+    "main.2bec2252.css.map": "/BioPage/static/css/main.2bec2252.css.map",
+    "main.3debfa4d.js.map": "/BioPage/static/js/main.3debfa4d.js.map",
     "453.9df9957d.chunk.js.map": "/BioPage/static/js/453.9df9957d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e3f09304.css",
-    "static/js/main.dab3a3d2.js"
+    "static/css/main.2bec2252.css",
+    "static/js/main.3debfa4d.js"
   ]
 }
