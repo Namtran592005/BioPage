@@ -1065,3 +1065,41 @@ body {
          padding: 0.2rem 0.4rem;
      }
   }
+
+  .music-player {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    z-index: 100;
+}
+
+.music-player button {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    padding: 0.25rem;
+}
+
+.music-info {
+    font-size: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+}
+
+/* Thêm style cho thumbnail */
+.music-thumbnail {
+    width: 24px;  /* Chỉnh kích thước */
+    height: 24px; /* Chỉnh kích thước */
+    border-radius: 50%; /* Bo tròn, nếu muốn */
+    object-fit: cover; /* Đảm bảo ảnh không bị méo */
+}

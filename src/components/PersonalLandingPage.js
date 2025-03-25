@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import yourAvatar from './img/Avt/Avatar.png';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Github, Facebook, Instagram, Music,
-  Coffee, Globe, BookOpen, ExternalLink, Heart, Loader2, Sun, Moon, Phone, Mail, MapPin, User,
+  Coffee, Globe, BookOpen, ExternalLink, Heart, Loader2, Sun, Moon, Phone, Mail, MapPin, User, Play, Pause,
 } from 'lucide-react';
 import { FaThreads, FaTiktok } from 'react-icons/fa6';
 import { SiZalo, SiTelegram } from "react-icons/si";
@@ -15,6 +15,11 @@ import Product3 from "./img/Product/Product3.jpg";
 import securityCert1 from './img/certs/cert1.png';
 import securityCert2 from './img/certs/cert2.png';
 import securityCert3 from './img/certs/cert3.png';
+
+// Import file nhạc
+import backgroundMusic from './music/Swim.mp3';
+// Giả sử bạn có một ảnh thumbnail cho bài hát, import nó:
+import musicThumbnail from './music/music-thumbnail.jpg'; // Thay đổi đường dẫn
 
 const PersonalLandingPage = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -29,6 +34,11 @@ const PersonalLandingPage = () => {
     const [connectionData, setConnectionData] = useState(null);
     const [connectionStatus, setConnectionStatus] = useState('loading');
     const [shapes, setShapes] = useState([]);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const audioRef = useRef(new Audio(backgroundMusic));
+
+    // Lấy tên file nhạc (cải thiện)
+    const [musicFileName, setMusicFileName] = useState("");
 
     useEffect(() => {
         const loadingTimeout = setTimeout(() => setIsLoading(false), 3000);
@@ -38,12 +48,7 @@ const PersonalLandingPage = () => {
 
         const incrementVisitorCount = () => {
             const storedCount = localStorage.getItem('visitorCount');
-            let newCount;
-            if (storedCount) {
-                newCount = parseInt(storedCount, 10) + 1;
-            } else {
-                newCount = 1;
-            }
+            let newCount = storedCount ? parseInt(storedCount, 10) + 1 : 1;
             setVisitorCount(newCount);
             localStorage.setItem('visitorCount', newCount.toString());
         };
@@ -60,121 +65,82 @@ const PersonalLandingPage = () => {
                 const left = Math.random() * 100;
                 const animation = animations[Math.floor(Math.random() * animations.length)];
                 const delay = Math.random() * 5;
-                let shapeType;
-                const shapeRandom = Math.random();
-                if (shapeRandom < 0.5) {
-                    shapeType = 'circle';
-                } else {
-                    shapeType = 'rectangle';
-                }
-                newShapes.push({
-                    id: i,
-                    size,
-                    top,
-                    left,
-                    animation,
-                    delay,
-                    shapeType
-                });
+                const shapeType = Math.random() < 0.5 ? 'circle' : 'rectangle';
+                newShapes.push({ id: i, size, top, left, animation, delay, shapeType });
             }
             setShapes(newShapes);
         };
 
         generateShapes();
+
+
+        const audioElement = audioRef.current;
+        audioElement.loop = true;
+        audioElement.volume = 0.3;
+
+        // Lấy tên file nhạc (cách tốt hơn)
+        const fileName = backgroundMusic.split('/').pop().replace(/\.[^/.]+$/, "");
+        setMusicFileName(fileName);
+
+
+        if (isPlaying) {
+            audioElement.play().catch(error => console.warn("Audio play failed:", error));
+        }
+
         return () => {
             clearTimeout(loadingTimeout);
             document.body.classList.remove('dark-mode', 'light-mode');
+            audioElement.pause();
         };
-    }, [isDarkMode]);
+    }, [isDarkMode, isPlaying]); // isPlaying is a dependency
 
-    const toggleTheme = () => {
-        setIsDarkMode((prevMode) => !prevMode);
-    };
+    const toggleTheme = () => setIsDarkMode(prevMode => !prevMode);
 
     const handleConnectionCheckClick = async () => {
-        setIsModalOpen(true);
-        setConnectionStatus('loading');
-        setConnectionData(null);
+      setIsModalOpen(true);
+      setConnectionStatus('loading');
+      setConnectionData(null);
 
+      try {
+        const ipInfoResponse = await fetch(`https://ipinfo.io/json?token=b8170cac7bafc5`);
+        const ipInfoData = await ipInfoResponse.json();
+        const responseV4 = await fetch('https://api.ipify.org?format=json');
+        const dataV4 = await responseV4.json();
+        const ipv4 = dataV4.ip;
+        const pingStartTime = Date.now();
+        const pingResponse = await fetch(window.location.href, { mode: 'no-cors', cache: 'no-store' });
+        const pingEndTime = Date.now();
+        const ping = pingEndTime - pingStartTime;
+        const dnsResponse = await fetch('https://cloudflare-dns.com/dns-query?name=example.com&type=A', { headers: { 'accept': 'application/dns-json' } });
+        const dnsData = await dnsResponse.json();
+        const dnsLookupTime = dnsData.Answer ? dnsData.Answer[0].TTL : null;
+        const asName = ipInfoData.org ? ipInfoData.org.split(' ')[1] : 'Unknown';
+        const asNumber = ipInfoData.org ? ipInfoData.org.split(' ')[0] : 'Unknown';
+        const supportsDoH = 'dns' in navigator;
+        const usingTLS = window.location.protocol === 'https:';
+
+        const getGeoLocation = () => new Promise((resolve, reject) => {
+          navigator.geolocation ? navigator.geolocation.getCurrentPosition(resolve, reject) : reject('Geolocation is not supported by your browser');
+        });
+
+        let latitude = null;
+        let longitude = null;
         try {
-            const ipInfoResponse = await fetch(`https://ipinfo.io/json?token=b8170cac7bafc5`);
-            const ipInfoData = await ipInfoResponse.json();
+          const position = await getGeoLocation();
+          latitude = position.coords.latitude;
+          longitude = position.coords.longitude;
+        } catch (geoError) { console.warn("Geolocation error:", geoError) }
 
-            const responseV4 = await fetch('https://api.ipify.org?format=json');
-            const dataV4 = await responseV4.json();
-            const ipv4 = dataV4.ip;
-
-            const pingStartTime = Date.now();
-            const pingResponse = await fetch(window.location.href, { mode: 'no-cors', cache: 'no-store' });
-            const pingEndTime = Date.now();
-            const ping = pingEndTime - pingStartTime;
-
-            const dnsResponse = await fetch('https://cloudflare-dns.com/dns-query?name=example.com&type=A', {
-                headers: { 'accept': 'application/dns-json' }
-            });
-            const dnsData = await dnsResponse.json();
-            const dnsLookupTime = dnsData.Answer ? dnsData.Answer[0].TTL : null;
-
-            const asName = ipInfoData.org ? ipInfoData.org.split(' ')[1] : 'Unknown';
-            const asNumber = ipInfoData.org ? ipInfoData.org.split(' ')[0] : 'Unknown';
-            const supportsDoH = 'dns' in navigator;
-            const usingTLS = window.location.protocol === 'https:';
-
-            const getGeoLocation = () => {
-                return new Promise((resolve, reject) => {
-                    if (!navigator.geolocation) {
-                        reject('Geolocation is not supported by your browser');
-                    } else {
-                        navigator.geolocation.getCurrentPosition(resolve, reject);
-                    }
-                });
-            };
-            let latitude = null;
-            let longitude = null;
-
-            try {
-                const position = await getGeoLocation();
-                latitude = position.coords.latitude;
-                longitude = position.coords.longitude;
-            }
-            catch (geoError) {
-                console.warn("Geolocation error:", geoError)
-            }
-
-            setConnectionData({
-                ip: ipv4,
-                ping,
-                dnsLookupTime,
-                asName,
-                asNumber,
-                supportsDoH,
-                usingTLS,
-                city: ipInfoData.city || 'Unknown',
-                region: ipInfoData.region || 'Unknown',
-                country: ipInfoData.country || 'Unknown',
-                loc: ipInfoData.loc || 'Unknown',
-                latitude,
-                longitude,
-            });
-
-            let securityRating = 'green';
-            if (!usingTLS) {
-                securityRating = 'red';
-            } else if (ping > 200) {
-                securityRating = 'yellow';
-            }
-            setConnectionStatus('success');
-            setConnectionData((prevData) => ({ ...prevData, securityRating }));
-
-        } catch (error) {
-            console.error("Error fetching connection data:", error);
-            setConnectionStatus('error');
-        }
+        setConnectionData({ ip: ipv4, ping, dnsLookupTime, asName, asNumber, supportsDoH, usingTLS, city: ipInfoData.city || 'Unknown', region: ipInfoData.region || 'Unknown', country: ipInfoData.country || 'Unknown', loc: ipInfoData.loc || 'Unknown', latitude, longitude, });
+        setConnectionStatus('success');
+        setConnectionData(prevData => ({ ...prevData, securityRating: !usingTLS ? 'red' : ping > 200 ? 'yellow' : 'green' }));
+      } catch (error) {
+        console.error("Error fetching connection data:", error);
+        setConnectionStatus('error');
+      }
     };
 
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
+    const closeModal = () => setIsModalOpen(false);
 
     const socialLinks = [
         { icon: <Facebook size={24} />, url: 'https://facebook.com/namtran5905', label: 'Facebook' },
@@ -183,8 +149,8 @@ const PersonalLandingPage = () => {
         { icon: <FaThreads size={24} />, url: 'https://threads.net/namtran5905', label: 'Threads' },
         { icon: <SiZalo size={24} />, url: 'https://zaloapp.com/qr/p/1re1dklrzok69?src=qr', label: 'Zalo' },
         { icon: <Heart size={24} />, url: 'https://locket.cam/Namtran5905', label: 'Locket' },
-        { icon: <FaTiktok size={24} />, url: 'https://www.tiktok.com/@namtran5905', label: 'TikTok' },
-        { icon: <SiTelegram size={24} />, url: 'https://t.me/Namtran5905', label: 'Telegram' },
+        { icon: <FaTiktok size={24} />, url: 'https://www.tiktok.com/@namtran_5905', label: 'TikTok' },
+        { icon: <SiTelegram size={24} />, url: 'https://t.me/namtran5905', label: 'Telegram' },
     ];
 
     const quickLinks = [
@@ -193,44 +159,31 @@ const PersonalLandingPage = () => {
         { icon: <Coffee size={24} />, title: 'Mua cho tôi một ly cà phê', description: 'Nếu bạn thấy thích', url: 'https://me.momo.vn/lDIWuWsoCaCdUOI2f6UK' },
         { icon: <BookOpen size={24} />, title: 'Blog mới nhất', description: 'Đọc những bài viết gần đây của tôi', url: '#' },
     ];
-
-    const handlePlaceholderLinkClick = (e) => {
-        e.preventDefault();
-        alert("Liên kết này chưa được thêm vào. Vui lòng thử lại sau!");
-    };
-
-    const featuredProjects = [
-        // { title: 'Dự Án 1', description: 'Mô tả dự án 1', link: '#', image: 'https://placehold.co/600x400' },
-        // { title: 'Dự Án 2', description: 'Mô tả dự án 2', link: '#', image: 'https://placehold.co/600x400' }
-    ];
-
+    const handlePlaceholderLinkClick = (e) => { e.preventDefault(); alert("Liên kết này chưa được thêm vào. Vui lòng thử lại sau!"); };
+    const featuredProjects = [];
     const featuredProducts = [
         { title: 'Vega', description: 'Chatbot AI dựa trên API gemini', link: 'https://namtran592005.github.io/VEGA-AI/', image: Product1 },
         { title: 'Utility Tools', description: 'Website cung cấp Tool tiện ích', link: 'https://namtran592005.github.io/Utility-Tools/', image: Product2 },
         { title: 'WealthMeter', description: 'Tính độ Giàu-Nghèo của bạn', link: 'https://namtran592005.github.io/WealthMeter/', image: Product3 }
     ];
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
         setSubmitSuccess(false);
         setSubmitError('');
-
         try {
             const response = await fetch("https://formspree.io/f/xeoewngj", {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message }),
             });
-
+    
             if (response.ok) {
                 setSubmitSuccess(true);
                 setMessage('');
             } else {
-                const errorData = await response.json();
-                setSubmitError(errorData.error || 'Đã xảy ra lỗi. Vui lòng thử lại sau.');
+                const errorData = await response.json(); // Get the full error data
+                setSubmitError(errorData.errors && errorData.errors.length > 0 ? errorData.errors[0] : 'Đã xảy ra lỗi. Vui lòng thử lại sau.'); // Check for 'errors' array
             }
         } catch (error) {
             setSubmitError('Đã xảy ra lỗi kết nối. Vui lòng kiểm tra kết nối mạng của bạn.');
@@ -239,33 +192,41 @@ const PersonalLandingPage = () => {
         }
     };
 
+    const togglePlay = () => {
+        setIsPlaying(!isPlaying);
+        const audioElement = audioRef.current;
+        if (!isPlaying) {
+            audioElement.play().catch(error => console.warn("Audio play failed:", error));
+        } else {
+            audioElement.pause();
+        }
+    };
+
     return (
         <div className={`page-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
             <div className="geometric-background">
                 <div className="shapes">
                     {shapes.map((shape) => (
-                        <div
-                            key={shape.id}
-                            className={shape.shapeType}
-                            style={{
-                                width: `${shape.size}px`,
-                                height: `${shape.size}px`,
-                                top: `${shape.top}vh`,
-                                left: `${shape.left}vw`,
-                                animation: `${shape.animation} ${Math.random() * 5 + 5}s ease-in-out infinite`,
-                                animationDelay: `${shape.delay}s`,
-                            }}
+                        <div key={shape.id} className={shape.shapeType}
+                            style={{ width: `${shape.size}px`, height: `${shape.size}px`, top: `${shape.top}vh`, left: `${shape.left}vw`, animation: `${shape.animation} ${Math.random() * 5 + 5}s ease-in-out infinite`, animationDelay: `${shape.delay}s`, }}
                         />
                     ))}
                 </div>
             </div>
 
+            <div className="music-player">
+                <button onClick={togglePlay} aria-label="Toggle Music">
+                    {isPlaying ? <Pause size={18} /> : <Play size={18} />}
+                </button>
+                {/* Hiển thị thumbnail */}
+                <img src={musicThumbnail} alt="Music Thumbnail" className="music-thumbnail" />
+                <span className="music-info">{musicFileName}</span>
+            </div>
+
             {isLoading && (
                 <div className="loading-screen">
                     <div className="loading-content">
-                        <div className="loading-circle">
-                            <div />
-                        </div>
+                        <div className="loading-circle"><div /></div>
                         <div className="loading-text">Đang tải...</div>
                     </div>
                 </div>
@@ -276,129 +237,33 @@ const PersonalLandingPage = () => {
             </button>
 
             <header className="page-header">
-                <motion.div
-                    initial={{ opacity: 0, y: -50 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="avatar-container"
-                >
-                    <img
-                        src={yourAvatar}
-                        alt="Avatar"
-                        className="avatar"
-                    />
+                <motion.div initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="avatar-container">
+                    <img src={yourAvatar} alt="Avatar" className="avatar" />
                 </motion.div>
-                <motion.h1
-                    initial={{ opacity: 0, y: -30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="name"
-                >
-                    Nam Trần
-                </motion.h1>
-                <motion.p
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.4 }}
-                    className="username"
-                >
-                    @Namtran5905
-                </motion.p>
-                <p className="bio">
-                    Developer • Part-timer • Chillguy
-                </p>
+                <motion.h1 initial={{ opacity: 0, y: -30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="name">Nam Trần</motion.h1>
+                <motion.p initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }} className="username">@Namtran5905</motion.p>
+                <p className="bio">Developer • Part-timer • Chillguy</p>
                 <div className="social-links">
-                    {socialLinks.map((link) => (
-                        <motion.a
-                            key={link.label}
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="social-link"
-                            aria-label={link.label}
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                        >
-                            {link.icon}
-                        </motion.a>
-                    ))}
+                    {socialLinks.map((link) => (<motion.a key={link.label} href={link.url} target="_blank" rel="noopener noreferrer" className="social-link" aria-label={link.label} whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>{link.icon}</motion.a>))}
                 </div>
             </header>
 
             <nav className="tab-navigation">
                 <ul className="tab-list">
-                    <li>
-                        <motion.button
-                            onClick={() => setActiveTab('links')}
-                            className={`tab-button ${activeTab === 'links' ? 'active' : ''}`}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            aria-selected={activeTab === 'links'}
-                        >
-                            Liên Kết
-                        </motion.button>
-                    </li>
-                    <li>
-                        <motion.button
-                            onClick={() => setActiveTab('about')}
-                            className={`tab-button ${activeTab === 'about' ? 'active' : ''}`}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            aria-selected={activeTab === 'about'}
-                        >
-                            Giới Thiệu
-                        </motion.button>
-                    </li>
-                    <li>
-                        {/* Projects tab (optional) */}
-                    </li>
-                    <li>
-                        <motion.button
-                            onClick={() => setActiveTab('products')}
-                            className={`tab-button ${activeTab === 'products' ? 'active' : ''}`}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            aria-selected={activeTab === 'products'}
-                        >
-                            Sản Phẩm
-                        </motion.button>
-                    </li>
-                    <li>
-                        <motion.button
-                            onClick={() => setActiveTab('contact')}
-                            className={`tab-button ${activeTab === 'contact' ? 'active' : ''}`}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            aria-selected={activeTab === 'contact'}
-                        >
-                            Liên Hệ
-                        </motion.button>
-                    </li>
+                    <li><motion.button onClick={() => setActiveTab('links')} className={`tab-button ${activeTab === 'links' ? 'active' : ''}`} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} aria-selected={activeTab === 'links'}>Liên Kết</motion.button></li>
+                    <li><motion.button onClick={() => setActiveTab('about')} className={`tab-button ${activeTab === 'about' ? 'active' : ''}`} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} aria-selected={activeTab === 'about'}>Giới Thiệu</motion.button></li>
+                    <li><motion.button onClick={() => setActiveTab('projects')} className={`tab-button ${activeTab === 'project' ? 'active' : ''}`} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} aria-selected={activeTab === 'project'}>Dự Án</motion.button></li>
+                    <li><motion.button onClick={() => setActiveTab('products')} className={`tab-button ${activeTab === 'products' ? 'active' : ''}`} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} aria-selected={activeTab === 'products'}>Sản Phẩm</motion.button></li>
+                    <li><motion.button onClick={() => setActiveTab('contact')} className={`tab-button ${activeTab === 'contact' ? 'active' : ''}`} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} aria-selected={activeTab === 'contact'}>Liên Hệ</motion.button></li>
                 </ul>
             </nav>
 
             <main className="main-content">
                 <AnimatePresence mode="wait">
                     {activeTab === 'links' && (
-                        <motion.div
-                            key="links"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.2 }}
-                            className="link-cards"
-                        >
+                        <motion.div key="links" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.2 }} className="link-cards">
                             {quickLinks.map((link) => (
-                                <motion.a
-                                    key={link.title}
-                                    href={link.url}
-                                    onClick={link.url === '#' ? handlePlaceholderLinkClick : undefined}
-                                    target={link.url !== '#' ? "_blank" : undefined}
-                                    rel="noopener noreferrer"
-                                    className="link-card"
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                >
+                                <motion.a key={link.title} href={link.url} onClick={link.url === '#' ? handlePlaceholderLinkClick : undefined} target={link.url !== '#' ? "_blank" : undefined} rel="noopener noreferrer" className="link-card" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                                     <div className="link-card-icon">{link.icon}</div>
                                     <div className="link-card-text">
                                         <h3 className="link-card-title">{link.title}</h3>
@@ -411,14 +276,7 @@ const PersonalLandingPage = () => {
                     )}
 
                     {activeTab === 'about' && (
-                        <motion.div
-                            key="about"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.2 }}
-                            className="about-section"
-                        >
+                        <motion.div key="about" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.2 }} className="about-section">
                             <div className="about-content">
                                 <h2 className="about-title">Về mình</h2>
                                 <div className="about-text">
@@ -449,36 +307,14 @@ const PersonalLandingPage = () => {
                     )}
 
                     {activeTab === 'projects' && featuredProjects.length > 0 && (
-                        <motion.div
-                            key="projects"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.2 }}
-                            className="project-cards"
-                        >
+                        <motion.div key="projects" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.2 }} className="project-cards" >
                             {featuredProjects.map((project, index) => (
-                                <motion.div
-                                    key={index}
-                                    className="project-card"
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                >
+                                <motion.div key={index} className="project-card" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                                     <div className="project-card-image-container">
-                                        <img
-                                            src={project.image}
-                                            alt={project.title}
-                                            className="project-card-image"
-                                        />
+                                        <img src={project.image} alt={project.title} className="project-card-image" />
                                         <div className="project-card-overlay">
-                                            <a
-                                                href={project.link}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="project-card-link"
-                                            >
-                                                <span>Xem Chi Tiết</span>
-                                                <ExternalLink size={18} />
+                                            <a href={project.link} target="_blank" rel="noopener noreferrer" className="project-card-link">
+                                                <span>Xem Chi Tiết</span><ExternalLink size={18} />
                                             </a>
                                         </div>
                                     </div>
@@ -492,36 +328,14 @@ const PersonalLandingPage = () => {
                     )}
 
                     {activeTab === 'products' && (
-                         <motion.div
-                            key="products"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.2 }}
-                            className="project-cards"
-                        >
+                        <motion.div key="products" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.2 }} className="project-cards">
                             {featuredProducts.map((product, index) => (
-                                <motion.div
-                                    key={index}
-                                    className="project-card"
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                >
+                                <motion.div key={index} className="project-card" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                                     <div className="project-card-image-container">
-                                        <img
-                                            src={product.image}
-                                            alt={product.title}
-                                            className="project-card-image"
-                                        />
+                                        <img src={product.image} alt={product.title} className="project-card-image" />
                                         <div className="project-card-overlay">
-                                            <a
-                                                href={product.link}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="project-card-link"
-                                            >
-                                                <span>Xem Chi Tiết</span>
-                                                <ExternalLink size={18} />
+                                            <a href={product.link} target="_blank" rel="noopener noreferrer" className="project-card-link">
+                                                <span>Xem Chi Tiết</span><ExternalLink size={18} />
                                             </a>
                                         </div>
                                     </div>
@@ -535,56 +349,16 @@ const PersonalLandingPage = () => {
                     )}
 
                     {activeTab === 'contact' && (
-                        <motion.div
-                            key="contact"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.2 }}
-                            className="contact-section"
-                        >
+                        <motion.div key="contact" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.2 }} className="contact-section">
                             <h2 className="contact-title">Message</h2>
-                            <p className="contact-description">
-                                Bạn có thể gửi tin nhắn ẩn danh cho mình thông qua form bên dưới.
-                            </p>
-                            <motion.form
-                                onSubmit={handleSubmit}
-                                className="contact-form"
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.1 }}
-                            >
-                                <textarea
-                                    value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
-                                    placeholder="Nhập tin nhắn của bạn..."
-                                    required
-                                    className="contact-textarea"
-                                />
-
-                                <motion.button
-                                    type="submit"
-                                    className="contact-submit-button"
-                                    disabled={isSubmitting}
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                >
-                                    {isSubmitting ? (
-                                        <><Loader2 size={16} className="animate-spin mr-2" />ㅤĐang gửi...</>
-                                    ) : (
-                                        "Gửi Tin Nhắn"
-                                    )}
+                            <p className="contact-description">Bạn có thể gửi tin nhắn ẩn danh cho mình thông qua form bên dưới.</p>
+                            <motion.form onSubmit={handleSubmit} className="contact-form" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
+                                <textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Nhập tin nhắn của bạn..." required className="contact-textarea" />
+                                <motion.button type="submit" className="contact-submit-button" disabled={isSubmitting} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                                    {isSubmitting ? (<><Loader2 size={16} className="animate-spin mr-2" />ㅤĐang gửi...</>) : ("Gửi Tin Nhắn")}
                                 </motion.button>
-                                {submitSuccess && (
-                                    <div className="contact-success-message">
-                                        Tin nhắn của bạn đã được gửi thành công!
-                                    </div>
-                                )}
-                                {submitError && (
-                                    <div className="contact-error-message">
-                                        {submitError}
-                                    </div>
-                                )}
+                                {submitSuccess && (<div className="contact-success-message">Tin nhắn của bạn đã được gửi thành công!</div>)}
+                                {submitError && (<div className="contact-error-message">{submitError}</div>)}
                             </motion.form>
                         </motion.div>
                     )}
@@ -593,17 +367,13 @@ const PersonalLandingPage = () => {
 
             <footer className="page-footer">
                 <div className="footer-left">
-                    <p>
-                        <span className="visitor-count">Lượt truy cập: <span>{visitorCount}</span> </span>
-                    </p>
+                    <p><span className="visitor-count">Lượt truy cập: <span>{visitorCount}</span> </span></p>
                 </div>
                 <div className="footer-center">
                     <p>© {new Date().getFullYear()} Trần Võ Hoàng Nam. All rights reserved.</p>
                 </div>
                 <div className="footer-right">
-                    <button className="connection-check-button" onClick={handleConnectionCheckClick}>
-                        Kết nối
-                    </button>
+                    <button className="connection-check-button" onClick={handleConnectionCheckClick}>Kết nối</button>
                     <div className="security-certs">
                         <img src={securityCert1} alt="Security Certificate 1" className="cert-logo" />
                         <img src={securityCert2} alt="Security Certificate 2" className="cert-logo" />
@@ -614,92 +384,29 @@ const PersonalLandingPage = () => {
 
             <AnimatePresence>
                 {isModalOpen && (
-                    <motion.div
-                        className="modal-backdrop"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        onClick={closeModal}
-                    >
-                        <motion.div
-                            className="modal-content"
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.3, ease: "easeInOut" }}
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            <button className="modal-close-button" onClick={closeModal}>
-                                ×
-                            </button>
+                    <motion.div className="modal-backdrop" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} onClick={closeModal}>
+                        <motion.div className="modal-content" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.3, ease: "easeInOut" }} onClick={(e) => e.stopPropagation()}>
+                            <button className="modal-close-button" onClick={closeModal}>×</button>
                             <h2 className='modal-title'>Thông Tin Kết Nối</h2>
                             <div className="connection-info">
-                                {connectionStatus === 'loading' && (
-                                    <div className="modal-loading">
-                                        <Loader2 size={24} className="animate-spin" />
-                                        <p>Đang kiểm tra...</p>
-                                    </div>
-                                )}
+                                {connectionStatus === 'loading' && (<div className="modal-loading"><Loader2 size={24} className="animate-spin" /><p>Đang kiểm tra...</p></div>)}
                                 {connectionStatus === 'error' && <p className="modal-error">Lỗi khi lấy dữ liệu.</p>}
                                 {connectionStatus === 'success' && connectionData && (
                                     <div className="modal-grid">
-                                        <div className="modal-data-group">
-                                            <label>IPv4: </label>
-                                            <span>{connectionData.ip}</span>
-                                        </div>
-
-                                        <div className="modal-data-group">
-                                            <label>Ping: </label>
-                                            <span>{connectionData.ping} ms</span>
-                                        </div>
-                                        <div className="modal-data-group">
-                                            <label>DNS Lookup: </label>
-                                            <span>{connectionData.dnsLookupTime}s</span>
-                                        </div>
-                                        <div className="modal-data-group">
-                                            <label>AS Name: </label>
-                                            <span>{connectionData.asName}</span>
-                                        </div>
-                                        <div className="modal-data-group">
-                                            <label>AS Number: </label>
-                                            <span>{connectionData.asNumber}</span>
-                                        </div>
-                                        <div className="modal-data-group">
-                                            <label>DoH: </label>
-                                            <span>{connectionData.supportsDoH ? 'Có' : 'Không'}</span>
-                                        </div>
-                                        <div className="modal-data-group">
-                                            <label>TLS: </label>
-                                            <span>{connectionData.usingTLS ? 'Có' : 'Không'}</span>
-                                        </div>
-                                        <div className="modal-data-group">
-                                            <label>Thành phố: </label>
-                                            <span>{connectionData.city}</span>
-                                        </div>
-                                        <div className="modal-data-group">
-                                            <label>Vùng: </label>
-                                            <span>{connectionData.region}</span>
-                                        </div>
-                                        <div className="modal-data-group">
-                                            <label>Quốc gia: </label>
-                                            <span>{connectionData.country}</span>
-                                        </div>
+                                        <div className="modal-data-group"><label>IPv4: </label><span>{connectionData.ip}</span></div>
+                                        <div className="modal-data-group"><label>Ping: </label><span>{connectionData.ping} ms</span></div>
+                                        <div className="modal-data-group"><label>DNS Lookup: </label><span>{connectionData.dnsLookupTime}s</span></div>
+                                        <div className="modal-data-group"><label>AS Name: </label><span>{connectionData.asName}</span></div>
+                                        <div className="modal-data-group"><label>AS Number: </label><span>{connectionData.asNumber}</span></div>
+                                        <div className="modal-data-group"><label>DoH: </label><span>{connectionData.supportsDoH ? 'Có' : 'Không'}</span></div>
+                                        <div className="modal-data-group"><label>TLS: </label><span>{connectionData.usingTLS ? 'Có' : 'Không'}</span></div>
+                                        <div className="modal-data-group"><label>Thành phố: </label><span>{connectionData.city}</span></div>
+                                        <div className="modal-data-group"><label>Vùng: </label><span>{connectionData.region}</span></div>
+                                        <div className="modal-data-group"> <label>Quốc gia: </label><span>{connectionData.country}</span></div>
                                         {connectionData.latitude && connectionData.longitude ? (
-                                            <div className="modal-data-group">
-                                                <label>Tọa độ (GPS): </label>
-                                                <span>{connectionData.latitude}, {connectionData.longitude}</span>
-                                            </div>
-                                        ) : (
-                                            <div className="modal-data-group">
-                                                <label>Tọa độ: </label>
-                                                <span>{connectionData.loc}</span>
-                                            </div>
-                                        )}
-                                        <div className="modal-data-group">
-                                            <label>Đánh giá: </label>
-                                            <span className={`security-rating ${connectionData.securityRating}`}>{connectionData.securityRating}</span>
-                                        </div>
+                                            <div className="modal-data-group"><label>Tọa độ (GPS): </label><span>{connectionData.latitude}, {connectionData.longitude}</span></div>
+                                        ) : (<div className="modal-data-group"><label>Tọa độ: </label> <span>{connectionData.loc}</span></div>)}
+                                        <div className="modal-data-group"><label>Đánh giá: </label><span className={`security-rating ${connectionData.securityRating}`}>{connectionData.securityRating}</span></div>
                                     </div>
                                 )}
                             </div>
