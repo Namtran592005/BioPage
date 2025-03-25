@@ -52,7 +52,6 @@ const playlist = [
 ];
 
 const PersonalLandingPage = () => {
-    // ... (rest of your component code, see below for changes inside) ...
     const [isLoading, setIsLoading] = useState(true);
     const [activeTab, setActiveTab] = useState('links');
     const [message, setMessage] = useState('');
@@ -120,7 +119,6 @@ const PersonalLandingPage = () => {
         };
     }, [isDarkMode, isPlaying, currentTrack]); // currentTrack is in the dependency array
 
-    // ... (rest of your component, including handlers, etc.) ...
     const toggleTheme = () => setIsDarkMode(prevMode => !prevMode);
 
        const handleConnectionCheckClick = async () => {
@@ -215,11 +213,10 @@ const PersonalLandingPage = () => {
       }
     };
 
-    // Xử lý chuyển bài hát
     const playNextTrack = () => {
         const nextIndex = (currentTrackIndex + 1) % playlist.length;
         setCurrentTrackIndex(nextIndex);
-        setCurrentTrack(playlist[nextIndex]);  // Cập nhật currentTrack
+        setCurrentTrack(playlist[nextIndex]);
          setIsPlaying(true);
 
     };
@@ -227,7 +224,7 @@ const PersonalLandingPage = () => {
     const playPreviousTrack = () => {
         const prevIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
         setCurrentTrackIndex(prevIndex);
-        setCurrentTrack(playlist[prevIndex]); // Cập nhật currentTrack
+        setCurrentTrack(playlist[prevIndex]);
         setIsPlaying(true);
     };
 
@@ -264,7 +261,6 @@ const PersonalLandingPage = () => {
                 <button onClick={playNextTrack} aria-label="Next Track">
                     <ChevronRight size={18} />
                 </button>
-                {/* Use the imported thumbnail directly */}
                 <img src={currentTrack.thumbnail} alt="Music Thumbnail" className="music-thumbnail" />
                 <span className="music-info">{currentTrack.title}</span>
             </div>
@@ -320,81 +316,87 @@ const PersonalLandingPage = () => {
                         </motion.div>
                     )}
 
-                   {activeTab === 'about' && (
-                      <motion.div
-                        key="about"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        transition={{ duration: 0.2 }}
-                        className="about-section"
-                      >
-                        <div className="about-content">
-                          <h2 className="about-title">Về mình</h2>
-                          <div className="about-text">
-                            <p>
-                              🌟 Xin chào! Mình là Nam Trần – ghét sự nhàm chán 😆. Làm bán thời gian, thích sáng tạo & khám phá 🎨💡. Đam mê
-                              công nghệ, thiết kế, thử nghiệm đủ thứ hay ho 🎭🔧. Yêu du lịch, chill với phim, cà phê & trò chuyện ☕🎬💬. Sống
-                              đơn giản: Làm điều vui, học điều cần, tận hưởng từng khoảnh khắc ✨💖.
-                            </p>
-                            <div className="personal-info-grid">
-                              <div className="personal-info-group">
-                                <Phone size={16} className="info-icon" />
-                                <span>09xxxxxx39</span>
-                              </div>
-                              <div className="personal-info-group">
-                                <Mail size={16} className="info-icon" />
-                                <span>Sointerestinggg@gmail.com</span>
-                              </div>
-                              <div className="personal-info-group">
-                                <MapPin size={16} className="info-icon" />
-                                <span>Trà Vinh, Việt Nam</span>
-                              </div>
-                              <div className="personal-info-group">
-                                <User size={16} className="info-icon" />
-                                <span>Độc Thân</span>
-                              </div>
-                            </div>
+{activeTab === 'about' && (
+    <motion.div
+        key="about"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.2 }}
+        className="about-section"
+    >
+        <div className="about-content">
+            <h2 className="about-title">Về mình</h2>
+            <div className="about-text">
+                <p>
+                    🌟 Xin chào! Mình là Nam Trần – ghét sự nhàm chán 😆. Làm bán thời gian, thích sáng tạo & khám phá 🎨💡. Đam mê
+                    công nghệ, thiết kế, thử nghiệm đủ thứ hay ho 🎭🔧. Yêu du lịch, chill với phim, cà phê & trò chuyện ☕🎬💬. Sống
+                    đơn giản: Làm điều vui, học điều cần, tận hưởng từng khoảnh khắc ✨💖.
+                </p>
+                <div className="personal-info-grid">
+                    {/* ... (Thông tin cá nhân giữ nguyên) ... */}
+                     <div className="personal-info-group">
+                        <Phone size={16} className="info-icon" />
+                        <span>09xxxxxx39</span>
+                      </div>
+                      <div className="personal-info-group">
+                        <Mail size={16} className="info-icon" />
+                        <span>Sointerestinggg@gmail.com</span>
+                      </div>
+                      <div className="personal-info-group">
+                        <MapPin size={16} className="info-icon" />
+                        <span>Trà Vinh, Việt Nam</span>
+                      </div>
+                      <div className="personal-info-group">
+                        <User size={16} className="info-icon" />
+                        <span>Độc Thân</span>
+                      </div>
+                </div>
 
-                            {/* Thêm thông tin cá nhân */}
-                            <div className="additional-info">
-                                <h3 className='add-info'>Thông tin khác</h3>
-                                <div className="additional-info-grid">
-                                    <div className="additional-info-group">
-                                        <span>MBTI:</span>
-                                        <span>INTJ</span>
-                                    </div>
-                                    <div className="additional-info-group">
-                                        <span>Chiều cao:</span>
-                                        <span>1m62</span>
-                                    </div>
-                                     <div className="additional-info-group">
-                                        <span>Cân nặng:</span>
-                                        <span>57kg</span>
-                                    </div>
-                                    <div className="additional-info-group">
-                                        <span>Giới tính:</span>
-                                        <span>Nam</span>
-                                    </div>
-                                    <div className="additional-info-group">
-                                         <span>Năm sinh:</span>
-                                         <span>2005</span>
-                                    </div>
-                                     <div className="additional-info-group">
-                                        <span>Tuổi:</span>
-                                         <span>{new Date().getFullYear() - 2005}</span>
-                                     </div>
-                                    <div className="additional-info-group">
-                                        <span>Nhu cầu:</span>
-                                        <span>Tìm bạn, Người yêu hoặc FWB</span>
-                                    </div>
-                                    {/* Thêm các thông tin khác */}
-                                </div>
-                            </div>
-                          </div>
+                <div className="additional-info">
+                    <h3 className="add-info">Thông tin khác</h3>
+                    <div className="additional-info-grid">
+                        <div className="additional-info-group">
+                            <span className="info-icon">🧠</span> {/* Emoji */}
+                            <span>MBTI:</span>
+                            <span>INTJ</span>
                         </div>
-                      </motion.div>
-                    )}
+                        <div className="additional-info-group">
+                            <span className="info-icon">📏</span> {/* Emoji */}
+                            <span>Chiều cao:</span>
+                            <span>1m62</span>
+                        </div>
+                        <div className="additional-info-group">
+                            <span className="info-icon">⚖️</span> {/* Emoji */}
+                            <span>Cân nặng:</span>
+                            <span>57kg</span>
+                        </div>
+                        <div className="additional-info-group">
+                           <span className="info-icon">♂️</span>
+                            <span>Giới tính:</span>
+                            <span>Nam</span>
+                        </div>
+                        <div className="additional-info-group">
+                          <span className="info-icon">🎂</span>
+                            <span>Năm sinh:</span>
+                            <span>2005</span>
+                        </div>
+                         <div className="additional-info-group">
+                            <span className="info-icon">🔞</span>
+                            <span>Tuổi:</span>
+                            <span>{new Date().getFullYear() - 2005}</span>
+                         </div>
+                         <div className="additional-info-group">
+                            <span className="info-icon">🤭</span>
+                            <span>Nhu cầu:</span>
+                            <span>Tìm bạn, Người yêu hoặc FWB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </motion.div>
+)}
 
                     {activeTab === 'projects' && featuredProjects.length > 0 && (
                         <motion.div key="projects" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.2 }} className="project-cards" >
@@ -438,20 +440,63 @@ const PersonalLandingPage = () => {
                         </motion.div>
                     )}
 
-                    {activeTab === 'contact' && (
-                        <motion.div key="contact" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.2 }} className="contact-section">
-                            <h2 className="contact-title">Message</h2>
-                            <p className="contact-description">Bạn có thể gửi tin nhắn ẩn danh cho mình thông qua form bên dưới.</p>
-                            <motion.form onSubmit={handleSubmit} className="contact-form" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
-                                <textarea value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Nhập tin nhắn của bạn..." required className="contact-textarea" />
-                                <motion.button type="submit" className="contact-submit-button" disabled={isSubmitting} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                    {isSubmitting ? (<><Loader2 size={16} className="animate-spin mr-2" />ㅤĐang gửi...</>) : ("Gửi Tin Nhắn")}
-                                </motion.button>
-                                {submitSuccess && (<div className="contact-success-message">Tin nhắn của bạn đã được gửi thành công!</div>)}
-                                {submitError && (<div className="contact-error-message">{submitError}</div>)}
-                            </motion.form>
-                        </motion.div>
-                    )}
+{activeTab === 'contact' && (
+    <motion.div
+        key="contact"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.2 }}
+        className="contact-section"
+    >
+        <h2 className="contact-title">Để lại lời nhắn</h2>
+        <p className="contact-description">
+            Bạn có thể gửi tin nhắn ẩn danh cho mình qua form dưới đây. Mình rất mong nhận được phản hồi từ bạn!
+        </p>
+        <motion.form
+            onSubmit={handleSubmit}
+            className="contact-form"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+        >
+            <textarea
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Nhập tin nhắn của bạn..."
+                required
+                className="contact-textarea"
+            />
+            <motion.button
+                type="submit"
+                className="contact-submit-button"
+                disabled={isSubmitting}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+            >
+                {isSubmitting ? (
+                    <>
+                        <Loader2 size={16} className="animate-spin mr-2" />
+                        Đang gửi...
+                    </>
+                ) : (
+                    "Gửi tin nhắn"
+                )}
+            </motion.button>
+
+            {submitSuccess && (
+                <div className="contact-success-message">
+                   ✓ Tin nhắn đã gửi thành công!
+                </div>
+            )}
+            {submitError && (
+                <div className="contact-error-message">
+                    ⚠ {submitError}
+                </div>
+            )}
+        </motion.form>
+    </motion.div>
+)}
                 </AnimatePresence>
             </main>
 
