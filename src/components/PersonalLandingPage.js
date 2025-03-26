@@ -362,6 +362,11 @@ const PersonalLandingPage = () => {
                             <span>INTJ</span>
                         </div>
                         <div className="additional-info-group">
+                            <span className="info-icon">♍</span> {/* Emoji */}
+                            <span>Zodiac:</span>
+                            <span>Xử nữ (Virgo)</span>
+                        </div>
+                        <div className="additional-info-group">
                             <span className="info-icon">📏</span> {/* Emoji */}
                             <span>Chiều cao:</span>
                             <span>1m62</span>
