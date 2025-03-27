@@ -887,311 +887,311 @@ body {
  }
 
  /*Modal Title*/
-  .modal-title {
-     font-size: 1.75rem;
-     font-weight: 600; /* Chữ đậm hơn */
-     margin-bottom: 1rem;
-     padding: 1.5rem;
-      padding-bottom: 1rem; /* Giảm padding bottom */
-     border-bottom: 1px solid var(--tab-border-color);
-     letter-spacing: 0.5px; /* Giãn chữ */
-     text-transform: uppercase; /* Chuyển thành chữ hoa */
- }
- .connection-info {
-   padding: 0.5rem 1.5rem 1.5rem 1.5rem; /* Giảm padding top */
- }
- /* Thêm style cho các trạng thái loading và error */
- .modal-loading {
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     gap: 0.5rem;
-       padding: 2rem;
-       color: var(--text-color);
- }
- .modal-error{
-   color: var(--contact-error-color);
-   padding: 2rem;
-   text-align: center;
- }
- /* Sử dụng CSS Grid cho modal-grid */
- .modal-grid {
-   display: grid;
-   grid-template-columns: 1fr; /* 1 cột */
-   gap: var(--modal-grid-gap);
-     padding: 0 1rem;
-      padding-top: 0;
-     margin-top: 1rem;
+ .modal-title {
+  font-size: 1.75rem;
+  font-weight: 600; /* Chữ đậm hơn */
+  margin-bottom: 1rem;
+  padding: 1.5rem;
+   padding-bottom: 1rem; /* Giảm padding bottom */
+  border-bottom: 1px solid var(--tab-border-color);
+  letter-spacing: 0.5px; /* Giãn chữ */
+  text-transform: uppercase; /* Chuyển thành chữ hoa */
+}
+.connection-info {
+padding: 0.5rem 1.5rem 1.5rem 1.5rem; /* Giảm padding top */
+}
+/* Thêm style cho các trạng thái loading và error */
+.modal-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+    padding: 2rem;
+    color: var(--text-color);
+}
+.modal-error{
+color: var(--contact-error-color);
+padding: 2rem;
+text-align: center;
+}
+/* Sử dụng CSS Grid cho modal-grid */
+.modal-grid {
+display: grid;
+grid-template-columns: 1fr; /* 1 cột */
+gap: var(--modal-grid-gap);
+  padding: 0 1rem;
+   padding-top: 0;
+  margin-top: 1rem;
 
- } .modal-grid .modal-data-group:nth-child(odd){
-   background-color:  var(--modal-data-bg);
- }
+} .modal-grid .modal-data-group:nth-child(odd){
+background-color:  var(--modal-data-bg);
+}
 
- .modal-data-group {
- display: flex; /* Dùng flexbox */
- justify-content: space-between; /* Căn trái label, phải value */
- align-items: center; /* Canh giữa theo chiều dọc */ padding: 0.75rem 1rem;
- border-radius: 4px;
- color: var(--modal-text-color);
-   word-break: break-word;
- font-size: 0.9rem; /* Thu nhỏ font-size của phần value */
- line-height: 1.4;
+.modal-data-group {
+display: flex; /* Dùng flexbox */
+justify-content: space-between; /* Căn trái label, phải value */
+align-items: center; /* Canh giữa theo chiều dọc */ padding: 0.75rem 1rem;
+border-radius: 4px;
+color: var(--modal-text-color);
+word-break: break-word;
+font-size: 0.9rem; /* Thu nhỏ font-size của phần value */
+line-height: 1.4;
 
- }
+}
 
- .modal-data-group:hover {
- background-color: var(--modal-data-bg);
- }
- .modal-data-group label {
- font-weight: 500;
- margin-bottom: 0; /* Xóa margin bottom */
- color: var(--modal-label-color);
- }
- .modal-data-group span{
- color: var(--modal-text-color);
- overflow: hidden;
- text-overflow: ellipsis;
- white-space: nowrap;
- font-size: 1.05rem;
- }
+.modal-data-group:hover {
+background-color: var(--modal-data-bg);
+}
+.modal-data-group label {
+font-weight: 500;
+margin-bottom: 0; /* Xóa margin bottom */
+color: var(--modal-label-color);
+}
+.modal-data-group span{
+color: var(--modal-text-color);
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+font-size: 1.05rem;
+}
 
- .security-rating.green {
- color: green;
- }
- .security-rating.orange {
- color: orange;
- }
+.security-rating.green {
+color: green;
+}
+.security-rating.orange {
+color: orange;
+}
 
- .security-rating.yellow {
- color: yellow;
- }
+.security-rating.yellow {
+color: yellow;
+}
 
- .security-rating.red {
- color: red;
- }
+.security-rating.red {
+color: red;
+}
 
- /* ----- Media Queries (Responsiveness) ----- */
+/* ----- Media Queries (Responsiveness) ----- */
 
- /* Tablet Styles (Portrait) */
+/* Tablet Styles (Portrait) */
 @media (max-width: 1024px) { /* Adjust breakpoint as needed */
- .page-footer {
-      padding: 0.6rem; /*  Reduce padding */
-     font-size: 0.75rem; /*  Reduce font size */
- }
+.page-footer {
+   padding: 0.6rem; /*  Reduce padding */
+  font-size: 0.75rem; /*  Reduce font size */
+}
 
- .footer-left {
-      gap: 0.2rem; /*  Reduce gap */
- }
-   .footer-left p:first-child{
-     flex-direction: column; /* Stack on smaller tablets */
-     align-items: flex-start; /* Align to the start */
-       gap: 0.25rem;
- }
+.footer-left {
+   gap: 0.2rem; /*  Reduce gap */
+}
+.footer-left p:first-child{
+  flex-direction: column; /* Stack on smaller tablets */
+  align-items: flex-start; /* Align to the start */
+    gap: 0.25rem;
+}
+
+.footer-right {
+    gap: 0.75rem; /* Reduce gap */
+}
+
+.cert-logo {
+    height: 20px; /*  Reduce logo size */
+}
+.connection-check-button{
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+}
+}
+
+/* Mobile Styles (Portrait) */
+@media (max-width: 767px) { /*  Adjust breakpoint as needed */
+.page-footer {
+  flex-direction: column; /* Stack elements vertically */
+  align-items: stretch; /* Stretch items to full width */
+   padding: 0.75rem;    /*  padding */
+}
+.footer-left,
+.footer-center,
+.footer-right {
+  width: 100%; /* Take up full width */
+  text-align: center; /* Center text */
+  margin-bottom: 0.5rem; /* Add spacing between sections */
+}
+.footer-left {
+    align-items: center; /* Center items horizontally */
+}
+
+ .footer-left p:first-child {
+  flex-direction: column; /* Stack IP and count vertically*/
+   align-items: center;    /* Center items */
+  gap: 0.2rem;
+}
+
+ .footer-center {
+    position: static; /* Remove absolute positioning */
+    transform: none;   /* Remove transform */
+    order: 3;          /* Place copyright at the bottom */
+}
 
  .footer-right {
-       gap: 0.75rem; /* Reduce gap */
- }
+     flex-direction: column; /* Stack button and certs */
+     gap: 0.5rem; /*  Reduce gap */
+    order: 2;      /* Place button and certs above copyright */
+}
 
- .cert-logo {
-       height: 20px; /*  Reduce logo size */
- }
-  .connection-check-button{
-       font-size: 0.7rem;
-       padding: 0.3rem 0.6rem;
- }
- }
+.security-certs {
+     justify-content: center; /* Center the certificates */
+}
+.connection-check-button{
+      font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+}
+/* Other responsive adjustments from previous steps */
+.tab-list {
+flex-direction: column;
+  align-items: center;
 
- /* Mobile Styles (Portrait) */
- @media (max-width: 767px) { /*  Adjust breakpoint as needed */
-  .page-footer {
-     flex-direction: column; /* Stack elements vertically */
-     align-items: stretch; /* Stretch items to full width */
-      padding: 0.75rem;    /*  padding */
- }
- .footer-left,
- .footer-center,
- .footer-right {
-     width: 100%; /* Take up full width */
-     text-align: center; /* Center text */
-     margin-bottom: 0.5rem; /* Add spacing between sections */
-   }
- .footer-left {
-       align-items: center; /* Center items horizontally */
-   }
+}
+.tab-button {
+  width:100%;
+}
 
-    .footer-left p:first-child {
-     flex-direction: column; /* Stack IP and count vertically*/
-      align-items: center;    /* Center items */
-     gap: 0.2rem;
-   }
+.link-cards, .project-cards {
+grid-template-columns: 1fr;
+}
+  .page-header, .tab-navigation, .main-content{
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
 
-    .footer-center {
-       position: static; /* Remove absolute positioning */
-       transform: none;   /* Remove transform */
-       order: 3;          /* Place copyright at the bottom */
-   }
+  .name {
+  font-size: 2rem;
+}
+.bio{
+    font-size: 0.9rem;
+}
+    .personal-info-grid{
+    grid-template-columns: 1fr; /* 1 cột trên mobile */
+}
+ .additional-info-grid{
+    grid-template-columns: 1fr; /* 1 cột trên mobile */
+}
+ /* Modal nhỏ hơn trên mobile */
+.modal-content{
+     max-width: 95%;
+}
+.modal-grid{
+  grid-template-columns: 1fr; /* 1 cột trên mobile */
+}
+}
 
-    .footer-right {
-        flex-direction: column; /* Stack button and certs */
-        gap: 0.5rem; /*  Reduce gap */
-       order: 2;      /* Place button and certs above copyright */
-   }
-
-   .security-certs {
-        justify-content: center; /* Center the certificates */
-   }
-   .connection-check-button{
-         font-size: 0.7rem;
-       padding: 0.3rem 0.6rem;
+/* Larger Mobile Landscape */
+@media (max-width: 820px) and (orientation: landscape){
+ .footer-left p:first-child{
+     flex-direction: row;
+    gap: 0.5rem;
+}
+ .footer-footer{
+    font-size: 0.6rem;
  }
-  /* Other responsive adjustments from previous steps */
- .tab-list {
-   flex-direction: column;
-     align-items: center;
-
+ .connection-check-button{
+    font-size: 0.6rem;
+     padding: 0.2rem 0.4rem;
  }
-   .tab-button {
-     width:100%;
- }
-
-  .link-cards, .project-cards {
-   grid-template-columns: 1fr;
- }
-     .page-header, .tab-navigation, .main-content{
-     padding-left: 1rem;
-     padding-right: 1rem;
- }
-
-     .name {
-     font-size: 2rem;
- }
-   .bio{
-       font-size: 0.9rem;
-   }
-       .personal-info-grid{
-       grid-template-columns: 1fr; /* 1 cột trên mobile */
-   }
-    .additional-info-grid{
-       grid-template-columns: 1fr; /* 1 cột trên mobile */
-   }
-    /* Modal nhỏ hơn trên mobile */
-   .modal-content{
-        max-width: 95%;
-   }
-  .modal-grid{
-     grid-template-columns: 1fr; /* 1 cột trên mobile */
- }
- }
-
- /* Larger Mobile Landscape */
- @media (max-width: 820px) and (orientation: landscape){
-    .footer-left p:first-child{
-        flex-direction: row;
-       gap: 0.5rem;
-   }
-    .footer-footer{
-       font-size: 0.6rem;
-    }
-    .connection-check-button{
-       font-size: 0.6rem;
-        padding: 0.2rem 0.4rem;
-    }
- }
+}
 
 .music-player {
-   position: absolute;
-   top: 1rem;
-   left: 1rem;
-   display: flex;
-   align-items: center;
-   gap: 0.5rem;
-   background-color: rgba(0, 0, 0, 0.5);
-   color: white;
-   padding: 0.5rem;
-   border-radius: 0.5rem;
-   z-index: 100;
+position: absolute;
+top: 1rem;
+left: 1rem;
+display: flex;
+align-items: center;
+gap: 0.5rem;
+background-color: rgba(0, 0, 0, 0.5);
+color: white;
+padding: 0.5rem;
+border-radius: 0.5rem;
+z-index: 100;
 }
 
 .music-player button {
-   background: none;
-   border: none;
-   color: inherit;
-   cursor: pointer;
-   padding: 0.25rem;
+background: none;
+border: none;
+color: inherit;
+cursor: pointer;
+padding: 0.25rem;
 }
 
 .music-info {
-   font-size: 0.8rem;
-   white-space: nowrap;
-   overflow: hidden;
-   text-overflow: ellipsis;
-   max-width: 150px;
+font-size: 0.8rem;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+max-width: 150px;
 }
 
 .music-thumbnail {
-   width: 24px;
-   height: 24px;
-   border-radius: 50%;
-   object-fit: cover;
+width: 24px;
+height: 24px;
+border-radius: 50%;
+object-fit: cover;
 }
 
 .additional-info {
-  margin-top: 1.5rem;
-  padding: 1rem;
-  border-top: 1px solid var(--tab-border-color);
+margin-top: 1.5rem;
+padding: 1rem;
+border-top: 1px solid var(--tab-border-color);
 }
 
 .additional-info-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 cột trên desktop/tablet */
-  gap: 0.5rem 1rem;
+display: grid;
+grid-template-columns: repeat(2, 1fr); /* 2 cột trên desktop/tablet */
+gap: 0.5rem 1rem;
 }
 
 .additional-info-group {
-  display: flex;
-  align-items: center; /* Căn giữa theo chiều dọc */
-  gap: 0.5rem; /* Khoảng cách giữa icon và label/value */
-  font-size: 0.9rem;
-   border-bottom: 1px solid var(--tab-border-color); /* Thêm dòng này */
-   padding-bottom: 0.5rem; /* Thêm padding để nội dung không dính vào border */
-   margin-bottom: 0.5rem;  /*Thêm margin để các dòng không dính nhau*/
+display: flex;
+align-items: center; /* Căn giữa theo chiều dọc */
+gap: 0.5rem; /* Khoảng cách giữa icon và label/value */
+font-size: 0.9rem;
+border-bottom: 1px solid var(--tab-border-color); /* Thêm dòng này */
+padding-bottom: 0.5rem; /* Thêm padding để nội dung không dính vào border */
+margin-bottom: 0.5rem;  /*Thêm margin để các dòng không dính nhau*/
 }
 .additional-info-group .info-icon{
-  width: 1.2em; /* Đảm bảo icon có kích thước cố định */
-  text-align: center; /* Căn giữa icon */
+width: 1.2em; /* Đảm bảo icon có kích thước cố định */
+text-align: center; /* Căn giữa icon */
 }
 
 .additional-info-group span:nth-child(2) { /* Label ("MBTI:", "Chiều cao:", ...) */
-  font-weight: 500;
-  color: var(--username-color);
-  margin-right: 0.5rem; /* Khoảng cách với value */
-  flex-shrink: 0; /* Không bị co khi value quá dài */
-  min-width: 80px; /* Chiều rộng tối thiểu cho label */
+font-weight: 500;
+color: var(--username-color);
+margin-right: 0.5rem; /* Khoảng cách với value */
+flex-shrink: 0; /* Không bị co khi value quá dài */
+min-width: 80px; /* Chiều rộng tối thiểu cho label */
 }
 .additional-info-group span:last-child {
-   border-bottom: none;
+border-bottom: none;
 
 }
 .add-info{
-  margin-bottom: 0.7rem;
+margin-bottom: 0.7rem;
 }
 
 /* Mobile Styles */
 @media (max-width: 767px) {
-  .additional-info-grid {
-      grid-template-columns: 1fr; /* 1 cột trên mobile */
-  }
-    .additional-info-group {
-      flex-direction: column; /* Xếp chồng theo chiều dọc */
-      align-items: flex-start; /* Căn trái */
-      border-bottom: 1px solid var(--tab-border-color);
-  }
-   .additional-info-group span:nth-child(2){
-      margin-right: 0;
-      margin-bottom: 0.2rem;
-      min-width: 0;
-  }
-  .additional-info-group:last-child{
-    border-bottom: none;
+.additional-info-grid {
+   grid-template-columns: 1fr; /* 1 cột trên mobile */
+}
+ .additional-info-group {
+   flex-direction: column; /* Xếp chồng theo chiều dọc */
+   align-items: flex-start; /* Căn trái */
+   border-bottom: 1px solid var(--tab-border-color);
+}
+.additional-info-group span:nth-child(2){
+   margin-right: 0;
+   margin-bottom: 0.2rem;
+   min-width: 0;
+}
+.additional-info-group:last-child{
+ border-bottom: none;
 }
 }

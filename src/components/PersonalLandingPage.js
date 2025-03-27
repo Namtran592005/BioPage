@@ -26,6 +26,7 @@ import thumbnail2 from './music/Cohenvoithanhxuan.jpg';
 import thumbnail3 from './music/Sunghiepchuong.jpg';
 import thumbnail4 from './music/Thinkaboutu.jpg';
 
+import { ParallaxProvider, Parallax } from 'react-scroll-parallax'; // Import
 
 // Playlist array now uses the imported variables
 const playlist = [
@@ -240,8 +241,10 @@ const PersonalLandingPage = () => {
 
 
     return (
+        <ParallaxProvider> {/* Bao bọc toàn bộ ứng dụng */}
         <div className={`page-container ${isDarkMode ? 'dark-mode' : 'light-mode'}`}>
             <div className="geometric-background">
+                <Parallax speed={-15}> {/* Điều chỉnh tốc độ parallax */}
                 <div className="shapes">
                     {shapes.map((shape) => (
                         <div key={shape.id} className={shape.shapeType}
@@ -249,6 +252,7 @@ const PersonalLandingPage = () => {
                         />
                     ))}
                 </div>
+                </Parallax>
             </div>
 
              <div className="music-player">
@@ -337,7 +341,7 @@ const PersonalLandingPage = () => {
                     {/* ... (Thông tin cá nhân giữ nguyên) ... */}
                      <div className="personal-info-group">
                         <Phone size={16} className="info-icon" />
-                        <span>09xxxxxx39</span>
+                        <span>096xxxxx39</span>
                       </div>
                       <div className="personal-info-group">
                         <Mail size={16} className="info-icon" />
@@ -384,7 +388,7 @@ const PersonalLandingPage = () => {
                         <div className="additional-info-group">
                           <span className="info-icon">🎂</span>
                             <span>Năm sinh:</span>
-                            <span>2005</span>
+                            <span>5/9/2005</span>
                         </div>
                          <div className="additional-info-group">
                             <span className="info-icon">🔞</span>
@@ -394,7 +398,7 @@ const PersonalLandingPage = () => {
                          <div className="additional-info-group">
                             <span className="info-icon">🤭</span>
                             <span>Nhu cầu:</span>
-                            <span>Tìm bạn, Người yêu hoặc FWB</span>
+                            <span>Ny Or Fwb</span>
                         </div>
                     </div>
                 </div>
@@ -555,6 +559,7 @@ const PersonalLandingPage = () => {
                 )}
             </AnimatePresence>
         </div>
+         </ParallaxProvider>
     );
 };
 
