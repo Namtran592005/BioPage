@@ -395,11 +395,11 @@ const PersonalLandingPage = () => {
                             <span>Tuổi:</span>
                             <span>{new Date().getFullYear() - 2005}</span>
                          </div>
-                         <div className="additional-info-group">
+                         {/*<div className="additional-info-group">
                             <span className="info-icon">🤭</span>
                             <span>Nhu cầu:</span>
                             <span>Ny Or Fwb</span>
-                        </div>
+                        </div>*/}
                     </div>
                 </div>
             </div>
