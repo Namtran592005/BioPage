@@ -96,7 +96,7 @@ const PersonalLandingPage = () => {
             left: Math.random() * 100,
             animation: animations[Math.floor(Math.random() * animations.length)],
             delay: Math.random() * 5,
-            shapeType: Math.random() < 0.5 ? 'circle' : 'rectangle',
+            shapeType: Math.random() < 0.3 ? 'circle' : 'rectangle',
           }));
           setShapes(newShapes);
         };
@@ -175,15 +175,15 @@ const PersonalLandingPage = () => {
         { icon: <FaThreads size={24} />, url: 'https://threads.net/namtran5905', label: 'Threads' },
         { icon: <SiZalo size={24} />, url: 'https://zaloapp.com/qr/p/1re1dklrzok69?src=qr', label: 'Zalo' },
         { icon: <Heart size={24} />, url: 'https://locket.cam/Namtran5905', label: 'Locket' },
-        { icon: <FaTiktok size={24} />, url: 'https://www.tiktok.com/@namtran_5905', label: 'TikTok' },
-        { icon: <SiTelegram size={24} />, url: 'https://t.me/namtran5905', label: 'Telegram' },
+        { icon: <FaTiktok size={23} />, url: 'https://www.tiktok.com/@namtran_5905', label: 'TikTok' },
+        { icon: <SiTelegram size={23} />, url: 'https://t.me/namtran5905', label: 'Telegram' },
     ];
 
     const quickLinks = [
-        //{ icon: <Globe size={24} />, title: 'Website Chính Thức', description: 'Khám phá portfolio và blog của tôi', url: '#' },
-        //{ icon: <Music size={24} />, title: 'Playlist Yêu Thích', description: 'Những bài hát tôi thường nghe', url: '#' },
+        { icon: <Globe size={24} />, title: 'Website Chính Thức', description: 'Khám phá portfolio và blog của tôi', url: '#' },
+        { icon: <Music size={24} />, title: 'Playlist Yêu Thích', description: 'Những bài hát tôi thường nghe', url: '#' },
         { icon: <Coffee size={24} />, title: 'Mua cho tôi một ly cà phê', description: 'Nếu bạn thấy thích', url: 'https://me.momo.vn/lDIWuWsoCaCdUOI2f6UK' },
-        //{ icon: <BookOpen size={24} />, title: 'Blog mới nhất', description: 'Đọc những bài viết gần đây của tôi', url: '#' },
+        { icon: <BookOpen size={24} />, title: 'Blog mới nhất', description: 'Đọc những bài viết gần đây của tôi', url: '#' },
     ];
     const handlePlaceholderLinkClick = (e) => { e.preventDefault(); alert("Liên kết này chưa được thêm vào. Vui lòng thử lại sau!"); };
     const featuredProjects = [];
@@ -394,11 +394,11 @@ const PersonalLandingPage = () => {
                             <span>Tuổi:</span>
                             <span>{new Date().getFullYear() - 2005}</span>
                          </div>
-                         {/*<div className="additional-info-group">
-                            <span className="info-icon">🤭</span>
+                         <div className="additional-info-group">
+                            <span className="info-icon">💬</span>
                             <span>Nhu cầu:</span>
-                            <span>Ny Or Fwb</span>
-                        </div>*/}
+                            <span></span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -513,7 +513,7 @@ const PersonalLandingPage = () => {
                     <p><span className="visitor-count">Lượt truy cập: <span>{visitorCount}</span> </span></p>
                 </div>
                 <div className="footer-center">
-                    <p>© {new Date().getFullYear()} Trần Võ Hoàng Nam. All rights reserved.</p>
+                    <p>© {new Date().getFullYear()} Nam Trần. All rights reserved.</p>
                 </div>
                 <div className="footer-right">
                     <button className="connection-check-button" onClick={handleConnectionCheckClick}>Kết nối</button>
