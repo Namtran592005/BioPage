@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/BioPage/static/css/main.3687f548.css",
-    "main.js": "/BioPage/static/js/main.e4720b06.js",
+    "main.js": "/BioPage/static/js/main.615c371a.js",
     "static/js/453.9df9957d.chunk.js": "/BioPage/static/js/453.9df9957d.chunk.js",
     "static/media/Cohenvoithanhxuan.flac": "/BioPage/static/media/Cohenvoithanhxuan.b3045ff5a38242086d57.flac",
     "static/media/Swim.mp3": "/BioPage/static/media/Swim.1efa0011dc848697ecc6.mp3",
@@ -19,11 +19,11 @@
     "static/media/cert2.png": "/BioPage/static/media/cert2.fa6fd682c6244f35b08f.png",
     "index.html": "/BioPage/index.html",
     "main.3687f548.css.map": "/BioPage/static/css/main.3687f548.css.map",
-    "main.e4720b06.js.map": "/BioPage/static/js/main.e4720b06.js.map",
+    "main.615c371a.js.map": "/BioPage/static/js/main.615c371a.js.map",
     "453.9df9957d.chunk.js.map": "/BioPage/static/js/453.9df9957d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3687f548.css",
-    "static/js/main.e4720b06.js"
+    "static/js/main.615c371a.js"
   ]
 }
