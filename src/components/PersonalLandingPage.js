@@ -10,7 +10,7 @@ import { SiZalo, SiTelegram } from "react-icons/si";
 import './PersonalLandingPage.css';
 import Product1 from "./img/Product/Product1.jpg";
 import Product2 from "./img/Product/Product2.jpg";
-import Product3 from "./img/Product/Product3.jpg";
+//import Product3 from "./img/Product/Product3.jpg";
 
 import securityCert1 from './img/certs/cert1.png';
 import securityCert2 from './img/certs/cert2.png';
@@ -180,17 +180,16 @@ const PersonalLandingPage = () => {
     ];
 
     const quickLinks = [
-        { icon: <Globe size={24} />, title: 'Website Chính Thức', description: 'Khám phá portfolio và blog của tôi', url: '#' },
-        { icon: <Music size={24} />, title: 'Playlist Yêu Thích', description: 'Những bài hát tôi thường nghe', url: '#' },
+        //{ icon: <Globe size={24} />, title: 'Website Chính Thức', description: 'Khám phá portfolio và blog của tôi', url: '#' },
+        //{ icon: <Music size={24} />, title: 'Playlist Yêu Thích', description: 'Những bài hát tôi thường nghe', url: '#' },
         { icon: <Coffee size={24} />, title: 'Mua cho tôi một ly cà phê', description: 'Nếu bạn thấy thích', url: 'https://me.momo.vn/lDIWuWsoCaCdUOI2f6UK' },
-        { icon: <BookOpen size={24} />, title: 'Blog mới nhất', description: 'Đọc những bài viết gần đây của tôi', url: '#' },
+        //{ icon: <BookOpen size={24} />, title: 'Blog mới nhất', description: 'Đọc những bài viết gần đây của tôi', url: '#' },
     ];
     const handlePlaceholderLinkClick = (e) => { e.preventDefault(); alert("Liên kết này chưa được thêm vào. Vui lòng thử lại sau!"); };
     const featuredProjects = [];
     const featuredProducts = [
         { title: 'Vega', description: 'Chatbot AI dựa trên API gemini', link: 'https://namtran592005.github.io/VEGA-AI/', image: Product1 },
-        { title: 'Utility Tools', description: 'Website cung cấp Tool tiện ích', link: 'https://namtran592005.github.io/Utility-Tools/', image: Product2 },
-        { title: 'WealthMeter', description: 'Tính độ Giàu-Nghèo của bạn', link: 'https://namtran592005.github.io/WealthMeter/', image: Product3 }
+        { title: 'Utility Tools', description: 'Website cung cấp Tool tiện ích', link: 'https://namtran592005.github.io/Utility-Tools/', image: Product2 }
     ];
     const handleSubmit = async (e) => {
       e.preventDefault();
