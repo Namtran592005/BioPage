@@ -19,11 +19,9 @@ import securityCert3 from './img/certs/cert3.png';
 // Import music and thumbnails *here*
 import music1 from './music/Swim.mp3';
 import music2 from './music/Cohenvoithanhxuan.flac';
-import music3 from './music/Sunghiepchuong.mp3'
 import music4 from './music/Thinkaboutu.mp3'
 import thumbnail1 from './music/Swim.jpg';
 import thumbnail2 from './music/Cohenvoithanhxuan.jpg';
-import thumbnail3 from './music/Sunghiepchuong.jpg';
 import thumbnail4 from './music/Thinkaboutu.jpg';
 
 import { ParallaxProvider, Parallax } from 'react-scroll-parallax'; // Import
@@ -43,13 +41,9 @@ const playlist = [
   {
     title: "Think About U",
     file: music4,
-    thumbnail: thumbnail4
-  },
-  {
-    title: "Sự nghiệp chướng",
-    file: music3,
-    thumbnail: thumbnail3
+    thumbnail: thumbnail4,
   }
+  
 ];
 
 const PersonalLandingPage = () => {
