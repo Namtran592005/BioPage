@@ -1,0 +1,60 @@
+{
+  "homepage": "https://Namtran592005.github.io/BioPage",
+  "name": "biopage",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@tailwindcss/vite": "^4.0.7",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.2.0",
+    "@testing-library/user-event": "^13.5.0",
+    "buffer": "^6.0.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "framer-motion": "^12.4.7",
+    "howler": "^2.2.4",
+    "lucide-react": "^0.475.0",
+    "music-metadata-browser": "^2.5.11",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
+    "react-router-dom": "^7.2.0",
+    "react-scripts": "5.0.1",
+    "react-scroll-parallax": "^3.4.5",
+    "react-tsparticles": "^2.12.2",
+    "tsparticles": "^3.8.1",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "gh-pages": "^6.3.0"
+  }
+}
