@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/BioPage/static/css/main.3687f548.css",
-    "main.js": "/BioPage/static/js/main.ad4c1b6d.js",
+    "main.js": "/BioPage/static/js/main.9aed1b32.js",
     "static/js/453.9df9957d.chunk.js": "/BioPage/static/js/453.9df9957d.chunk.js",
     "static/media/Cohenvoithanhxuan.flac": "/BioPage/static/media/Cohenvoithanhxuan.b3045ff5a38242086d57.flac",
     "static/media/Swim.mp3": "/BioPage/static/media/Swim.1efa0011dc848697ecc6.mp3",
@@ -13,15 +13,16 @@
     "static/media/Cohenvoithanhxuan.jpg": "/BioPage/static/media/Cohenvoithanhxuan.c59919e2c45bd586b7cc.jpg",
     "static/media/Product1.jpg": "/BioPage/static/media/Product1.888b03a5355e1bb7f2e6.jpg",
     "static/media/cert3.png": "/BioPage/static/media/cert3.283e3cb7fe975f9d8a67.png",
+    "static/media/Product3.jpg": "/BioPage/static/media/Product3.956584a3a0e2626ae7f1.jpg",
     "static/media/Thinkaboutu.jpg": "/BioPage/static/media/Thinkaboutu.7aa82fdf19fdee925a0f.jpg",
     "static/media/cert2.png": "/BioPage/static/media/cert2.fa6fd682c6244f35b08f.png",
     "index.html": "/BioPage/index.html",
     "main.3687f548.css.map": "/BioPage/static/css/main.3687f548.css.map",
-    "main.ad4c1b6d.js.map": "/BioPage/static/js/main.ad4c1b6d.js.map",
+    "main.9aed1b32.js.map": "/BioPage/static/js/main.9aed1b32.js.map",
     "453.9df9957d.chunk.js.map": "/BioPage/static/js/453.9df9957d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.3687f548.css",
-    "static/js/main.ad4c1b6d.js"
+    "static/js/main.9aed1b32.js"
   ]
 }
